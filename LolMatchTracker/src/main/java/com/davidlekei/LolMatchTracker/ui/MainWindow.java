@@ -34,6 +34,11 @@ public class MainWindow extends JFrame
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		setLayout(new FlowLayout());
 
+		if(this.uiConfig.get("showTitleBar", "App").equals("false"))
+		{
+			setUndecorated(true);
+		}
+
 		initPane();
 		
 		pack();

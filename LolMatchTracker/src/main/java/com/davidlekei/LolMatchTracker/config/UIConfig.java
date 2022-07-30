@@ -10,8 +10,10 @@ public class UIConfig implements Config
 {
 	private String filePath;
 
+	//TODO: Maybe make a HashMap<String, HashMap> that would map certain strings to the correct HashMap, instead of using If/Else in the read() method
 	private HashMap<String, String> mainPanelConfig;
 	private HashMap<String, String> sidePanelConfig;
+	private HashMap<String, String> appConfig;
 
 	private String startingGradientColor;
 	private String endingGradientColor;
@@ -21,6 +23,7 @@ public class UIConfig implements Config
 		this.filePath = filePath;
 		this.mainPanelConfig = new HashMap<String, String>();
 		this.sidePanelConfig = new HashMap<String, String>();
+		this.appConfig = new HashMap<String, String>();
 		this.read();
 	}
 
@@ -33,6 +36,10 @@ public class UIConfig implements Config
 		else if(domain.equals("SidePanel"))
 		{
 			return sidePanelConfig.get(attribute);
+		}
+		else if(domain.equals("App"))
+		{
+			return appConfig.get(attribute);
 		}
 
 		return null;
@@ -75,6 +82,16 @@ public class UIConfig implements Config
 						{
 							parts = line.split("=");
 							sidePanelConfig.put(parts[0], parts[1]);
+							line = reader.readLine();
+						}
+					}
+					else if(line.equals("App"))
+					{
+						line = reader.readLine();
+						while((line != null) && !line.equals("#"))
+						{
+							parts = line.split("=");
+							appConfig.put(parts[0], parts[1]);
 							line = reader.readLine();
 						}
 					}
