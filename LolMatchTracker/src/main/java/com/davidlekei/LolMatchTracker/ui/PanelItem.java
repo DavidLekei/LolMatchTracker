@@ -13,6 +13,11 @@ public abstract class PanelItem extends JPanel
 	protected Icon icon;
 	protected String text;
 
+	public void init()
+	{
+
+	}
+
 	public Icon getIcon()
 	{
 		return null;

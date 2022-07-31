@@ -15,6 +15,11 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.BoxLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+
 
 public class ContentPanel extends JPanel
 {
@@ -38,14 +43,26 @@ public class ContentPanel extends JPanel
 
 		this.setPreferredSize(new Dimension(this.width, this.height));
 		this.panelGradient = (GradientPaint)style.getPaint();
+		//this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setVisible(true);
 	}
 
 	public void initComponents(List<PanelItem> panelItems)
 	{
+
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridy = 0;
+		gbc.insets = new Insets(100, 0, 0, 50);
+
 		for ( PanelItem item : panelItems )
 		{
-			this.add(item);
+			gbc.gridx = 0;
+
+			System.out.println("Adding to " + gbc.gridx + " / " + gbc.gridy);
+
+			this.add(item, gbc);
+			gbc.gridy++;
 		}
 	}
 

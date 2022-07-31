@@ -64,8 +64,8 @@ public class MainWindow extends JFrame
 
 	private void initComponents(Container pane)
 	{
-		ContentPanel sidePanel = new ContentPanel(new ContentPanelStyle(uiConfig, "SidePanel"), 300, 900);
-		ContentPanel mainPanel = new ContentPanel(new ContentPanelStyle(uiConfig, "MainPanel"), 1300, 900);
+		ContentPanel sidePanel = new ContentPanel(new ContentPanelStyle(uiConfig, "SidePanel"), 600, 900);
+		ContentPanel mainPanel = new ContentPanel(new ContentPanelStyle(uiConfig, "MainPanel"), 1000, 900);
 		sidePanel.initComponents(this.uiConfig.getPanelComponents("SidePanel"));
 		mainPanel.initComponents(this.uiConfig.getPanelComponents("MainPanel"));
 

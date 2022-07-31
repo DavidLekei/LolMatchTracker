@@ -71,13 +71,11 @@ public class UIConfig implements Config
 
 		while(line != null && !line.equals("</C>"))
 		{
-			System.out.println("DEBUG - addPanelComponent() - " + line);
 			parts = line.split("=");
 			if(parts[0].equals("icon"))
 			{
 				try
 				{
-					System.out.println("DEBUG - addPanelComponent() - Creating new Icon from " + parts[1]);
 					icon = new Icon(parts[1]);
 				}
 				catch(IOException ioe)
@@ -87,13 +85,11 @@ public class UIConfig implements Config
 			}
 			else if(parts[0].equals("text"))
 			{
-				System.out.println("DEBUG - addPanelComponent() - Creating new Text from " + parts[1]);
 				text = parts[1];
 			}
 			line = reader.readLine();
 		}
 
-		System.out.println("DEBUG - Trying to add SidePanelMenuItem: " + icon + " : " + text);
 		panelComponents.add(new SidePanelMenuItem(icon, text));
 	}
 
