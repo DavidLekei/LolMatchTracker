@@ -10,6 +10,9 @@ import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
+import javax.swing.ImageIcon;
+
+import java.io.IOException;
 
 public class MainWindow extends JFrame
 {
@@ -34,10 +37,7 @@ public class MainWindow extends JFrame
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		setLayout(new FlowLayout());
 
-		if(this.uiConfig.get("showTitleBar", "App").equals("false"))
-		{
-			setUndecorated(true);
-		}
+		applyUIConfig();
 
 		initPane();
 		
@@ -65,13 +65,26 @@ public class MainWindow extends JFrame
 	private void initComponents(Container pane)
 	{
 		ContentPanel sidePanel = new ContentPanel(new ContentPanelStyle(uiConfig, "SidePanel"), 300, 900);
-
 		ContentPanel mainPanel = new ContentPanel(new ContentPanelStyle(uiConfig, "MainPanel"), 1300, 900);
-		//sidePanel.initComponents(new PanelItem[10]);
+		sidePanel.initComponents(this.uiConfig.getPanelComponents("SidePanel"));
+		mainPanel.initComponents(this.uiConfig.getPanelComponents("MainPanel"));
 
 		this.add(sidePanel, BorderLayout.WEST);
 		this.add(mainPanel, BorderLayout.CENTER);
 
 		ChampionImageArea myChampionImageArea = new ChampionImageArea();
+	}
+
+	private void applyUIConfig()
+	{
+		if(this.uiConfig.get("showTitleBar", "App").equals("false"))
+		{
+			setUndecorated(true);
+		}
+		if(this.uiConfig.get("titleBarIcon", "App") != null)
+		{
+			setIconImage(new ImageIcon(this.uiConfig.get("titleBarIcon", "App")).getImage());
+		}
+
 	}
 }

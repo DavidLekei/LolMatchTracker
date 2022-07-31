@@ -1,5 +1,6 @@
 com\davidlekei\LolMatchTracker\ui\SidePanelButton.class
 com\davidlekei\LolMatchTracker\config\UIConfig.class
+com\davidlekei\LolMatchTracker\ui\SidePanelMenuItem.class
 com\davidlekei\LolMatchTracker\LolMatchTracker.class
 com\davidlekei\LolMatchTracker\ui\MainWindow.class
 com\davidlekei\LolMatchTracker\App.class

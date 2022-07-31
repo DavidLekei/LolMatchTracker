@@ -5,6 +5,9 @@ import com.davidlekei.LolMatchTracker.config.UIConfig;
 import com.davidlekei.LolMatchTracker.config.UserConfig;
 import com.davidlekei.LolMatchTracker.ui.MainWindow;
 
+import java.io.File;
+import java.io.IOException;
+
 public class LolMatchTracker
 {
 
@@ -28,6 +31,13 @@ public class LolMatchTracker
 	public void run()
 	{
 		System.out.println("Running LolMatchTracker");
+		try{
+			System.out.println(new File(".").getCanonicalPath());
+		}
+		catch(IOException ioe)
+		{
+			ioe.printStackTrace();
+		}
 
 		UIConfig uiConfig = new UIConfig("uiconfig.cfg");
 		UserConfig userConfig = new UserConfig();

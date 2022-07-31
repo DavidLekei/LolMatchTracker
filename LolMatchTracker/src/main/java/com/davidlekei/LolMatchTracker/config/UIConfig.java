@@ -1,10 +1,16 @@
 package com.davidlekei.LolMatchTracker.config;
 
+import com.davidlekei.LolMatchTracker.ui.PanelItem;
+import com.davidlekei.LolMatchTracker.ui.SidePanelMenuItem;
+import com.davidlekei.LolMatchTracker.ui.Icon;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 public class UIConfig implements Config
 {
@@ -15,6 +21,9 @@ public class UIConfig implements Config
 	private HashMap<String, String> sidePanelConfig;
 	private HashMap<String, String> appConfig;
 
+	private List<PanelItem> sidePanelComponents;
+	private List<PanelItem> mainPanelComponents;
+
 	private String startingGradientColor;
 	private String endingGradientColor;
 
@@ -24,6 +33,9 @@ public class UIConfig implements Config
 		this.mainPanelConfig = new HashMap<String, String>();
 		this.sidePanelConfig = new HashMap<String, String>();
 		this.appConfig = new HashMap<String, String>();
+
+		this.mainPanelComponents = new ArrayList<PanelItem>();
+		this.sidePanelComponents = new ArrayList<PanelItem>();
 		this.read();
 	}
 
@@ -48,6 +60,56 @@ public class UIConfig implements Config
 	{
 		this.filePath = filePath;
 	}
+
+	public void addPanelComponent(List<PanelItem> panelComponents, BufferedReader reader) throws IOException
+	{
+		String[] parts;
+		Icon icon = null;
+		String text = "ERROR";
+
+		String line = reader.readLine();
+
+		while(line != null && !line.equals("</C>"))
+		{
+			System.out.println("DEBUG - addPanelComponent() - " + line);
+			parts = line.split("=");
+			if(parts[0].equals("icon"))
+			{
+				try
+				{
+					System.out.println("DEBUG - addPanelComponent() - Creating new Icon from " + parts[1]);
+					icon = new Icon(parts[1]);
+				}
+				catch(IOException ioe)
+				{
+					System.out.println("Could not find icon file: " + parts[1]);
+				}
+			}
+			else if(parts[0].equals("text"))
+			{
+				System.out.println("DEBUG - addPanelComponent() - Creating new Text from " + parts[1]);
+				text = parts[1];
+			}
+			line = reader.readLine();
+		}
+
+		System.out.println("DEBUG - Trying to add SidePanelMenuItem: " + icon + " : " + text);
+		panelComponents.add(new SidePanelMenuItem(icon, text));
+	}
+
+	public List<PanelItem> getPanelComponents(String panelName)
+	{
+		if(panelName.equals("SidePanel"))
+		{
+			return this.sidePanelComponents;
+		}
+		else if(panelName.equals("MainPanel"))
+		{
+			return this.mainPanelComponents;
+		}
+		return null;
+	}
+
 	public Config read()
 	{
 		String domain;
@@ -70,9 +132,16 @@ public class UIConfig implements Config
 						line = reader.readLine();
 						while((line != null) && !line.equals("#"))
 						{
-							parts = line.split("=");
-							mainPanelConfig.put(parts[0], parts[1]);
-							line = reader.readLine();
+							if(line.equals("<C>"))
+							{
+								addPanelComponent(mainPanelComponents, reader);
+							}
+							else
+							{
+								parts = line.split("=");
+								mainPanelConfig.put(parts[0], parts[1]);
+								line = reader.readLine();
+							}
 						}
 					}
 					else if(line.equals("SidePanel"))
@@ -80,8 +149,15 @@ public class UIConfig implements Config
 						line = reader.readLine();
 						while((line != null) && !line.equals("#"))
 						{
-							parts = line.split("=");
-							sidePanelConfig.put(parts[0], parts[1]);
+							if(line.equals("<C>"))
+							{
+								addPanelComponent(sidePanelComponents, reader);
+							}
+							else
+							{
+								parts = line.split("=");
+								sidePanelConfig.put(parts[0], parts[1]);
+							}
 							line = reader.readLine();
 						}
 					}

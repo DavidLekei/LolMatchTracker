@@ -12,6 +12,8 @@ import java.awt.Dimension;
 
 import java.io.IOException;
 
+import java.util.List;
+
 import javax.swing.JPanel;
 
 public class ContentPanel extends JPanel
@@ -39,21 +41,10 @@ public class ContentPanel extends JPanel
 		this.setVisible(true);
 	}
 
-	public void initComponents(PanelItem[] panelItems)
+	public void initComponents(List<PanelItem> panelItems)
 	{
 		for ( PanelItem item : panelItems )
 		{
-			try
-			{
-				item = new SidePanelButton(new Icon("C:/Users/David/Pictures/123.jpg"), "Test Button");
-			}
-			catch(IOException ioe)
-			{
-				//Create button with no icon
-				item = new SidePanelButton("No Icon Test Button");
-				System.out.println("ERROR - Could not find image for icon");
-			}
-
 			this.add(item);
 		}
 	}
