@@ -3,6 +3,7 @@ package com.davidlekei.LolMatchTracker.config;
 import com.davidlekei.LolMatchTracker.ui.PanelItem;
 import com.davidlekei.LolMatchTracker.ui.SidePanelMenuItem;
 import com.davidlekei.LolMatchTracker.ui.Icon;
+import com.davidlekei.LolMatchTracker.ui.MainPanelItem;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -20,6 +21,7 @@ public class UIConfig implements Config
 	private HashMap<String, String> mainPanelConfig;
 	private HashMap<String, String> sidePanelConfig;
 	private HashMap<String, String> appConfig;
+	private HashMap<String, List<PanelItem>> sidePanelToMainPanelComponents;
 
 	private List<PanelItem> sidePanelComponents;
 	private List<PanelItem> mainPanelComponents;
@@ -34,6 +36,8 @@ public class UIConfig implements Config
 		this.sidePanelConfig = new HashMap<String, String>();
 		this.appConfig = new HashMap<String, String>();
 
+
+		this.sidePanelToMainPanelComponents = new HashMap<String, List<PanelItem>>();
 		this.mainPanelComponents = new ArrayList<PanelItem>();
 		this.sidePanelComponents = new ArrayList<PanelItem>();
 		this.read();
@@ -104,6 +108,15 @@ public class UIConfig implements Config
 			return this.mainPanelComponents;
 		}
 		return null;
+	}
+
+	public List<PanelItem> getMainPanelComponentsFromSideSelection(String sidePanelSelection)
+	{
+		List<PanelItem> l = new ArrayList<PanelItem>();
+		l.add(new MainPanelItem("TEST"));
+		return l;
+
+		//return sidePanelToMainPanelComponents.get(sidePanelSelection);
 	}
 
 	public Config read()

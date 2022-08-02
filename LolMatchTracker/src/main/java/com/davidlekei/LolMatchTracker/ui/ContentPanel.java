@@ -1,3 +1,5 @@
+//TODO: Resize the panel components if they are going to go beyond the size of the panel itself (height wise)
+
 package com.davidlekei.LolMatchTracker.ui;
 
 import com.davidlekei.LolMatchTracker.config.Config;
@@ -47,8 +49,9 @@ public class ContentPanel extends JPanel
 		this.setVisible(true);
 	}
 
-	public void initComponents(List<PanelItem> panelItems)
+	public void initComponents(String panelName, MainWindow mainWindow)
 	{
+		List<PanelItem> panelItems = mainWindow.getUIConfig().getPanelComponents(panelName);
 
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -58,11 +61,33 @@ public class ContentPanel extends JPanel
 		for ( PanelItem item : panelItems )
 		{
 			gbc.gridx = 0;
-
-			System.out.println("Adding to " + gbc.gridx + " / " + gbc.gridy);
-
 			this.add(item, gbc);
 			gbc.gridy++;
+
+			if(panelName.equals("SidePanel"))
+			{
+				item.addMouseListener(new PanelItemMouseListener(item.getText(), mainWindow));
+			}
+		}
+	}
+
+	public void setComponents(List<PanelItem> panelItems)
+	{
+		this.setLayout(new GridBagLayout());
+		for( PanelItem item : panelItems )
+		{
+			System.out.println("DEBUG - setComponents() - Adding new item: " + item.getText());
+			this.add(item);
+		}
+		this.revalidate();
+	}
+
+	public void setComponents(List<PanelItem> panelItems, GridBagConstraints gbc)
+	{
+		this.setLayout(new GridBagLayout());
+		for( PanelItem item : panelItems )
+		{
+			this.add(item, gbc);
 		}
 	}
 

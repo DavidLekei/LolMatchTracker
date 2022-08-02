@@ -21,6 +21,8 @@ public class MainWindow extends JFrame
 
 	public static final Color DARKER_GRAY_COLOR = new Color(30, 30, 30);
 
+	private ContentPanel sidePanel;
+	private ContentPanel mainPanel;
 	private UIConfig uiConfig;
 
 	public MainWindow(UIConfig uiConfig)
@@ -64,10 +66,11 @@ public class MainWindow extends JFrame
 
 	private void initComponents(Container pane)
 	{
-		ContentPanel sidePanel = new ContentPanel(new ContentPanelStyle(uiConfig, "SidePanel"), 600, 900);
-		ContentPanel mainPanel = new ContentPanel(new ContentPanelStyle(uiConfig, "MainPanel"), 1000, 900);
-		sidePanel.initComponents(this.uiConfig.getPanelComponents("SidePanel"));
-		mainPanel.initComponents(this.uiConfig.getPanelComponents("MainPanel"));
+		sidePanel = new ContentPanel(new ContentPanelStyle(uiConfig, "SidePanel"), 300, 900);
+		mainPanel = new ContentPanel(new ContentPanelStyle(uiConfig, "MainPanel"), 1300, 900);
+
+		sidePanel.initComponents("SidePanel", this);
+		mainPanel.initComponents("MainPanel", this);
 
 		this.add(sidePanel, BorderLayout.WEST);
 		this.add(mainPanel, BorderLayout.CENTER);
@@ -86,5 +89,18 @@ public class MainWindow extends JFrame
 			setIconImage(new ImageIcon(this.uiConfig.get("titleBarIcon", "App")).getImage());
 		}
 
+	}
+
+	public ContentPanel getMainPanel()
+	{
+		return this.mainPanel;
+	}
+	public ContentPanel getSidePanel()
+	{
+		return this.sidePanel;
+	}
+	public UIConfig getUIConfig()
+	{
+		return this.uiConfig;
 	}
 }

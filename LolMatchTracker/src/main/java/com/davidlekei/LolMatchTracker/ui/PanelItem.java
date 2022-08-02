@@ -1,5 +1,7 @@
 package com.davidlekei.LolMatchTracker.ui;
 
+import java.awt.event.MouseListener;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 
@@ -31,6 +33,11 @@ public abstract class PanelItem extends JPanel
 		return "ERROR - Text not implemented";
 	}
 	public void onClick()
+	{
+
+	}
+
+	public void setClickEventHandler(MouseListener mouseListener)
 	{
 
 	}
