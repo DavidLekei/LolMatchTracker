@@ -65,36 +65,71 @@ public class UIConfig implements Config
 		this.filePath = filePath;
 	}
 
+	public MainPanelItem createMainPanelComponent(BufferedReader reader) throws IOException
+	{
+		String line = reader.readLine();
+		String[] parts;
+		String text = "ERROR";
+		String colorHexCode = "#FFFFFF";
+
+		while((line != null) && (!line.equals("</MPC>")))
+		{
+			parts = line.split("=");
+			if(parts[0].equals("text"))
+			{
+				text = parts[1];
+			}
+			else if(parts[0].equals("color"))
+			{
+				colorHexCode = parts[1];
+			}
+
+			line = reader.readLine();
+		}
+
+		return new MainPanelItem(text, colorHexCode);
+	}
+
 	public void addPanelComponent(List<PanelItem> panelComponents, BufferedReader reader) throws IOException
 	{
 		String[] parts;
 		Icon icon = null;
 		String text = "ERROR";
 
+		List<PanelItem> mainPanelComponentsForSideSelection = new ArrayList<PanelItem>();
+
 		String line = reader.readLine();
 
 		while(line != null && !line.equals("</C>"))
 		{
-			parts = line.split("=");
-			if(parts[0].equals("icon"))
+			if(line.equals("<MPC>"))
 			{
-				try
-				{
-					icon = new Icon(parts[1]);
-				}
-				catch(IOException ioe)
-				{
-					System.out.println("Could not find icon file: " + parts[1]);
-				}
+				mainPanelComponentsForSideSelection.add(createMainPanelComponent(reader));
 			}
-			else if(parts[0].equals("text"))
+			else
 			{
-				text = parts[1];
+				parts = line.split("=");
+				if(parts[0].equals("icon"))
+				{
+					try
+					{
+						icon = new Icon(parts[1]);
+					}
+					catch(IOException ioe)
+					{
+						System.out.println("Could not find icon file: " + parts[1]);
+					}
+				}
+				else if(parts[0].equals("text"))
+				{
+					text = parts[1];
+				}
 			}
 			line = reader.readLine();
 		}
 
 		panelComponents.add(new SidePanelMenuItem(icon, text));
+		sidePanelToMainPanelComponents.put(text, mainPanelComponentsForSideSelection);
 	}
 
 	public List<PanelItem> getPanelComponents(String panelName)
@@ -112,11 +147,12 @@ public class UIConfig implements Config
 
 	public List<PanelItem> getMainPanelComponentsFromSideSelection(String sidePanelSelection)
 	{
-		List<PanelItem> l = new ArrayList<PanelItem>();
-		l.add(new MainPanelItem("TEST"));
-		return l;
+		//List<PanelItem> l = new ArrayList<PanelItem>();
+		//l.add(new MainPanelItem("TEST"));
+		//return l;
+		System.out.println("DEBUG - getMainPanelComponentsFromSideSelection() - sidePanelSelection = " + sidePanelSelection);
 
-		//return sidePanelToMainPanelComponents.get(sidePanelSelection);
+		return sidePanelToMainPanelComponents.get(sidePanelSelection);
 	}
 
 	public Config read()
