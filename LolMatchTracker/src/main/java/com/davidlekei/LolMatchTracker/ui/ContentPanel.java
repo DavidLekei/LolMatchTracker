@@ -5,6 +5,7 @@ package com.davidlekei.LolMatchTracker.ui;
 import com.davidlekei.LolMatchTracker.config.Config;
 import com.davidlekei.LolMatchTracker.config.UIConfig;
 
+import java.awt.Component;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.GradientPaint;
@@ -73,13 +74,17 @@ public class ContentPanel extends JPanel
 
 	public void setComponents(List<PanelItem> panelItems)
 	{
+		this.removeAll();
+
 		this.setLayout(new GridBagLayout());
 		for( PanelItem item : panelItems )
 		{
 			System.out.println("DEBUG - setComponents() - Adding new item: " + item.getText());
 			this.add(item);
 		}
+
 		this.revalidate();
+		this.repaint();
 	}
 
 	public void setComponents(List<PanelItem> panelItems, GridBagConstraints gbc)
@@ -88,6 +93,16 @@ public class ContentPanel extends JPanel
 		for( PanelItem item : panelItems )
 		{
 			this.add(item, gbc);
+		}
+	}
+
+	public void removeComponents()
+	{
+		Component[] components = this.getComponents();
+
+		for (Component c : components )
+		{
+			this.remove(c);
 		}
 	}
 
