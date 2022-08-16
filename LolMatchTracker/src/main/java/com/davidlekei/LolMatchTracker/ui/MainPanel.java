@@ -3,6 +3,8 @@ package com.davidlekei.LolMatchTracker.ui;
 import com.davidlekei.LolMatchTracker.config.Config;
 import com.davidlekei.LolMatchTracker.config.UIConfig;
 
+import com.davidlekei.LolMatchTracker.ui.replays.ReplayWidget;
+
 import java.awt.Component;
 import java.awt.Color;
 import java.awt.Paint;
@@ -53,6 +55,8 @@ public class MainPanel extends ContentPanel
 			panelItemList.addItem(SidePanelSelections.REPLAYS, new MainPanelItem("Here you will find your replays!"));
 			panelItemList.addItem(SidePanelSelections.NOTES, new MainPanelItem("Write notes about certain matchups!"));
 			panelItemList.addItem(SidePanelSelections.SETTINGS, new MainPanelItem("Change your settings"));
+			
+			panelItemList.addItem(SidePanelSelections.REPLAYS, new ReplayWidget("Ahri", "Viktor"));
 	}
 
 	public void setComponents(SidePanelSelections selection)
