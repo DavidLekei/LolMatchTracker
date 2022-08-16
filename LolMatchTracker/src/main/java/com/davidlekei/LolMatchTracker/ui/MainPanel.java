@@ -52,7 +52,6 @@ public class MainPanel extends ContentPanel
 			panelItemList.addList(SidePanelSelections.SETTINGS);
 
 			panelItemList.addItem(SidePanelSelections.HOME, new MainPanelItem("Welcome!"));
-			panelItemList.addItem(SidePanelSelections.REPLAYS, new MainPanelItem("Here you will find your replays!"));
 			panelItemList.addItem(SidePanelSelections.NOTES, new MainPanelItem("Write notes about certain matchups!"));
 			panelItemList.addItem(SidePanelSelections.SETTINGS, new MainPanelItem("Change your settings"));
 			
@@ -68,7 +67,6 @@ public class MainPanel extends ContentPanel
 		this.setLayout(this.layout);
 		for( PanelItem item : panelItems )
 		{
-			System.out.println("DEBUG - setComponents() - Adding new item: " + item.getText());
 			this.add(item);
 		}
 

@@ -4,6 +4,8 @@ import com.davidlekei.LolMatchTracker.ui.PanelItem;
 
 import com.davidlekei.LolMatchTracker.data.Replay;
 
+import java.awt.Dimension;
+
 public class ReplayWidget extends PanelItem
 {
 
@@ -19,6 +21,8 @@ public class ReplayWidget extends PanelItem
 
 		add(myChampion);
 		add(enemyChampion);
+
+		setPreferredSize(new Dimension(1200, 130));
 		setVisible(true);
 	}
 }
