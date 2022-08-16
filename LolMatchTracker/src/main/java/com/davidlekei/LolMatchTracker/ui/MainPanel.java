@@ -17,6 +17,7 @@ import java.io.IOException;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
@@ -30,46 +31,34 @@ public class MainPanel extends ContentPanel
 {
 	private LayoutManager layout;
 
-	private MainPanelItemList panelItemList;
+	private HashMap<SidePanelSelections, ContentPanel> mainPanels;
 
 	public MainPanel(ContentPanelStyle style, int width, int height)
 	{
 		super(style, width, height);
 
-		initPanelItems();
+		initPanels();
 
 		this.layout = new GridBagLayout();
 		this.setLayout(this.layout);
 	}
 
-	private void initPanelItems()
+	private void initPanels()
 	{
-			panelItemList = new MainPanelItemList();
+			mainPanels = new HashMap<SidePanelSelections, ContentPanel>();
 
-			panelItemList.addList(SidePanelSelections.HOME);
-			panelItemList.addList(SidePanelSelections.REPLAYS);
-			panelItemList.addList(SidePanelSelections.NOTES);
-			panelItemList.addList(SidePanelSelections.SETTINGS);
 
-			panelItemList.addItem(SidePanelSelections.HOME, new MainPanelItem("Welcome!"));
-			panelItemList.addItem(SidePanelSelections.NOTES, new MainPanelItem("Write notes about certain matchups!"));
-			panelItemList.addItem(SidePanelSelections.SETTINGS, new MainPanelItem("Change your settings"));
-			
-			panelItemList.addItem(SidePanelSelections.REPLAYS, new ReplayWidget("Ahri", "Viktor"));
+			mainPanels.put(SidePanelSelections.HOME, new HomePanel());
+			mainPanels.put(SidePanelSelections.REPLAYS, new ReplayPanel());
+			mainPanels.put(SidePanelSelections.NOTES, new NotesPanel());
+			mainPanels.put(SidePanelSelections.SETTINGS, new SettingsPanel());
 	}
 
-	public void setComponents(SidePanelSelections selection)
+	public void setPanel(SidePanelSelections selection)
 	{
 		this.removeAll();
-
-		List<PanelItem> panelItems = panelItemList.getPanelItems(selection);
-
 		this.setLayout(this.layout);
-		for( PanelItem item : panelItems )
-		{
-			this.add(item);
-		}
-
+		this.add(mainPanels.get(selection));
 		this.revalidate();
 		this.repaint();
 	}

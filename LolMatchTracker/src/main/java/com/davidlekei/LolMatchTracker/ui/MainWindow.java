@@ -21,8 +21,8 @@ public class MainWindow extends JFrame
 
 	public static final Color DARKER_GRAY_COLOR = new Color(30, 30, 30);
 
-	private ContentPanel sidePanel;
-	private ContentPanel mainPanel;
+	private SidePanel sidePanel;
+	private MainPanel mainPanel;
 	private UIConfig uiConfig;
 
 	public MainWindow(UIConfig uiConfig)
@@ -90,7 +90,7 @@ public class MainWindow extends JFrame
 
 	public void setMainPanel(SidePanelSelections selection)
 	{
-		this.mainPanel.setComponents(selection);
+		this.mainPanel.setPanel(selection);
 	}
 
 	public ContentPanel getMainPanel()

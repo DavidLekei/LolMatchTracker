@@ -36,6 +36,11 @@ public class ContentPanel extends JPanel
 
 	private ContentPanelStyle style;
 
+	public ContentPanel()
+	{
+		
+	}
+
 	public ContentPanel(ContentPanelStyle style, int width, int height)
 	{
 		super();
@@ -69,11 +74,6 @@ public class ContentPanel extends JPanel
 		}
 	}
 
-	public void setComponents(SidePanelSelections selection)
-	{
-		
-	}
-
 	public void setComponents(List<PanelItem> panelItems)
 	{
 		this.removeAll();
@@ -81,7 +81,6 @@ public class ContentPanel extends JPanel
 		this.setLayout(new GridBagLayout());
 		for( PanelItem item : panelItems )
 		{
-			System.out.println("DEBUG - setComponents() - Adding new item: " + item.getText());
 			this.add(item);
 		}
 
@@ -89,14 +88,6 @@ public class ContentPanel extends JPanel
 		this.repaint();
 	}
 
-	public void setComponents(List<PanelItem> panelItems, GridBagConstraints gbc)
-	{
-		this.setLayout(new GridBagLayout());
-		for( PanelItem item : panelItems )
-		{
-			this.add(item, gbc);
-		}
-	}
 
 	@Override
 	protected void paintComponent(Graphics g)

@@ -22,7 +22,7 @@ public class ReplayWidget extends PanelItem
 		add(myChampion);
 		add(enemyChampion);
 
-		setPreferredSize(new Dimension(1200, 130));
+		setPreferredSize(new Dimension(1200, 140));
 		setVisible(true);
 	}
 }
