@@ -43,11 +43,8 @@ public class ContentPanel extends JPanel
 		this.style = style;
 		this.width = width;
 		this.height = height;
-
-		this.setPreferredSize(new Dimension(this.width, this.height));
 		this.panelGradient = (GradientPaint)style.getPaint();
 		//this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.setVisible(true);
 	}
 
 	public void initComponents(String panelName, MainWindow mainWindow)
@@ -70,6 +67,11 @@ public class ContentPanel extends JPanel
 				item.addMouseListener(new PanelItemMouseListener(item.getText(), mainWindow));
 			}
 		}
+	}
+
+	public void setComponents(SidePanelSelections selection)
+	{
+		
 	}
 
 	public void setComponents(List<PanelItem> panelItems)
@@ -95,17 +97,6 @@ public class ContentPanel extends JPanel
 			this.add(item, gbc);
 		}
 	}
-
-	public void removeComponents()
-	{
-		Component[] components = this.getComponents();
-
-		for (Component c : components )
-		{
-			this.remove(c);
-		}
-	}
-
 
 	@Override
 	protected void paintComponent(Graphics g)

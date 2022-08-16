@@ -66,11 +66,8 @@ public class MainWindow extends JFrame
 
 	private void initComponents(Container pane)
 	{
-		sidePanel = new ContentPanel(new ContentPanelStyle(uiConfig, "SidePanel"), 300, 900);
-		mainPanel = new ContentPanel(new ContentPanelStyle(uiConfig, "MainPanel"), 1300, 900);
-
-		sidePanel.initComponents("SidePanel", this);
-		mainPanel.initComponents("MainPanel", this);
+		this.sidePanel = new SidePanel(new ContentPanelStyle(uiConfig, "SidePanel"), 300, 900);
+		this.mainPanel = new MainPanel(new ContentPanelStyle(uiConfig, "MainPanel"), 1300, 900);
 
 		this.add(sidePanel, BorderLayout.WEST);
 		this.add(mainPanel, BorderLayout.CENTER);
@@ -89,6 +86,11 @@ public class MainWindow extends JFrame
 			setIconImage(new ImageIcon(this.uiConfig.get("titleBarIcon", "App")).getImage());
 		}
 
+	}
+
+	public void setMainPanel(SidePanelSelections selection)
+	{
+		this.mainPanel.setComponents(selection);
 	}
 
 	public ContentPanel getMainPanel()

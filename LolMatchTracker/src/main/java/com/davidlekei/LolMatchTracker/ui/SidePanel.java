@@ -1,73 +1,77 @@
-// package com.davidlekei.LolMatchTracker.ui;
+package com.davidlekei.LolMatchTracker.ui;
 
-// import com.davidlekei.LolMatchTracker.config.Config;
-// import com.davidlekei.LolMatchTracker.config.UIConfig;
+import com.davidlekei.LolMatchTracker.LolMatchTracker;
+import com.davidlekei.LolMatchTracker.config.Config;
+import com.davidlekei.LolMatchTracker.config.UIConfig;
 
-// import java.awt.Color;
-// import java.awt.Paint;
-// import java.awt.GradientPaint;
-// import java.awt.Graphics;
-// import java.awt.Graphics2D;
-// import java.awt.Dimension;
+import java.awt.Component;
+import java.awt.Color;
+import java.awt.Paint;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Dimension;
 
-// import java.io.IOException;
+import java.io.IOException;
 
-// import javax.swing.JPanel;
-// import javax.swing.BorderFactory;
+import java.util.List;
+import java.util.ArrayList;
 
-// public class SidePanel extends JPanel
-// {
-// 	private final int WIDTH = 200;
-// 	private final int HEIGHT = 900;
-// 	private final int MAX_ITEMS = 10;
+import javax.swing.JPanel;
+import javax.swing.BoxLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
-// 	private GradientPaint panelGradient;
 
-// 	private UIConfig config;
+public class SidePanel extends ContentPanel
+{
 
-// 	public SidePanel(UIConfig config)
-// 	{
-// 		super();
+	private List<PanelItem> panelItems;
 
-// 		this.config = config;
-// 		this.panelGradient = (GradientPaint)config.getPaint();
+	public SidePanel(ContentPanelStyle style, int width, int height)
+	{
+		super(style, width, height);
+		this.setLayout(new GridBagLayout());
+		this.panelItems = new ArrayList<PanelItem>();
 
-// 		this.setBorder(BorderFactory.createLineBorder(Color.red));
+		initPanelItems();
+		addPanelItems();
 
-// 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-// 		this.setVisible(true);
+		this.setPreferredSize(new Dimension(width, height));
+		this.setVisible(true);
+	}
 
-// 		System.out.println("Created SidePanel");
-// 	}
+	private void initPanelItems()
+	{
+		try
+		{
+			panelItems.add(new SidePanelMenuItem(new Icon("home.png"), "Home"));
+			panelItems.add(new SidePanelMenuItem(new Icon("replays.png"), "Replays"));
+			panelItems.add(new SidePanelMenuItem(new Icon("notes.png"), "Notes"));
+			panelItems.add(new SidePanelMenuItem(new Icon("settings.png"), "Settings"));
+		}
+		catch(IOException ioe)
+		{
+			System.out.println("SidePanel.java - initPanelItems() - Could not create icon from file: ");
+		}
+	}
 
-// 	public void initComponents()
-// 	{
-// 		SidePanelItem[] sidePanelItems = new SidePanelItem[MAX_ITEMS];
+	public void addPanelItems()
+	{
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridy = 0;
+		gbc.insets = new Insets(0, 0, 0, 50);
 
-// 		for ( SidePanelItem item : sidePanelItems )
-// 		{
-// 			try
-// 			{
-// 				item = new SidePanelButton(new Icon("C:/Users/David/Pictures/123.jpg"), "Test Button");
-// 			}
-// 			catch(IOException ioe)
-// 			{
-// 				//Create button with no icon
-// 				item = new SidePanelButton("No Icon Test Button");
-// 				System.out.println("ERROR - Could not find image for icon");
-// 			}
+		MainWindow mainWindow = LolMatchTracker.get().getMainWindow();
 
-// 			this.add(item);
-// 		}
-// 	}
+		for ( PanelItem item : panelItems )
+		{
+			gbc.gridx = 0;
+			this.add(item, gbc);
+			gbc.gridy++;
 
-// 	@Override
-// 	protected void paintComponent(Graphics g)
-// 	{
-// 		super.paintComponent(g);
-
-// 		((Graphics2D)g).setPaint(config.getPaint());
-// 		g.fillRect(0, 0, WIDTH, HEIGHT);
-// 		System.out.println("Set Paint");
-// 	} 
-// }
+			item.addMouseListener(new PanelItemMouseListener(item.getText(), mainWindow));
+		}
+	}
+}

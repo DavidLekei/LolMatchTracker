@@ -13,6 +13,9 @@ public class LolMatchTracker
 
 	private static LolMatchTracker INSTANCE;
 
+	private MainWindow mainWindow;
+
+
 	private LolMatchTracker()
 	{
 		
@@ -28,6 +31,11 @@ public class LolMatchTracker
 		return INSTANCE;
 	}
 
+	public MainWindow getMainWindow()
+	{
+		return this.mainWindow;
+	}
+
 	public void run()
 	{
 		System.out.println("Running LolMatchTracker");
@@ -35,7 +43,7 @@ public class LolMatchTracker
 		UIConfig uiConfig = new UIConfig("uiconfig.cfg");
 		UserConfig userConfig = new UserConfig();
 
-		MainWindow mainWindow = new MainWindow(uiConfig);
+		this.mainWindow = new MainWindow(uiConfig);
 		mainWindow.start();
 	}
 }

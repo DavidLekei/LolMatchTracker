@@ -16,6 +16,7 @@ public class SidePanelMenuItem extends PanelItem
 
 	private final int DEFAULT_WIDTH = 300;
 	private final int DEFAULT_HEIGHT = 96; //The icon's are 96x96 pixels
+	private SidePanelSelections selection;
 
 	public SidePanelMenuItem(String text)
 	{
@@ -35,6 +36,8 @@ public class SidePanelMenuItem extends PanelItem
 
 	public void init()
 	{
+		setSelection();
+
 		//Set layout options
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -58,6 +61,25 @@ public class SidePanelMenuItem extends PanelItem
 
 		this.setPreferredSize(new Dimension(DEFAULT_WIDTH, DEFAULT_HEIGHT));
 		this.setVisible(true);
+	}
+
+	public void setSelection()
+	{
+		switch(this.text)
+		{
+			case "Home":
+				this.selection = SidePanelSelections.HOME;
+				break;
+			case "Replays":
+				this.selection = SidePanelSelections.REPLAYS;
+				break;
+			case "Notes":
+				this.selection = SidePanelSelections.NOTES;
+				break;
+			case "Settings":
+				this.selection = SidePanelSelections.SETTINGS;
+				break;
+		}
 	}
 
 	public Icon getIcon()

@@ -1,7 +1,9 @@
+com\davidlekei\LolMatchTracker\ui\SidePanel.class
 com\davidlekei\LolMatchTracker\ui\SidePanelButton.class
 com\davidlekei\LolMatchTracker\config\UIConfig.class
 com\davidlekei\LolMatchTracker\ui\SidePanelMenuItem.class
 com\davidlekei\LolMatchTracker\LolMatchTracker.class
+com\davidlekei\LolMatchTracker\ui\MainPanel.class
 com\davidlekei\LolMatchTracker\ui\MainPanelItem.class
 com\davidlekei\LolMatchTracker\events\EventBus.class
 com\davidlekei\LolMatchTracker\ui\MainWindow.class
@@ -10,9 +12,11 @@ com\davidlekei\LolMatchTracker\App.class
 com\davidlekei\LolMatchTracker\ui\Icon.class
 com\davidlekei\LolMatchTracker\config\ConfigManager.class
 com\davidlekei\LolMatchTracker\config\UserConfig.class
+com\davidlekei\LolMatchTracker\ui\MainPanelItemList.class
 com\davidlekei\LolMatchTracker\config\Config.class
 com\davidlekei\LolMatchTracker\ui\ChampionImageArea.class
 com\davidlekei\LolMatchTracker\ui\ContentPanel.class
 com\davidlekei\LolMatchTracker\ui\SidePanelItem.class
 com\davidlekei\LolMatchTracker\ui\PanelItem.class
 com\davidlekei\LolMatchTracker\ui\ContentPanelStyle.class
+com\davidlekei\LolMatchTracker\ui\SidePanelSelections.class
