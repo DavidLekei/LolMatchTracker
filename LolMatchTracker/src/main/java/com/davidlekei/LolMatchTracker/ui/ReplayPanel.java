@@ -1,8 +1,10 @@
 package com.davidlekei.LolMatchTracker.ui;
 
 import com.davidlekei.LolMatchTracker.net.RiotAPI;
-
 import com.davidlekei.LolMatchTracker.ui.replays.ReplayWidget;
+
+import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.io.IOException;
 
@@ -34,7 +36,8 @@ public class ReplayPanel extends ContentPanel
 		api = new RiotAPI();
 		try
 		{
-			api.getMatch("NA1_4405067724");
+			JSONObject json = api.getMatch("NA1_4405067724");
+			parseJson(json);
 		}
 		catch(IOException ioe)
 		{
@@ -44,6 +47,18 @@ public class ReplayPanel extends ContentPanel
 		{
 			System.out.println("ERROR - Connection interrupted");
 		}
+	}
+
+	private void parseJson(JSONObject json)
+	{
+		JSONArray participants = json.getJSONObject("info").getJSONArray("participants");
+		for (int i = 0; i < participants.length(); i++)
+		{
+			JSONObject p = participants.getJSONObject(i);
+			String champ = p.getString("championName");
+			System.out.println("Champion: " + champ);
+		}
+		System.out.println("JSONObject received");
 	}
 
 	private void initItems()

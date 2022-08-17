@@ -1,5 +1,7 @@
 package com.davidlekei.LolMatchTracker.net.http;
 
+import org.json.JSONObject;
+
 import java.net.http.HttpRequest;
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
@@ -22,7 +24,7 @@ public class ApiHttpRequest
 		this.client = HttpClient.newHttpClient();
 	}
 
-	public String get() throws IOException, InterruptedException
+	public JSONObject get() throws IOException, InterruptedException
 	{
 		request = HttpRequest.newBuilder()
 			.uri(URI.create(url))
@@ -32,8 +34,7 @@ public class ApiHttpRequest
 		System.out.println("Sending HTTP Request to Riot API @ " + url);
 		HttpResponse<String> response = client.send(request, BodyHandlers.ofString());
 
-		System.out.println("Recieved response: " + response.body());
-		return "Mock HttpRequest Data";
+		return new JSONObject(response.body());
 	}
 
 	public void post(String data)

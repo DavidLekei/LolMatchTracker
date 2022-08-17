@@ -2,6 +2,8 @@ package com.davidlekei.LolMatchTracker.net;
 
 import com.davidlekei.LolMatchTracker.net.http.ApiHttpRequest;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import java.lang.InterruptedException;
@@ -20,9 +22,10 @@ public class RiotAPI
 		riotAPIKey = new RiotAPIKey();
 	}
 
-	public String getMatch(String matchId) throws IOException, InterruptedException
+	public JSONObject getMatch(String matchId) throws IOException, InterruptedException
 	{
 		String url = API_REGION + String.format(API_ENDPOINT_MATCH, matchId) + "?api_key=" + riotAPIKey.get();
 		return new ApiHttpRequest(url).get();
 	}
+
 }
