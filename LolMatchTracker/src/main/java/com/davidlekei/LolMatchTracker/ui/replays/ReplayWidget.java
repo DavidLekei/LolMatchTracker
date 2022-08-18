@@ -8,14 +8,26 @@ import com.davidlekei.LolMatchTracker.data.MatchInfo;
 import java.awt.Dimension;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
+import java.awt.LayoutManager;
+import java.awt.BorderLayout;
 import java.awt.Color;
 
+//TODO: Format correctly with ChampionSquare's on each end and details in between
+
+
+/*
+[MyChampionSquare     Match Info Panel    EnemyChampionSquare]
+*/
+
+
+//TODO: Add match details
 public class ReplayWidget extends PanelItem
 {
 
 	private ChampionSquare myChampion;
 	private ChampionSquare enemyChampion;
 	private Replay replay;
+	private LayoutManager layout;
 
 	public ReplayWidget(MatchInfo match)
 	{
@@ -35,12 +47,12 @@ public class ReplayWidget extends PanelItem
 		enemyChampion = new ChampionSquare(enemyChampionName);
 		replay = null;
 
-		add(myChampion);
-		add(enemyChampion);
+		layout = new BorderLayout();
+		setLayout(layout);
 
-		Border border = BorderFactory.createLineBorder(Color.black);
+		add(myChampion, BorderLayout.WEST);
+		add(enemyChampion, BorderLayout.EAST);
 
-		setBorder(border);
 		setPreferredSize(new Dimension(1200, 140));
 		setOpaque(false);
 		setVisible(true);

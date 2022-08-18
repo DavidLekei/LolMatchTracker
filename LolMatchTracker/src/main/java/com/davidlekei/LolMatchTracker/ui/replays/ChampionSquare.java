@@ -34,5 +34,6 @@ public class ChampionSquare extends JPanel
 		{
 			System.out.println("ERROR - Failed to create champion squre for: " + name);
 		}
+		setOpaque(false);
 	}
 }

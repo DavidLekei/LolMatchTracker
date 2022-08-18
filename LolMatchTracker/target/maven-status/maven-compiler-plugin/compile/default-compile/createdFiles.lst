@@ -30,7 +30,9 @@ com\davidlekei\LolMatchTracker\ui\MainPanelItemList.class
 com\davidlekei\LolMatchTracker\config\Config.class
 com\davidlekei\LolMatchTracker\ui\ChampionImageArea.class
 com\davidlekei\LolMatchTracker\ui\ContentPanel.class
+com\davidlekei\LolMatchTracker\ui\ScrollablePanel.class
 com\davidlekei\LolMatchTracker\ui\PanelItem.class
 com\davidlekei\LolMatchTracker\ui\ContentPanelStyle.class
+com\davidlekei\LolMatchTracker\ui\ScrollableReplayPanel.class
 com\davidlekei\LolMatchTracker\ui\replays\ChampionSquare.class
 com\davidlekei\LolMatchTracker\data\MatchInfo.class

@@ -26,5 +26,17 @@ public class SettingsPanel extends ContentPanel
 		panelItemList.add(new MainPanelItem("Change your settings"));
 	}
 
+	@Override
+	public void setComponents(List<PanelItem> panelItems)
+	{
+		this.removeAll();
 
+		for( PanelItem item : panelItems )
+		{
+			this.add(item);
+		}
+
+		this.revalidate();
+		this.repaint();
+	}
 }

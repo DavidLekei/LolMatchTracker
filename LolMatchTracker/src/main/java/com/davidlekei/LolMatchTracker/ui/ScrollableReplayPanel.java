@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
-import javax.swing.Scrollable;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneLayout;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -29,7 +30,7 @@ import java.awt.Rectangle;
 //TODO: Add Refresh button to the top banner
 //TODO: Retrieve the userSummonerName and userRegion from a UserConfig class
 //TODO: Retrieve match info from RiotAPI asychronously and maybe limit the number
-public class ReplayPanel extends ContentPanel
+public class ScrollableReplayPanel extends JScrollPane
 {
 	private List<PanelItem> panelItemList;
 	private RiotAPI api;
@@ -39,13 +40,14 @@ public class ReplayPanel extends ContentPanel
 	private ReplayFileManager replayFileManager;
 	private List<String> matchIds;
 
-	public ReplayPanel()
+	public ScrollableReplayPanel()
 	{
-		super();
 		userSummonerName = "99 Herblore";
 		userRegion = "NA1";
 
 		panelItemList = new ArrayList<PanelItem>();
+
+		setLayout(new ScrollPaneLayout());
 
 		//getMatches();
 		createMatchWidgetsMock();
@@ -66,7 +68,7 @@ public class ReplayPanel extends ContentPanel
 
 	private void createMatchWidgetsMock()
 	{
-		for(int i = 0; i < 5; i++)
+		for(int i = 0; i < 10; i++)
 		{
 			panelItemList.add(new ReplayWidget("Taliyah", "Yasuo"));
 		}
@@ -120,24 +122,57 @@ public class ReplayPanel extends ContentPanel
 		return new MatchInfo(participants, userSummonerName);
 	}
 
+
+	//Inherited methods to override
+
 	public void setComponents(List<PanelItem> panelItems)
 	{
 		this.removeAll();
 
-		this.setLayout(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridy = 0;
-		gbc.insets = new Insets(0, 0, 25, 0);
+		// this.setLayout(new GridBagLayout());
+		// GridBagConstraints gbc = new GridBagConstraints();
+		// gbc.gridy = 0;
+		// gbc.insets = new Insets(0, 0, 25, 0);
 
 		for( PanelItem item : panelItems )
 		{
-			gbc.gridx = 0;
-			this.add(item, gbc);
-			gbc.gridy++;
+			//gbc.gridx = 0;
+			this.add(item);
+			//gbc.gridy++;
 		}
 
 		this.revalidate();
 		this.repaint();
 	}
+
+	// @Override
+	// public Dimension getPreferredScrollableViewportSize()
+	// {
+	// 	return getPreferredSize();
+	// }
+
+	// @Override
+	// public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction)
+	// {
+	// 	return 60; //Replay Widgets are 120px tall, so half makes sense I think
+	// }
+
+	// @Override
+	// public boolean getScrollableTracksViewportHeight()
+	// {
+	// 	return true;
+	// }
+
+	// @Override
+	// public boolean getScrollableTracksViewportWidth()
+	// {
+	// 	return true;
+	// }
+
+	// @Override
+	// public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction)
+	// {
+	// 	return 60;
+	// }
 
 }

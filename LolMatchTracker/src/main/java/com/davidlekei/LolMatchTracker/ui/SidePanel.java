@@ -74,4 +74,19 @@ public class SidePanel extends ContentPanel
 			item.addMouseListener(new PanelItemMouseListener(item.getText(), mainWindow));
 		}
 	}
+
+	@Override
+	public void setComponents(List<PanelItem> panelItems)
+	{
+		this.removeAll();
+
+		for( PanelItem item : panelItems )
+		{
+			this.add(item);
+		}
+
+		this.revalidate();
+		this.repaint();
+	}
+
 }
