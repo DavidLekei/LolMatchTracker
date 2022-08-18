@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import java.lang.InterruptedException;
 
+
 public class RiotAPI
 {
 	private RiotAPIKey riotAPIKey;

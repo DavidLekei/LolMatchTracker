@@ -1,5 +1,6 @@
 com\davidlekei\LolMatchTracker\ui\SidePanelButton.class
 com\davidlekei\LolMatchTracker\ui\SidePanelMenuItem.class
+com\davidlekei\LolMatchTracker\files\ReplayFileManager.class
 com\davidlekei\LolMatchTracker\LolMatchTracker.class
 com\davidlekei\LolMatchTracker\ui\MainPanel.class
 com\davidlekei\LolMatchTracker\ui\replays\ReplayWidget.class
@@ -8,8 +9,10 @@ com\davidlekei\LolMatchTracker\ui\ReplayPanel.class
 com\davidlekei\LolMatchTracker\ui\HomePanel.class
 com\davidlekei\LolMatchTracker\data\Replay.class
 com\davidlekei\LolMatchTracker\config\UserConfig.class
+com\davidlekei\LolMatchTracker\data\MidJungleDuos.class
 com\davidlekei\LolMatchTracker\ui\SidePanelItem.class
 com\davidlekei\LolMatchTracker\ui\NotesPanel.class
+com\davidlekei\LolMatchTracker\data\MatchInfoParser.class
 com\davidlekei\LolMatchTracker\ui\SidePanelSelections.class
 com\davidlekei\LolMatchTracker\ui\SidePanel.class
 com\davidlekei\LolMatchTracker\config\UIConfig.class
@@ -30,3 +33,4 @@ com\davidlekei\LolMatchTracker\ui\ContentPanel.class
 com\davidlekei\LolMatchTracker\ui\PanelItem.class
 com\davidlekei\LolMatchTracker\ui\ContentPanelStyle.class
 com\davidlekei\LolMatchTracker\ui\replays\ChampionSquare.class
+com\davidlekei\LolMatchTracker\data\MatchInfo.class

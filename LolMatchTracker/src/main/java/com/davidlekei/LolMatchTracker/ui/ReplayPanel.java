@@ -2,6 +2,8 @@ package com.davidlekei.LolMatchTracker.ui;
 
 import com.davidlekei.LolMatchTracker.net.RiotAPI;
 import com.davidlekei.LolMatchTracker.ui.replays.ReplayWidget;
+import com.davidlekei.LolMatchTracker.data.MatchInfo;
+import com.davidlekei.LolMatchTracker.files.ReplayFileManager;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -19,25 +21,72 @@ public class ReplayPanel extends ContentPanel
 {
 	private List<PanelItem> panelItemList;
 	private RiotAPI api;
+	private String userSummonerName;
+	private String userRegion;
+	private List<MatchInfo> matches;
+	private ReplayFileManager replayFileManager;
+	private List<String> matchIds;
 
+
+	//TODO: Add Match widgets VERTICALLY instead of horizontally
+
+	//TODO: Retrieve the userSummonerName and userRegion from a UserConfig class
+	//TODO: Retrieve match info from RiotAPI asychronously and maybe limit the number
 	public ReplayPanel()
 	{
-		initItems();
-		setComponents(panelItemList);
+		super();
+		userSummonerName = "99 Herblore";
+		userRegion = "NA1";
 
-		getMatchData();
+		panelItemList = new ArrayList<PanelItem>();
+
+		getMatches();
+		createMatchWidgets();
+
+		setComponents(panelItemList); //parent class method
 
 		setOpaque(true);
 		setVisible(true);
 	}
 
-	private void getMatchData()
+	private void createMatchWidgets()
 	{
+		for(MatchInfo match : matches)
+		{
+			panelItemList.add(new ReplayWidget(match));
+		}
+	}
+
+	private void getMatches()
+	{
+		replayFileManager = new ReplayFileManager();
+		matchIds = replayFileManager.getReplayListNoExtension();
+		matches = new ArrayList<MatchInfo>();
+
+
+		JSONObject matchData;
+		for(String matchId : matchIds)
+		{
+			matchData = getMatchData(userRegion + "_" + matchId);
+			try
+			{
+				matches.add(parseJson(matchData));
+				System.out.println("ReplayPanel - ReplayPanel() - Added match to list: " + matchId);
+			}
+			catch(NullPointerException npe)
+			{
+				System.out.println("DEBUG - ReplayPanel - ReplayPanel() - match id " + matchId + " does not contain summoner: " + userSummonerName);
+			}
+		}
+	}
+
+	private JSONObject getMatchData(String matchId)
+	{
+		JSONObject matchData = null;
 		api = new RiotAPI();
 		try
 		{
-			JSONObject json = api.getMatch("NA1_4405067724");
-			parseJson(json);
+			matchData = api.getMatch(matchId);
 		}
 		catch(IOException ioe)
 		{
@@ -47,25 +96,13 @@ public class ReplayPanel extends ContentPanel
 		{
 			System.out.println("ERROR - Connection interrupted");
 		}
+		return matchData;
 	}
 
-	private void parseJson(JSONObject json)
+	private MatchInfo parseJson(JSONObject json) throws NullPointerException
 	{
 		JSONArray participants = json.getJSONObject("info").getJSONArray("participants");
-		for (int i = 0; i < participants.length(); i++)
-		{
-			JSONObject p = participants.getJSONObject(i);
-			String champ = p.getString("championName");
-			System.out.println("Champion: " + champ);
-		}
-		System.out.println("JSONObject received");
+		return new MatchInfo(participants, userSummonerName);
 	}
-
-	private void initItems()
-	{
-		panelItemList = new ArrayList<PanelItem>();
-		panelItemList.add(new ReplayWidget("Ahri", "Viktor"));
-	}
-
 
 }

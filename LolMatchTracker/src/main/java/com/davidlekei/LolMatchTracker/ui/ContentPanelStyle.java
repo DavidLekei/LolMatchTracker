@@ -21,6 +21,15 @@ public class ContentPanelStyle
 	private int height;
 	//TODO: Add things like Font, Spacing, etc
 
+	public ContentPanelStyle()
+	{
+		//Use defaults
+		this.startingGradientColor = "#8E2DE2";
+		this.endingGradientColor = "#4A00E0";
+		this.width = 1300;
+		this.height = 900;
+	}
+
 
 	public ContentPanelStyle(UIConfig config, String panelName)
 	{

@@ -38,7 +38,8 @@ public class ContentPanel extends JPanel
 
 	public ContentPanel()
 	{
-		
+		//TODO: Figure out a way to read from UIConfig if ContentPanelStyle is not passed in?
+		this.style = new ContentPanelStyle();
 	}
 
 	public ContentPanel(ContentPanelStyle style, int width, int height)
