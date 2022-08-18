@@ -60,7 +60,7 @@ public class ContentPanel extends JPanel
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridy = 0;
-		gbc.insets = new Insets(100, 0, 0, 50);
+		gbc.insets = new Insets(100, 0, 0, 0);
 
 		for ( PanelItem item : panelItems )
 		{
@@ -80,6 +80,7 @@ public class ContentPanel extends JPanel
 		this.removeAll();
 
 		this.setLayout(new GridBagLayout());
+
 		for( PanelItem item : panelItems )
 		{
 			this.add(item);

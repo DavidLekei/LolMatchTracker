@@ -17,6 +17,10 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+
 public class ReplayPanel extends ContentPanel
 {
 	private List<PanelItem> panelItemList;
@@ -27,8 +31,6 @@ public class ReplayPanel extends ContentPanel
 	private ReplayFileManager replayFileManager;
 	private List<String> matchIds;
 
-
-	//TODO: Add Match widgets VERTICALLY instead of horizontally
 
 	//TODO: Retrieve the userSummonerName and userRegion from a UserConfig class
 	//TODO: Retrieve match info from RiotAPI asychronously and maybe limit the number
@@ -45,7 +47,7 @@ public class ReplayPanel extends ContentPanel
 
 		setComponents(panelItemList); //parent class method
 
-		setOpaque(true);
+		setOpaque(false);
 		setVisible(true);
 	}
 
@@ -78,6 +80,27 @@ public class ReplayPanel extends ContentPanel
 				System.out.println("DEBUG - ReplayPanel - ReplayPanel() - match id " + matchId + " does not contain summoner: " + userSummonerName);
 			}
 		}
+	}
+
+	@Override
+	public void setComponents(List<PanelItem> panelItems)
+	{
+		this.removeAll();
+
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridy = 0;
+		gbc.insets = new Insets(0, 0, 25, 0);
+
+		for( PanelItem item : panelItems )
+		{
+			gbc.gridx = 0;
+			this.add(item, gbc);
+			gbc.gridy++;
+		}
+
+		this.revalidate();
+		this.repaint();
 	}
 
 	private JSONObject getMatchData(String matchId)

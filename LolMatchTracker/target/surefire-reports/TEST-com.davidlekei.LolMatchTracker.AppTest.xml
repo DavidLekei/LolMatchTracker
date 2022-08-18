@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-16.0.1\bin"/>
-    <property name="sun.java.command" value="C:\Users\David\AppData\Local\Temp\surefire13280337977403480155\surefirebooter11922054061179146695.jar C:\Users\David\AppData\Local\Temp\surefire13280337977403480155 2022-08-18T00-22-41_255-jvmRun1 surefire3022147985273822690tmp surefire_02936270220622323594tmp"/>
+    <property name="sun.java.command" value="C:\Users\David\AppData\Local\Temp\surefire17843839742537258314\surefirebooter2665423451252939965.jar C:\Users\David\AppData\Local\Temp\surefire17843839742537258314 2022-08-18T13-08-43_550-jvmRun1 surefire17877715824204012623tmp surefire_06334279166680166109tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\David\Projects\LoLMatchTracker\LolMatchTracker\target\test-classes;C:\Users\David\Projects\LoLMatchTracker\LolMatchTracker\target\classes;C:\Users\David\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\David\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\David\.m2\repository\org\json\json\20180130\json-20180130.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\David\AppData\Local\Temp\surefire13280337977403480155\surefirebooter11922054061179146695.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\David\AppData\Local\Temp\surefire17843839742537258314\surefirebooter2665423451252939965.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="16.0.1+9-24"/>
