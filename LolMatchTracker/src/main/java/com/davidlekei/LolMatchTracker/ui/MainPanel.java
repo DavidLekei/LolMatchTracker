@@ -30,6 +30,9 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 
+//TODO: Change the header based on which MainPanel is shown
+//		ie different buttons for each panel
+//		ie Replays has a refresh button, Notes has a Save button, etc
 //TODO: Maybe implement Scrollable to change how fast we can scroll
 //TODO: Get size dimensions from config
 public class MainPanel extends ContentPanel
@@ -39,6 +42,7 @@ public class MainPanel extends ContentPanel
 	private HashMap<SidePanelSelections, ContentPanel> mainPanels;
 	private Dimension size;
 	private JScrollPane scrollPane;
+	private JPanel header;
 
 	public MainPanel(ContentPanelStyle style, int width, int height)
 	{
@@ -53,6 +57,14 @@ public class MainPanel extends ContentPanel
 
 		this.setOpaque(false);
 		this.add(scrollPane);
+	}
+
+	private void initHeader()
+	{
+		header = new JPanel();
+		header.setPreferredSize(new Dimension(1300, 50));
+		header.setBackground(Color.black);
+		add(header);
 	}
 
 	private void initPanels()
