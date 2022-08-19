@@ -32,7 +32,7 @@ import javax.swing.ScrollPaneConstants;
 
 //TODO: Change the header based on which MainPanel is shown
 //		ie different buttons for each panel
-//		ie Replays has a refresh button, Notes has a Save button, etc
+//		ie Replays has a refresh button, Notes has a Save button
 //TODO: Maybe implement Scrollable to change how fast we can scroll
 //TODO: Get size dimensions from config
 public class MainPanel extends ContentPanel
@@ -49,6 +49,7 @@ public class MainPanel extends ContentPanel
 		super(style, width, height);
 
 		initPanels();
+		initHeader();
 
 		//Removes annoying open gap at top of panel
 		((FlowLayout)this.getLayout()).setVgap(0);
