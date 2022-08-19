@@ -2,74 +2,40 @@ package com.davidlekei.LolMatchTracker.ui;
 
 import com.davidlekei.LolMatchTracker.ui.replays.ReplayWidget;
 
-import java.awt.Dimension;
-
 import java.util.List;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 
-public class NotesPanel extends ScrollablePanel
+public class NotesPanel extends ContentPanel
 {
 	private List<PanelItem> panelItemList;
 
 	public NotesPanel()
 	{
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
 		initItems();
-		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		setComponents(panelItemList);
 
-		setPreferredSize(new Dimension(1300, 900));
-		setOpaque(true);
-		setVisible(true);
+		setOpaque(false);
 	}
 
 	private void initItems()
 	{
+		MainPanelItem testItem = new MainPanelItem("Test Notes");
 		panelItemList = new ArrayList<PanelItem>();
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
-		panelItemList.add(new MainPanelItem("Write Some Notes"));
+		panelItemList.add(testItem);
+		panelItemList.add(new MainPanelItem("Do we even scroll this far?"));
+		panelItemList.add(new MainPanelItem("Do we even scroll this far?"));
+		panelItemList.add(new MainPanelItem("Do we even scroll this far?"));
+		panelItemList.add(new MainPanelItem("Do we even scroll this far?"));
+		panelItemList.add(new MainPanelItem("Do we even scroll this far?"));
+		panelItemList.add(new MainPanelItem("Do we even scroll this far?"));
+		panelItemList.add(new MainPanelItem("Do we even scroll this far?"));
+		panelItemList.add(new MainPanelItem("Do we even scroll this far?"));
+		panelItemList.add(new MainPanelItem("Do we even scroll this far?"));
 		panelItemList.add(new MainPanelItem("Write Some Notes"));
 		panelItemList.add(new MainPanelItem("Write Some Notes"));
 		panelItemList.add(new MainPanelItem("Write Some Notes"));
@@ -91,8 +57,6 @@ public class NotesPanel extends ScrollablePanel
 	@Override
 	public void setComponents(List<PanelItem> panelItems)
 	{
-		this.removeAll();
-
 		for( PanelItem item : panelItems )
 		{
 			this.add(item);

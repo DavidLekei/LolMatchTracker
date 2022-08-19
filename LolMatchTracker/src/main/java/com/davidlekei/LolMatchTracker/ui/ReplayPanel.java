@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
-import javax.swing.Scrollable;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 
@@ -38,6 +38,7 @@ public class ReplayPanel extends ContentPanel
 	private List<MatchInfo> matches;
 	private ReplayFileManager replayFileManager;
 	private List<String> matchIds;
+
 
 	public ReplayPanel()
 	{
@@ -66,7 +67,7 @@ public class ReplayPanel extends ContentPanel
 
 	private void createMatchWidgetsMock()
 	{
-		for(int i = 0; i < 5; i++)
+		for(int i = 0; i < 15; i++)
 		{
 			panelItemList.add(new ReplayWidget("Taliyah", "Yasuo"));
 		}

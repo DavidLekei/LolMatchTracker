@@ -26,7 +26,7 @@ import java.awt.Insets;
 
 public abstract class ContentPanel extends JPanel
 {
-	private int width = 200;
+	private int width = 1300;
 	private int height = 900;
 	private GradientPaint panelGradient;
 	private ContentPanelStyle style;
@@ -53,8 +53,7 @@ public abstract class ContentPanel extends JPanel
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-
 		((Graphics2D)g).setPaint(style.getPaint());
-		g.fillRect(0, 0, this.width, this.height);
+		g.fillRect(0, 0, getWidth(), getHeight());
 	} 
 }

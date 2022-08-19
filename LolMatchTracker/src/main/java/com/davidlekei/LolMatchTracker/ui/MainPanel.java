@@ -16,6 +16,7 @@ import java.awt.LayoutManager;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.FlowLayout;
 
 import java.io.IOException;
 
@@ -26,27 +27,31 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
+
+//TODO: Maybe implement Scrollable to change how fast we can scroll
+//TODO: Get size dimensions from config
 public class MainPanel extends ContentPanel
 {
 	private LayoutManager layout;
 
 	private HashMap<SidePanelSelections, ContentPanel> mainPanels;
-
+	private Dimension size;
 	private JScrollPane scrollPane;
 
 	public MainPanel(ContentPanelStyle style, int width, int height)
 	{
 		super(style, width, height);
 
-		setPreferredSize(new Dimension(width, height));
-
 		initPanels();
 
-		this.scrollPane = new JScrollPane();
-		scrollPane.setPreferredSize(new Dimension(width, height));
-		this.layout = new GridBagLayout();
-		this.setLayout(this.layout);
+		//Removes annoying open gap at top of panel
+		((FlowLayout)this.getLayout()).setVgap(0);
+
+		initScrollPane();
+
+		this.setOpaque(false);
 		this.add(scrollPane);
 	}
 
@@ -54,23 +59,26 @@ public class MainPanel extends ContentPanel
 	{
 			mainPanels = new HashMap<SidePanelSelections, ContentPanel>();
 
-
 			mainPanels.put(SidePanelSelections.HOME, new HomePanel());
 			mainPanels.put(SidePanelSelections.REPLAYS, new ReplayPanel());
 			mainPanels.put(SidePanelSelections.NOTES, new NotesPanel());
 			mainPanels.put(SidePanelSelections.SETTINGS, new SettingsPanel());
 	}
 
+	private void initScrollPane()
+	{
+		size = new Dimension(1300, 900);
+		scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+		scrollPane.setMinimumSize(size);
+		scrollPane.setPreferredSize(size);
+		scrollPane.setOpaque(false);
+	}
+
 	public void setPanel(SidePanelSelections selection)
 	{
-		// scrollPane.setViewportView(mainPanels.get(selection));
-		// System.out.println("scrollPane viewport view changed");
-
-		this.removeAll();
-		this.setLayout(this.layout);
-		this.add(mainPanels.get(selection));
-		this.revalidate();
-		this.repaint();
+		scrollPane.setViewportView(mainPanels.get(selection));
 	}
 
 	@Override

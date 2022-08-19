@@ -11,6 +11,8 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 import java.io.IOException;
 
@@ -72,7 +74,7 @@ public class MainWindow extends JFrame
 		this.add(sidePanel, BorderLayout.WEST);
 		this.add(mainPanel, BorderLayout.CENTER);
 
-		ChampionImageArea myChampionImageArea = new ChampionImageArea();
+		setMainPanel(SidePanelSelections.NOTES);
 	}
 
 	private void applyUIConfig()
