@@ -44,6 +44,6 @@ public class MatchInfo
 		myDeaths = me.getInt("deaths");
 		myAssists = me.getInt("assists");
 		myCS = me.getInt("neutralMinionsKilled");
-		myDamage = me.getInt("totalDamageDealt");
+		myDamage = me.getInt("totalDamageDealtToChampions");
 	}
 }

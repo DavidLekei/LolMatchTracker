@@ -21,7 +21,9 @@ import java.awt.Color;
 */
 
 
-//TODO: Add match details
+//TODO: Better formatting/presentation of match info
+//TODO: Display if Win or Loss - background color maybe like op.gg?
+//TODO: Add drop down for Good Win/Good Loss/Bad Win/Bad Loss
 public class ReplayWidget extends PanelItem
 {
 
@@ -32,10 +34,11 @@ public class ReplayWidget extends PanelItem
 	private JPanel matchInfoPanel;
 	private MatchInfo matchInfo;
 
-	public ReplayWidget(MatchInfo match)
+	public ReplayWidget(MatchInfo matchInfo)
 	{
-		String myChampion = match.myChamp;
-		String enemyMid = match.enemyMid;
+		this.matchInfo = matchInfo;
+		String myChampion = matchInfo.myChamp;
+		String enemyMid = matchInfo.enemyMid;
 		init(myChampion, enemyMid);
 	}
 
@@ -67,9 +70,8 @@ public class ReplayWidget extends PanelItem
 
 	private void initMatchInfoPanel()
 	{
-		matchInfoPanel = new JPanel();
+		matchInfoPanel = new MatchInfoPanel(matchInfo);
 		Dimension matchInfoPanelSize = new Dimension(getPreferredSize().width - (myChampion.getPreferredSize().width * 2), getPreferredSize().height);;
-		System.out.println("matchInfoPanelSize = " + matchInfoPanelSize);
 		matchInfoPanel.setPreferredSize(matchInfoPanelSize);
 		matchInfoPanel.setBackground(Color.red);
 	}

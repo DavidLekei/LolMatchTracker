@@ -48,8 +48,8 @@ public class ReplayPanel extends ContentPanel
 
 		panelItemList = new ArrayList<PanelItem>();
 
-		//getMatches();
-		createMatchWidgetsMock();
+		getMatches();
+		createMatchWidgets();
 
 		setComponents(panelItemList); //parent class method
 
