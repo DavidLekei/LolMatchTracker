@@ -18,6 +18,9 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.FlowLayout;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 import java.io.IOException;
 
 import java.util.List;
@@ -28,8 +31,11 @@ import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JButton;
 
-
+//TODO: Maybe put the initHeader() stuff into the Panel classes themselves
+//		They should probably be handling all that
+//TODO: Add a SidePanelSelections class variable to keep track of current Panel being shown
 //TODO: Change the header based on which MainPanel is shown
 //		ie different buttons for each panel
 //		ie Replays has a refresh button, Notes has a Save button
@@ -65,6 +71,26 @@ public class MainPanel extends ContentPanel
 		header = new JPanel();
 		header.setPreferredSize(new Dimension(1300, 50));
 		header.setBackground(Color.black);
+
+		JButton saveButton = new JButton("Save");
+		saveButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.println("Save button pressed");
+				try
+				{
+					NotesPanel notesPanel = (NotesPanel)mainPanels.get(SidePanelSelections.NOTES);
+					notesPanel.saveToFile("test.txt");
+				}
+				catch(IOException ioe)
+				{
+					ioe.printStackTrace();
+				}
+			}
+		});
+		header.add(saveButton);
+
 		add(header);
 	}
 
