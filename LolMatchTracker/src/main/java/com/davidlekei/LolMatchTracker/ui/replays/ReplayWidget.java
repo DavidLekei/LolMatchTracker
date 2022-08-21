@@ -44,7 +44,23 @@ public class ReplayWidget extends PanelItem
 
 	public ReplayWidget(String myChampionName, String enemyChampionName)
 	{
-		init(myChampionName, enemyChampionName);
+		testInit(myChampionName, enemyChampionName);
+	}
+
+	private void testInit(String myChampionName, String enemyChampionName)
+	{
+		myChampion = new ChampionSquare(myChampionName);
+		enemyChampion = new ChampionSquare(enemyChampionName);
+
+		layout = new BorderLayout();
+		setLayout(layout);
+
+		add(myChampion, BorderLayout.WEST);
+		add(enemyChampion, BorderLayout.EAST);
+
+		setPreferredSize(new Dimension(1200, 140));
+		setOpaque(false);
+		setVisible(true);
 	}
 
 	private void init(String myChampionName, String enemyChampionName)

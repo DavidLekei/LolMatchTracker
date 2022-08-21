@@ -22,7 +22,6 @@ public class ChampionSquare extends JPanel
 
 	public ChampionSquare(String name)
 	{
-		System.out.println("Attempting to create ChampionSquare for: " + name);
 		try
 		{
 			this.championImage = ImageIO.read(new File(IMG_DIR_PATH + name + IMG_FILE_EXTENSION));
