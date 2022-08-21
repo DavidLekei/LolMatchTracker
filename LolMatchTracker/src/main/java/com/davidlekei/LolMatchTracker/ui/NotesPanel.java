@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 
 //TODO: Allow user to specify where the notes get saved to
 //TODO: Change scroll speed
@@ -60,16 +61,39 @@ public class NotesPanel extends ContentPanel
 
 	public void saveToFile(String filePath) throws IOException
 	{
-		BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filePath)));
+		BufferedWriter writer;
+		JFileChooser fileChooser;
+		int fileChooserResult;
+
+		fileChooser = new JFileChooser();
+		fileChooserResult = fileChooser.showSaveDialog(this);
+		if(fileChooserResult == JFileChooser.APPROVE_OPTION)
+		{
+			writer = new BufferedWriter(new FileWriter(fileChooser.getSelectedFile()));
+		}
+		else
+		{
+			//TODO: Change this to a DEFAULT_FILE_PATH constant
+			writer = new BufferedWriter(new FileWriter(new File(filePath)));
+		}
 		textArea.write(writer);
 	}
 
+	//TODO: Find out if there is a decent way to remove all of this initialization code into
+	//other classes (ie. make a SaveButton class). 
+	//For now it needs to stay here because it needs access to the saveToFile() method
 	private void initHeader()
 	{
 		header = new JPanel();
 		header.setPreferredSize(new Dimension(1300, 50));
 		header.setBackground(Color.black);
 
+		JButton saveButton = createSaveButton();
+		header.add(saveButton);
+	}
+
+	private JButton createSaveButton()
+	{
 		JButton saveButton = new JButton("Save");
 		saveButton.addActionListener(new ActionListener(){
 			@Override
@@ -86,7 +110,7 @@ public class NotesPanel extends ContentPanel
 				}
 			}
 		});
-		header.add(saveButton);
+		return saveButton;
 	}
 
 	@Override
