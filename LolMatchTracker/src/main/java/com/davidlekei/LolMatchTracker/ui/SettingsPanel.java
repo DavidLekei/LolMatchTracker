@@ -2,6 +2,9 @@ package com.davidlekei.LolMatchTracker.ui;
 
 import com.davidlekei.LolMatchTracker.ui.replays.ReplayWidget;
 
+import java.awt.Color;
+import java.awt.Dimension;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -10,11 +13,16 @@ import javax.swing.JPanel;
 public class SettingsPanel extends ContentPanel
 {
 	private List<PanelItem> panelItemList;
+	private JPanel header;
 
 	public SettingsPanel()
 	{
 		initItems();
 		setComponents(panelItemList);
+
+		header = new JPanel();
+		header.setPreferredSize(new Dimension(1300, 50));
+		header.setBackground(Color.black);
 
 		setOpaque(true);
 		setVisible(true);
@@ -24,6 +32,13 @@ public class SettingsPanel extends ContentPanel
 	{
 		panelItemList = new ArrayList<PanelItem>();
 		panelItemList.add(new MainPanelItem("Change your settings"));
+	}
+
+
+	@Override
+	public JPanel getHeader()
+	{
+		return this.header;
 	}
 
 	@Override

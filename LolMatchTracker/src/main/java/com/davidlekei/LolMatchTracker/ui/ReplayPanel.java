@@ -39,6 +39,7 @@ public class ReplayPanel extends ContentPanel
 	private List<MatchInfo> matches;
 	private ReplayFileManager replayFileManager;
 	private List<String> matchIds;
+	private JPanel header;
 
 
 	public ReplayPanel()
@@ -55,6 +56,10 @@ public class ReplayPanel extends ContentPanel
 		//MOCK METHOD
 		createMatchWidgetsMock();
 		//
+
+		header = new JPanel();
+		header.setPreferredSize(new Dimension(1300, 50));
+		header.setBackground(Color.black);
 
 		setComponents(panelItemList); //parent class method
 
@@ -148,6 +153,12 @@ public class ReplayPanel extends ContentPanel
 
 		this.revalidate();
 		this.repaint();
+	}
+
+	@Override
+	public JPanel getHeader()
+	{
+		return this.header;
 	}
 
 }

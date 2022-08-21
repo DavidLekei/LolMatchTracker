@@ -3,6 +3,7 @@ package com.davidlekei.LolMatchTracker.ui;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.Scrollable;
 
@@ -38,6 +39,12 @@ public class ScrollablePanel extends ContentPanel implements Scrollable
 	public int getScrollableUnitIncrement(Rectangle visibleRect, int orientation, int direction)
 	{
 		return 10;
+	}
+
+	@Override
+	public JPanel getHeader()
+	{
+		return null;
 	}
 
 	@Override

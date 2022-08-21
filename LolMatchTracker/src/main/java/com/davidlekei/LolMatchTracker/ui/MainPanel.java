@@ -41,6 +41,7 @@ import javax.swing.JButton;
 //		ie Replays has a refresh button, Notes has a Save button
 //TODO: Maybe implement Scrollable to change how fast we can scroll
 //TODO: Get size dimensions from config
+//TODO: Allow ui/user config to dictate which panel is the "default" upon opening the app
 public class MainPanel extends ContentPanel
 {
 	private LayoutManager layout;
@@ -48,50 +49,23 @@ public class MainPanel extends ContentPanel
 	private HashMap<SidePanelSelections, ContentPanel> mainPanels;
 	private Dimension size;
 	private JScrollPane scrollPane;
+	private ContentPanel currentPanel;
 	private JPanel header;
 
 	public MainPanel(ContentPanelStyle style, int width, int height)
 	{
 		super(style, width, height);
 
-		initPanels();
-		initHeader();
-
 		//Removes annoying open gap at top of panel
 		((FlowLayout)this.getLayout()).setVgap(0);
 
+		initPanels();
 		initScrollPane();
+		setPanel(SidePanelSelections.NOTES);
+		setHeader();
 
 		this.setOpaque(false);
 		this.add(scrollPane);
-	}
-
-	private void initHeader()
-	{
-		header = new JPanel();
-		header.setPreferredSize(new Dimension(1300, 50));
-		header.setBackground(Color.black);
-
-		JButton saveButton = new JButton("Save");
-		saveButton.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				System.out.println("Save button pressed");
-				try
-				{
-					NotesPanel notesPanel = (NotesPanel)mainPanels.get(SidePanelSelections.NOTES);
-					notesPanel.saveToFile("test.txt");
-				}
-				catch(IOException ioe)
-				{
-					ioe.printStackTrace();
-				}
-			}
-		});
-		header.add(saveButton);
-
-		add(header);
 	}
 
 	private void initPanels()
@@ -117,12 +91,30 @@ public class MainPanel extends ContentPanel
 
 	public void setPanel(SidePanelSelections selection)
 	{
-		scrollPane.setViewportView(mainPanels.get(selection));
+		currentPanel = mainPanels.get(selection);
+		setComponents(null); //TODO: Having to call this with null is kinda disgusting
+	}
+
+	private void setHeader()
+	{
+		header = currentPanel.getHeader();
+	}
+
+	@Override
+	public JPanel getHeader()
+	{
+		return header;
 	}
 
 	@Override
 	public void setComponents(List<PanelItem> panelItems)
 	{
-		//Nothing
+		removeAll();
+		setHeader();
+		add(header);
+		add(scrollPane);
+		scrollPane.setViewportView(currentPanel);
+		revalidate();
+		repaint();
 	}
 }

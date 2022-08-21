@@ -89,4 +89,10 @@ public class SidePanel extends ContentPanel
 		this.repaint();
 	}
 
+	@Override
+	public JPanel getHeader()
+	{
+		return null;
+	}
+
 }

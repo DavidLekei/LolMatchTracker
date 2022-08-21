@@ -10,7 +10,6 @@ com\davidlekei\LolMatchTracker\ui\HomePanel.class
 com\davidlekei\LolMatchTracker\data\Replay.class
 com\davidlekei\LolMatchTracker\config\UserConfig.class
 com\davidlekei\LolMatchTracker\data\MidJungleDuos.class
-com\davidlekei\LolMatchTracker\ui\MainPanel$1.class
 com\davidlekei\LolMatchTracker\ui\SidePanelItem.class
 com\davidlekei\LolMatchTracker\ui\NotesPanel.class
 com\davidlekei\LolMatchTracker\data\MatchInfoParser.class
@@ -21,6 +20,7 @@ com\davidlekei\LolMatchTracker\net\RiotAPI.class
 com\davidlekei\LolMatchTracker\net\http\ApiHttpRequest.class
 com\davidlekei\LolMatchTracker\ui\SettingsPanel.class
 com\davidlekei\LolMatchTracker\ui\MainPanelItem.class
+com\davidlekei\LolMatchTracker\ui\NotesPanel$1.class
 com\davidlekei\LolMatchTracker\ui\MainWindow.class
 com\davidlekei\LolMatchTracker\ui\PanelItemMouseListener.class
 com\davidlekei\LolMatchTracker\App.class

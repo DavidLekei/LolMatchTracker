@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.Insets;
 import java.awt.Font;
+import java.awt.Dimension;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import java.io.File;
 import java.io.BufferedWriter;
@@ -17,7 +21,9 @@ import java.io.IOException;
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.JTextArea;
+import javax.swing.JButton;
 
+//TODO: Allow user to specify where the notes get saved to
 //TODO: Change scroll speed
 //TODO: Check UI/UserConfig for Dark/Light mode and use respective color scheme
 public class NotesPanel extends ContentPanel
@@ -29,12 +35,14 @@ public class NotesPanel extends ContentPanel
 
 	private List<PanelItem> panelItemList;
 	private JTextArea textArea;
+	private JPanel header;
 
 	public NotesPanel()
 	{
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		initItems();
+		initHeader();
 		setComponents(panelItemList);
 
 		setOpaque(false);
@@ -54,6 +62,37 @@ public class NotesPanel extends ContentPanel
 	{
 		BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filePath)));
 		textArea.write(writer);
+	}
+
+	private void initHeader()
+	{
+		header = new JPanel();
+		header.setPreferredSize(new Dimension(1300, 50));
+		header.setBackground(Color.black);
+
+		JButton saveButton = new JButton("Save");
+		saveButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.println("Save button pressed");
+				try
+				{
+					saveToFile("test.txt");
+				}
+				catch(IOException ioe)
+				{
+					ioe.printStackTrace();
+				}
+			}
+		});
+		header.add(saveButton);
+	}
+
+	@Override
+	public JPanel getHeader()
+	{
+		return this.header;
 	}
 
 	@Override

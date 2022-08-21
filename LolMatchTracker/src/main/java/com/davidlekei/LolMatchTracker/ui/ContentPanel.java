@@ -49,6 +49,8 @@ public abstract class ContentPanel extends JPanel
 
 	public abstract void setComponents(List<PanelItem> panelItems);
 
+	public abstract JPanel getHeader();
+
 	@Override
 	protected void paintComponent(Graphics g)
 	{

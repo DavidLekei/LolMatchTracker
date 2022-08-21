@@ -73,8 +73,6 @@ public class MainWindow extends JFrame
 
 		this.add(sidePanel, BorderLayout.WEST);
 		this.add(mainPanel, BorderLayout.CENTER);
-
-		setMainPanel(SidePanelSelections.NOTES);
 	}
 
 	private void applyUIConfig()
