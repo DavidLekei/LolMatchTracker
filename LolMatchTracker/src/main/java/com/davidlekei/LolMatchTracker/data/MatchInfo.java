@@ -2,6 +2,7 @@ package com.davidlekei.LolMatchTracker.data;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONException;
 
 public class MatchInfo
 {
@@ -17,12 +18,13 @@ public class MatchInfo
 	public int myAssists;
 	public int myCS;
 	public int myDamage;
+	public boolean won;
 
 	private final int ITEM_SLOTS = 7;
 
-	public MatchInfo(JSONArray usersMatchData, String userSummonerName) throws NullPointerException
+	public MatchInfo(JSONObject usersMatchData, String userSummonerName) throws NullPointerException, JSONException
 	{
-		MidJungleDuos midJungleDuos = new MatchInfoParser(usersMatchData).parseMidJungle(userSummonerName);
+		MidJungleDuos midJungleDuos = new MatchInfoParser(usersMatchData.getJSONArray("participants")).parseMidJungle(userSummonerName);
 
 		me = midJungleDuos.getMe();
 		myChamp = me.getString("championName");
@@ -45,5 +47,7 @@ public class MatchInfo
 		myAssists = me.getInt("assists");
 		myCS = me.getInt("neutralMinionsKilled");
 		myDamage = me.getInt("totalDamageDealtToChampions");
+
+		won = me.getBoolean("win");
 	}
 }

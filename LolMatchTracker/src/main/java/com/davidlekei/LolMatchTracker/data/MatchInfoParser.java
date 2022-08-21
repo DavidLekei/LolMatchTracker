@@ -2,42 +2,28 @@ package com.davidlekei.LolMatchTracker.data;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 public class MatchInfoParser
 {
 	private JSONArray data;
+	private JSONObject me;
 
 	public MatchInfoParser(JSONArray data)
 	{
 		this.data = data;
 	}
 
-	public MidJungleDuos parseMidJungle(String userSummonerName)
+	public MidJungleDuos parseMidJungle(String userSummonerName) throws JSONException
 	{
-		JSONObject me = null;
+		getMe(userSummonerName);
 		JSONObject myJungle = null;
 		JSONObject enemyMid = null;
 		JSONObject enemyJungle = null;
 
 		JSONObject player;
+		int myTeamId = me.getInt("teamId");
 
-		//The player list will always go:
-		/*
-		TOP
-		JUNGLE
-		MIDDLE
-		ADC
-		SUPPORT
-		TOP
-		JUNGLE
-		MIDDLE
-		ADC
-		SUPPORT
-
-		However, the user we are looking for might be MIDDLE at index = 2 or index = 7
-		So we need to search for the name, but once we find it, we know that jungle will
-		always be at that index - 1
-		*/
 
 		for(int i = 0; i < data.length(); i++)
 		{
@@ -45,19 +31,38 @@ public class MatchInfoParser
 
 			if(player.getString("teamPosition").equals("MIDDLE"))
 			{
-				if(player.getString("summonerName").equals(userSummonerName))
+				if(player.getInt("teamId") != myTeamId)
 				{
-					myJungle = data.getJSONObject(i - 1);
-					me = player;
+					enemyMid = player;
+				}	
+			}
+			if(player.getString("teamPosition").equals("JUNGLE"))
+			{
+				if(player.getInt("teamId") == myTeamId)
+				{
+					myJungle = player;
 				}
 				else
 				{
-					enemyJungle = data.getJSONObject(i - 1);
-					enemyMid = player;
+					enemyJungle = player;
 				}
 			}
 		}
 
 		return new MidJungleDuos(me, myJungle, enemyMid, enemyJungle);
+	}
+
+	private void getMe(String userSummonerName)
+	{
+		JSONObject player;
+
+		for(int i = 0; i < data.length(); i++)
+		{
+			player = data.getJSONObject(i);
+			if(player.getString("summonerName").equals(userSummonerName))
+			{
+				me = player;
+			}
+		}
 	}
 }

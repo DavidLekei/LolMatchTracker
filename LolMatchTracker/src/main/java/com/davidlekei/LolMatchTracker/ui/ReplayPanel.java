@@ -7,6 +7,7 @@ import com.davidlekei.LolMatchTracker.files.ReplayFileManager;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.IOException;
 
@@ -93,6 +94,10 @@ public class ReplayPanel extends ContentPanel
 			{
 				System.out.println("DEBUG - ReplayPanel - ReplayPanel() - match id " + matchId + " does not contain summoner: " + userSummonerName);
 			}
+			catch(JSONException je)
+			{
+				System.out.println("ERROR: JSON could not be parsed for match id: " + matchId);
+			}
 		}
 	}
 
@@ -117,8 +122,8 @@ public class ReplayPanel extends ContentPanel
 
 	private MatchInfo parseJson(JSONObject json) throws NullPointerException
 	{
-		JSONArray participants = json.getJSONObject("info").getJSONArray("participants");
-		return new MatchInfo(participants, userSummonerName);
+		JSONObject info = json.getJSONObject("info");
+		return new MatchInfo(info, userSummonerName);
 	}
 
 	public void setComponents(List<PanelItem> panelItems)

@@ -4,9 +4,15 @@ import com.davidlekei.LolMatchTracker.data.MatchInfo;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import java.awt.Color;
 
+//TODO: Format text better
+//TODO: maybe rename to MatchStatsPanel?
 public class MatchInfoPanel extends JPanel
 {
+	private final String WIN_COLOR = "#46AAEB";
+	private final String LOSS_COLOR = "#DE767D";
+
 	private JLabel itemsLabel;
 	private JLabel goldLabel;
 	private JLabel kdaLabel;
@@ -20,6 +26,16 @@ public class MatchInfoPanel extends JPanel
 		super();
 		this.matchInfo = matchInfo;
 		initLabels();
+
+		if(matchInfo.won == true)
+		{
+			setBackground(Color.decode(WIN_COLOR));
+		}
+		else
+		{
+			setBackground(Color.decode(LOSS_COLOR));
+		}
+
 	}
 
 	private void initLabels()

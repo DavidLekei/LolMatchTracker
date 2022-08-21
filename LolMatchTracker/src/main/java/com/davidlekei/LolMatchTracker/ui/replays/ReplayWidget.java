@@ -73,6 +73,5 @@ public class ReplayWidget extends PanelItem
 		matchInfoPanel = new MatchInfoPanel(matchInfo);
 		Dimension matchInfoPanelSize = new Dimension(getPreferredSize().width - (myChampion.getPreferredSize().width * 2), getPreferredSize().height);;
 		matchInfoPanel.setPreferredSize(matchInfoPanelSize);
-		matchInfoPanel.setBackground(Color.red);
 	}
 }
