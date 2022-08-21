@@ -13,10 +13,14 @@ import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.JTextArea;
 
+//TODO: Change scroll speed
+//TODO: Check UI/UserConfig for Dark/Light mode and use respective color scheme
 public class NotesPanel extends ContentPanel
 {
-	private final String BACKGROUND_COLOR = "#0D1117";
-	private final String FONT_COLOR = "#FFFFFF";
+	private final String DARK_MODE_FONT_COLOR = "#FFFFFF";
+	private final String DARK_MODE_BACKGROUND_COLOR = "#0D1117";
+	private final String LIGHT_MODE_FONT_COLOR = "#000000";
+	private final String LIGHT_MODE_BACKGROUND_COLOR = "#FFFFFF";
 
 	private List<PanelItem> panelItemList;
 	private JTextArea textArea;
@@ -36,8 +40,8 @@ public class NotesPanel extends ContentPanel
 		textArea = new JTextArea();
 		textArea.setMargin(new Insets(15, 15, 15, 15));
 		textArea.setFont(new Font("Roboto", Font.PLAIN, 24));
-		textArea.setBackground(Color.decode(BACKGROUND_COLOR));
-		textArea.setForeground(Color.decode(FONT_COLOR));
+		textArea.setBackground(Color.decode(DARK_MODE_BACKGROUND_COLOR));
+		textArea.setForeground(Color.decode(DARK_MODE_FONT_COLOR));
 		textArea.setLineWrap(true);
 	}
 
