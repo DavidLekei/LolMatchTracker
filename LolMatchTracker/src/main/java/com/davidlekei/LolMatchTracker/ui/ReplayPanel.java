@@ -50,11 +50,11 @@ public class ReplayPanel extends ContentPanel
 
 		panelItemList = new ArrayList<PanelItem>();
 
-		//getMatches();
-		//createMatchWidgets();
+		getMatches();
+		createMatchWidgets();
 
 		//MOCK METHOD
-		createMatchWidgetsMock();
+		//createMatchWidgetsMock();
 		//
 
 		header = new JPanel();

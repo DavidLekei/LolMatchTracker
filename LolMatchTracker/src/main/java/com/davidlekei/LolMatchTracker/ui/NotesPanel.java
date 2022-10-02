@@ -34,12 +34,15 @@ public class NotesPanel extends ContentPanel
 	private final String LIGHT_MODE_FONT_COLOR = "#000000";
 	private final String LIGHT_MODE_BACKGROUND_COLOR = "#FFFFFF";
 
+	private String filechooserDefaultNotesDir;
 	private List<PanelItem> panelItemList;
 	private JTextArea textArea;
 	private JPanel header;
 
 	public NotesPanel()
 	{
+		filechooserDefaultNotesDir = System.getProperty("user.home") + "/LolMatchTracker/Notes";
+
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		initItems();
@@ -65,7 +68,7 @@ public class NotesPanel extends ContentPanel
 		JFileChooser fileChooser;
 		int fileChooserResult;
 
-		fileChooser = new JFileChooser();
+		fileChooser = new JFileChooser(filechooserDefaultNotesDir);
 		fileChooserResult = fileChooser.showSaveDialog(this);
 		if(fileChooserResult == JFileChooser.APPROVE_OPTION)
 		{

@@ -1,9 +1,11 @@
 package com.davidlekei.LolMatchTracker.ui.replays;
 
 import com.davidlekei.LolMatchTracker.data.MatchInfo;
+//import com.davidlekei.LolMatchTracker.ui.replays.NotesButton;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 import java.awt.Color;
 
 //TODO: Format text better
@@ -26,6 +28,7 @@ public class MatchInfoPanel extends JPanel
 		super();
 		this.matchInfo = matchInfo;
 		initLabels();
+		addButtons();
 
 		if(matchInfo.won == true)
 		{
@@ -51,6 +54,14 @@ public class MatchInfoPanel extends JPanel
 		add(kdaLabel);
 		add(csLabel);
 		add(damageLabel);
+	}
+
+	private void addButtons()
+	{
+		NotesButton notesButton = new NotesButton("Notes", 3);
+
+
+		add(notesButton);
 	}
 
 	private String getKDAString()
