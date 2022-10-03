@@ -15,11 +15,24 @@ public class NotesDatabaseConnection
 	}
 
 	//TODO: Rename to getNotesForUser
-	public ResultSet getNotesForMatch(int userId) throws SQLException
+	public String getNotesForMatch(String matchId) throws SQLException
 	{
-		String query = "select mtch.id, usr.username, nts.path from TCMatch mtch join TCUser usr on mtch.user_id = usr.id join TCNotes nts on nts.fk_user_id = usr.id where usr.id = ?";
+		String query = "select nts.path from TCNotes nts join TCMatch mtch on mtch.id = nts.match_id where mtch.riot_match_id = ?";
 		PreparedStatement stmt = db.getPreparedStatement(query);
-		stmt.setInt(1, userId);
-		return db.executeQuery(stmt);
+		stmt.setString(1, matchId);
+
+		//TODO: Implement another class that would act as a layer of abstraction between the connection (the part that does the actual queries) and the parsing of data to return to user
+		ResultSet results = db.executeQuery(stmt);
+		String notesPath = "";
+
+		if(results.next())
+		{
+			notesPath = results.getString("path");
+		}
+		//TODO: else throw new SQLException (or other custom exception type);
+
+		return notesPath;
+
+		//return db.executeQuery(stmt);
 	}
 }

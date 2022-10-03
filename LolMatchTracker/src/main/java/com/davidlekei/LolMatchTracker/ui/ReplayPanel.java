@@ -96,7 +96,7 @@ public class ReplayPanel extends ContentPanel
 			matchData = getMatchData(userRegion + "_" + matchId);
 			try
 			{
-				matches.add(parseJson(matchData));
+				matches.add(parseJson(matchData, matchId));
 				System.out.println("ReplayPanel - ReplayPanel() - Added match to list: " + matchId);
 			}
 			catch(NullPointerException npe)
@@ -129,10 +129,10 @@ public class ReplayPanel extends ContentPanel
 		return matchData;
 	}
 
-	private MatchInfo parseJson(JSONObject json) throws NullPointerException
+	private MatchInfo parseJson(JSONObject json, String matchId) throws NullPointerException
 	{
 		JSONObject info = json.getJSONObject("info");
-		return new MatchInfo(info, userSummonerName);
+		return new MatchInfo(info, userSummonerName, matchId);
 	}
 
 	public void setComponents(List<PanelItem> panelItems)

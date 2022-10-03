@@ -53,13 +53,10 @@ public class TestDatabase
 	{
 		try
 		{
-			ResultSet results = notesDb.getNotesForMatch(3);
+			String results = notesDb.getNotesForMatch("3");
 			assertTrue(results != null);
 
-			while( results.next() )
-			{
-				System.out.println(results.getString("path"));
-			}
+			System.out.println(results);
 
 		}
 		catch(Exception e)
@@ -72,7 +69,9 @@ public class TestDatabase
 	public void testGetUserIdForUsername() throws SQLException
 	{
 		String username = "test_user_1";
-		assertTrue(userDb.getUserIdForUsername(username) == 3);
+		int userId = userDb.getUserIdForUsername(username);
+		assertTrue(userId == 3);
+		System.out.println("Test: " + userId);
 
 	}
 }

@@ -58,7 +58,7 @@ public class MatchInfoPanel extends JPanel
 
 	private void addButtons()
 	{
-		NotesButton notesButton = new NotesButton("Notes", 3);
+		NotesButton notesButton = new NotesButton("Notes", this.matchInfo.matchId);
 
 
 		add(notesButton);

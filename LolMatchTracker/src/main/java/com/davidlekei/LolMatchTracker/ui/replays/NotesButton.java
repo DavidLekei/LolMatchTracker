@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class NotesButton extends JButton
 {
-	public NotesButton(String text, final int matchId)
+	public NotesButton(String text, final String matchId)
 	{
 		super(text);
 
@@ -22,16 +22,18 @@ public class NotesButton extends JButton
 		});
 	}
 
-	private void getNotesForMatchId(int matchId)
+	private void getNotesForMatchId(String matchId)
 	{
-		System.out.println("Looking for Notes attached to match: " + matchId);
 		try
 		{
 			NotesDatabaseConnection db = new NotesDatabaseConnection();
+			String notesPath = db.getNotesForMatch(matchId);
+			System.out.println("[DEBUG] - NotesButton - Retrieved notes for match: " + matchId + " - Path: " + notesPath);
 		}
 		catch(SQLException sqle)
 		{
 			System.out.println("TODO: Handle this exception better - NotesButton ran into an error when looking up notes for match id: " + matchId);
+			sqle.printStackTrace();
 		}
 	}
 

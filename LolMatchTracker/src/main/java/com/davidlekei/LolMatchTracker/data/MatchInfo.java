@@ -7,6 +7,7 @@ import org.json.JSONException;
 public class MatchInfo
 {
 	private JSONObject me;
+	public String matchId;
 	public String myChamp;
 	public String enemyMid;
 	public String myJungle;
@@ -22,9 +23,11 @@ public class MatchInfo
 
 	private final int ITEM_SLOTS = 7;
 
-	public MatchInfo(JSONObject usersMatchData, String userSummonerName) throws NullPointerException, JSONException
+	public MatchInfo(JSONObject usersMatchData, String userSummonerName, String matchId) throws NullPointerException, JSONException
 	{
 		MidJungleDuos midJungleDuos = new MatchInfoParser(usersMatchData.getJSONArray("participants")).parseMidJungle(userSummonerName);
+
+		this.matchId = matchId;
 
 		me = midJungleDuos.getMe();
 		myChamp = me.getString("championName");
