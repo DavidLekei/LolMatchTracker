@@ -1,0 +1,27 @@
+.notes-section{
+    display:flex;
+    flex-direction:column;
+    min-height:40%;
+    /* width: calc(100vw - 8vw); */
+}
+
+.notes-section > h1{
+    font-size:24px;
+}
+
+.notes-input{
+    height:100%;
+    padding:12px;
+    margin:12px;
+    border-radius:4px;
+    font-size:24px;
+    border:2px solid black;
+    /* border-left:2px solid black;
+    border-right:2px solid black;
+    border-bottom:2px solid black; */
+}
+
+.notes-btns > Button{
+    margin:10px;
+    background-color: #04AA6D;
+}

@@ -1,0 +1,19 @@
+.App-toolbar{
+    min-height: 8vh;
+    display:flex;
+    align-items:center;
+    flex-direction: row;
+    justify-content: right;
+    vertical-align: middle;
+}
+
+.App-toolbar-header{
+    font-size: 32px;
+    font-weight: bold;
+    min-width: 70vw;
+    text-align:left;
+    margin-left:25px;
+}
+.btn-container{
+    mid-width: 30vw;
+}

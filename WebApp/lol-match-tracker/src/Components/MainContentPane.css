@@ -1,0 +1,6 @@
+.App-content-main{
+    background-color: #ffffff;
+    height: 100%;
+    display:flex;
+    flex-direction:row;
+}

@@ -1,0 +1,16 @@
+.modal-header{
+    display:flex;
+    flex-direction:row;
+    align-content:center;
+    justify-content:center;
+}
+
+.modal-header > .exit{
+    position: absolute;
+    right: 25px;
+}
+
+.exit:hover{
+    outline:2px solid black;
+    cursor:pointer;
+}
