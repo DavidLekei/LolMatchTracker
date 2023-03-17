@@ -1,1 +1,0 @@
-java -cp target/LolMatchTracker-1.0-SNAPSHOT.jar;C:/Users/David/.m2/repository/org/json/json/20180130/json-20180130.jar;C:\Users\David\.m2\repository\mysql\mysql-connector-java\5.1.45\mysql-connector-java-5.1.45.jar com.davidlekei.LolMatchTracker.App
