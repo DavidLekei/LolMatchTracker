@@ -10,6 +10,7 @@ import AppToolbar from './Toolbar/AppToolbar'
 import MatchPane from './Match/MatchPane'
 import NotesPane from './Notes/NotesPane'
 import HomePane from './Home/HomePane'
+import Canvas from '../Test/Canvas'
 
 import './MainContentPane.css';
 
@@ -25,6 +26,7 @@ class DisplayPane extends Component{
                     <Route exact path="/notes" element={<NotesPane />}/>
                     <Route path="/account" />
                     <Route path="/about" />
+                    <Route path="/canvas" element={<Canvas />} />
                 </Routes>
             </div>
         )

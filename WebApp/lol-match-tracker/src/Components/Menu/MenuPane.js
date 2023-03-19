@@ -41,6 +41,11 @@ class MenuPane extends Component{
                             <MenuEntry icon="admin" text="Admin" />
                         </div>
                     </Link>
+                    <Link to="/canvas">
+                        <div className = "App-content-menu-link">
+                            <MenuEntry icon="canvas" text="Canvas" />
+                        </div>
+                    </Link>
                 </div>
             </div>
         )
