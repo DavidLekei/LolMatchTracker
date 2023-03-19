@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class MatchesListviewHeader extends Component{
+class ListviewHeader extends Component{
     constructor(props){
         super(props);
     }
@@ -19,4 +19,4 @@ class MatchesListviewHeader extends Component{
 
 }
 
-export default MatchesListviewHeader;
+export default ListviewHeader;

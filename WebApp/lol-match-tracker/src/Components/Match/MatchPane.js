@@ -5,16 +5,62 @@ import { useParams } from "react-router-dom";
 import './MatchPane.css'
 
 import MatchesPaneHeader from './MatchesPaneHeader'
-import MatchesListview from './MatchesListview'
 import MatchListviewFilterModal from './MatchListviewFilterModal'
+import Listview from '../Common/Listview/Listview'
+import MatchInfoSmall from './MatchInfoSmall';
+import MatchInfoFull from './MatchInfoFull'
 
 
-// const filters = {
-//     champions:["Viktor"],
-//     start_date:null,
-//     end_date:null,
-//     outcome:null,
-// }
+function getMatchData(){
+    let mockData ={games: [
+        {
+            matchid:1,
+            date_played:"2023-03-12",
+            duration:"30:00",
+            champion:"Viktor",
+            champion_against:"Sylas",
+            outcome:"loss",
+            kills:4,
+            deaths:7,
+            assists:10
+        },
+        {
+            matchid:2,
+            date_played:"2023-03-03",
+            duration:"33:28",
+            champion:"Taliyah",
+            champion_against:"Ziggs",
+            outcome:"win",
+            kills:12,
+            deaths:4,
+            assists:16
+        },
+        {
+            matchid:3,
+            date_played:"2023-02-27",
+            duration:"27:23",
+            champion:"Ahri",
+            champion_against:"Zed",
+            outcome:"win",
+            kills:8,
+            deaths:1,
+            assists:8
+        },
+        {
+            matchid:3,
+            date_played:"2023-02-27",
+            duration:"27:23",
+            champion:"Ahri",
+            champion_against:"Zed",
+            outcome:"win",
+            kills:8,
+            deaths:1,
+            assists:8
+        }
+    ]}
+
+    return mockData;
+}
 
 let filterSettings = {
     champions: [],
@@ -94,21 +140,36 @@ function getFilterSettings(){
 export default function MatchPane(){
 
     let {matchid} = useParams();
-  
+    let matchData = getMatchData();
+
+    let columns = [
+        "Date Played",
+        "Champion",
+        "Against",
+        "K/D/A",
+        "Outcome"
+    ]
+ 
     const [filters, setFilter] = useState(filterSettings);
+
+    const listviewData = matchData.games.map((id, index) => {
+        return <MatchInfoSmall columns={columns} data={matchData.games[index]} filters={filters} />
+    })
 
     if(typeof matchid === 'undefined'){
         return(
             <div id="match-pane" className="match-pane">
                     <MatchListviewFilterModal id="filter-modal" header="Filter Matches" apply_onclick={() => setFilter(getFilterSettings())}></MatchListviewFilterModal>
                     <MatchesPaneHeader header="MATCHES" text="View All Of Your Matches" filter_icon="filter_white" filter_function={showFilterModal}/>
-                    <MatchesListview filters={filters}/>
+                    <Listview id="match" columns={columns}>
+                        {listviewData}
+                    </Listview>
             </div>
         )
     }else{
         return(
             <div className="App-content-home">
-                        <MatchesListview />
+                        <MatchInfoFull matchid={matchid} data={matchData.games[matchid - 1]}/>
             </div>
         )
     }
