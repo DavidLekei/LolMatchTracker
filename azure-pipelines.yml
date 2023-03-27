@@ -6,12 +6,12 @@
 trigger:
   branches:
     include:
-      - main
-      - develop
+    - main
+    - develop
   paths:
     include:
-      - WebApp/*
-      - azure-pipelines.yml
+    - WebApp/*
+    - azure-pipelines.yml
 
 pool:
   vmImage: ubuntu-latest
