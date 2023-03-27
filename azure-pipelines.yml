@@ -8,8 +8,8 @@ trigger:
     include:
       - main
       - develop
-    paths:
-      include:
+  paths:
+    include:
       - WebApp/*
       - azure-pipelines.yml
 
