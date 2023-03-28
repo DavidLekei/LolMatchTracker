@@ -21,7 +21,7 @@ steps:
   inputs:
     mavenPomFile: 'API/lolmatchtrackerapi/pom.xml'
     mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
+    javaHomeOption: 'JAVA_HOME_17_X64'
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
