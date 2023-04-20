@@ -4,4 +4,15 @@
     display:flex;
     flex-direction:column;
     align-items:center;
+    color:#ffffff;
+}
+
+.info-text{
+    text-align:start;
+    padding:10px;
+}
+
+.most-played-info{
+    display:flex;
+    flex-direction:row;
 }

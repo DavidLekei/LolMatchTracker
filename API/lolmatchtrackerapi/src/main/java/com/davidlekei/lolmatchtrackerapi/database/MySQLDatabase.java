@@ -1,16 +1,25 @@
 package com.davidlekei.lolmatchtrackerapi.database;
 
+import com.davidlekei.lolmatchtrackerapi.builders.data.game.MatchBuilder;
 import com.davidlekei.lolmatchtrackerapi.converters.data.game.MatchConverter;
+import com.davidlekei.lolmatchtrackerapi.converters.data.game.champions.ChampionConverter;
+import com.davidlekei.lolmatchtrackerapi.converters.data.game.items.ItemConverter;
+import com.davidlekei.lolmatchtrackerapi.converters.data.game.runes.RuneConverter;
 import com.davidlekei.lolmatchtrackerapi.data.DataObject;
 import com.davidlekei.lolmatchtrackerapi.data.game.Match;
+import com.davidlekei.lolmatchtrackerapi.data.game.SummonerSpell;
+import com.davidlekei.lolmatchtrackerapi.data.game.champions.Champion;
 import com.davidlekei.lolmatchtrackerapi.data.game.items.Item;
 import com.davidlekei.lolmatchtrackerapi.data.game.runes.Keystone;
 import com.davidlekei.lolmatchtrackerapi.data.game.runes.Rune;
+import com.davidlekei.lolmatchtrackerapi.data.game.runes.RuneExtra;
 import com.davidlekei.lolmatchtrackerapi.data.game.runes.RunePage;
 import com.davidlekei.lolmatchtrackerapi.exceptions.persistence.TransactionException;
 import org.hibernate.Transaction;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 //TODO: SQL Logging
 //TODO: Put shared constants into a static class, such as MAX_ITEMS = 7
@@ -23,6 +32,7 @@ public class MySQLDatabase implements Database
 	private final String PASSWORD = "password=";
 
 	private MatchConverter matchConverter;
+	private MatchBuilder matchBuilder;
 
 	private static MySQLDatabase INSTANCE;
 	private Connection connection;
@@ -35,6 +45,7 @@ public class MySQLDatabase implements Database
 			connection = DriverManager.getConnection(fullURL);
 
 			matchConverter = new MatchConverter();
+			matchBuilder = new MatchBuilder();
 		}
 		catch(SQLException e)
 		{
@@ -51,9 +62,71 @@ public class MySQLDatabase implements Database
 		return INSTANCE;
 	}
 
+	public ResultSet executeSelect(String query) throws SQLException
+	{
+		return connection.prepareStatement(query).executeQuery();
+	}
+
 	public void rollback(DataObject obj)
 	{
 		System.out.println("TODO: Implement rollback");
+	}
+
+	public Match getMatch(int id)
+	{
+		String query = "SELECT g.id, g.date_played, g.duration, g.champion_played, g.champion_against, g.item1, g.item2, g.item3, g.item4, g.item5, g.item6, g.trinket, g.kills, g.deaths, g.assists, g.outcome, g.vision_score," +
+				"rp.keystone, rp.primary_slot_1, rp.primary_slot_2, rp.primary_slot_3, rp.secondary_slot_1, rp.secondary_slot_2, rp.extra_slot_1, rp.extra_slot_2, rp.extra_slot_3," +
+				"g.MatchNotes, n.data, g.User, u.username, ss1.name AS summoner1, ss2.name AS summoner2" +
+				" FROM Game g " +
+				"JOIN RunePage rp on rp.id = g.RunePage " +
+				"JOIN Notes n on n.id = g.MatchNotes " +
+				"JOIN User u on u.id = g.User " +
+				"JOIN SummonerSpell ss1 on ss1.id = g.summoner1 " +
+				"JOIN SummonerSpell ss2 on ss2.id = g.summoner2 " +
+				"WHERE g.id = ?";
+		Match match = null;
+
+		try
+		{
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+
+			if(rs.next())
+			{
+				match = matchBuilder.buildFromResultSet(rs);
+			}
+		}
+		catch(SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+
+		return match;
+	}
+
+	public List<Match> getAllMatchesForUser(int userId)
+	{
+		List<Match> matches = new ArrayList<Match>();
+
+		String query = "SELECT * FROM Game g JOIN RunePage rp on g.RunePage = rp.id WHERE User = ?";
+
+		try
+		{
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, userId);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next())
+			{
+				matches.add(matchBuilder.buildFromResultSet(rs));
+			}
+		}
+		catch(SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+
+		return matches;
 	}
 
 	public Rune getRuneFromId(int id)
@@ -89,6 +162,235 @@ public class MySQLDatabase implements Database
 			e.printStackTrace();
 		}
 		return rune;
+	}
+
+	/*
+	CHAMPIONS
+	 */
+
+	public Champion[] getAllChampions()
+	{
+		String query = "SELECT * FROM Champion";
+
+		Champion[] champions = new Champion[this.getChampionCount()];
+		int championId;
+		String championName;
+
+		try
+		{
+			PreparedStatement ps = connection.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+
+			int count = 0;
+			while(rs.next())
+			{
+				championId = rs.getInt("id");
+				championName = rs.getString("name");
+				champions[count] = new Champion(championId, championName);
+				count++;
+			}
+		}
+		catch(SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+
+		return champions;
+	}
+
+	public int getChampionCount()
+	{
+		String query = "SELECT COUNT(id) AS numberOfChampions FROM Champion";
+		int count = 0;
+
+		try
+		{
+			PreparedStatement ps = connection.prepareStatement(query);
+			ResultSet rs = ps.executeQuery();
+
+			if(rs.next())
+			{
+				count = rs.getInt("numberOfChampions");
+			}
+		}
+		catch(SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+
+		return count;
+	}
+
+	/*
+	END OF CHAMPIONS
+	 */
+
+	public Item[] getAllItems()
+	{
+		String query = "SELECT * FROM Item";
+
+		Item[] items = new Item[this.getItemCount() + 1]; //Item table ID's start at 1
+
+		try
+		{
+			ResultSet rs = this.executeSelect(query);
+
+			int index = 1; //Item table ID's start at 1
+			while(rs.next())
+			{
+				items[index] = new Item(
+						rs.getInt("id"),
+						rs.getString("name")
+				);
+				index++;
+			}
+
+		}
+		catch(SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+
+		return items;
+	}
+
+	public int getItemCount()
+	{
+		String query = "SELECT COUNT(id) as itemCount FROM Item";
+		int itemCount = 0;
+
+		try
+		{
+			ResultSet rs = this.executeSelect(query);
+			if(rs.next())
+			{
+				itemCount = rs.getInt("itemCount");
+			}
+		}
+		catch(SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+
+		return itemCount;
+	}
+
+	public Rune[] getAllRunes()
+	{
+		String query = "SELECT r.id AS RuneID, r.name AS RuneName, r.keystone AS keystone, r.effect AS effect, rc.name as category FROM Rune r JOIN RuneCategory rc on r.category = rc.id";
+
+		Rune[] runes = new Rune[this.getRuneCount() + 1]; //Need to add 1 since the Rune table starts indexing ID values at 1
+		int keystone;
+
+		try
+		{
+			ResultSet rs = this.executeSelect(query);
+
+			int index = 1; //Start at 1 since the Rune table starts with ID = 1 (ie there is no ID = 0 in this table)
+			while(rs.next())
+			{
+				keystone = rs.getInt("keystone");
+
+				if(keystone == 0)
+				{
+					runes[index] = new Rune(
+							rs.getInt("RuneID"),
+							rs.getString("RuneName"),
+							rs.getString("category"),
+							rs.getString("effect")
+					);
+				}
+				else if(keystone == 1)
+				{
+					runes[index] = new Keystone(
+							rs.getInt("RuneID"),
+							rs.getString("RuneName"),
+							rs.getString("category"),
+							rs.getString("effect")
+					);
+				}
+				index++;
+			}
+
+		}
+		catch(SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+
+		return runes;
+	}
+
+	public int getRuneCount()
+	{
+		String query = "SELECT COUNT(id) as runeCount FROM Rune";
+		int runeCount = 0;
+
+		try
+		{
+			ResultSet rs = this.executeSelect(query);
+			if(rs.next())
+			{
+				runeCount = rs.getInt("runeCount");
+			}
+		}
+		catch(SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+
+		return runeCount;
+	}
+
+	public Rune[] getAllRuneExtras()
+	{
+		String query = "SELECT * FROM RuneExtra";
+
+		Rune[] extras = new RuneExtra[this.getRuneExtrasCount()];
+
+		try
+		{
+			ResultSet rs = this.executeSelect(query);
+
+			int index = 0;
+			while(rs.next())
+			{
+				extras[index] = new RuneExtra(
+						rs.getInt("id"),
+						rs.getString("name"),
+						rs.getString("bonus")
+				);
+				index++;
+			}
+
+		}
+		catch(SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+
+		return extras;
+	}
+
+	public int getRuneExtrasCount()
+	{
+		String query = "SELECT COUNT(id) as extrasCount FROM RuneExtra";
+		int extrasCount = 0;
+
+		try
+		{
+			ResultSet rs = this.executeSelect(query);
+			if(rs.next())
+			{
+				extrasCount = rs.getInt("extrasCount");
+			}
+		}
+		catch(SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+
+		return extrasCount;
 	}
 
 	//Returns the ID if the Rune Page was successfully persisted to the DB.
@@ -248,5 +550,55 @@ public class MySQLDatabase implements Database
 		{
 			throw new TransactionException(this, match.getRunePage());
 		}
+	}
+
+	public SummonerSpell[] getAllSummonerSpells()
+	{
+		String query = "SELECT * FROM SummonerSpell";
+		SummonerSpell[] summonerSpells = new SummonerSpell[this.getSummonerSpellCount()];
+
+		try
+		{
+			ResultSet rs = executeSelect(query);
+			int index = 0;
+			while(rs.next())
+			{
+				summonerSpells[index] = new SummonerSpell(
+						rs.getInt("id"),
+						rs.getString("name"),
+						rs.getFloat("cooldown"),
+						rs.getInt("effect_range"),
+						rs.getString("effect")
+				);
+				index++;
+			}
+		}
+		catch(SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+
+		return summonerSpells;
+	}
+
+	private int getSummonerSpellCount()
+	{
+		String query = "SELECT COUNT(id) AS count FROM SummonerSpell";
+		int count = 0;
+
+		try
+		{
+			ResultSet rs = executeSelect(query);
+			if(rs.next())
+			{
+				count = rs.getInt("count");
+			}
+		}
+		catch(SQLException sqle)
+		{
+			sqle.printStackTrace();
+		}
+
+		return count;
 	}
 }

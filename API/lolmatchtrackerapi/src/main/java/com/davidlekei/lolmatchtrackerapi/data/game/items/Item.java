@@ -12,6 +12,12 @@ public class Item implements GameItem
 
 	}
 
+	public Item(int id, String name)
+	{
+		this.id = id;
+		this.name = name;
+	}
+
 	public int getId() {
 		return id;
 	}

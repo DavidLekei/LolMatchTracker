@@ -42,9 +42,8 @@ class NotesSectionHeader extends Component{
         })
         let notes_section = document.getElementById(this.props.associated_notes_id);
         
-        notes_section.className = `notes-section + ${this.state.expanded ? "hidden" : "visible"}`;
-          
-        }
+        notes_section.className = `notes-section ${this.state.expanded ? "hidden" : "visible"}`;          
+    }
 }
 
 export default NotesSectionHeader;

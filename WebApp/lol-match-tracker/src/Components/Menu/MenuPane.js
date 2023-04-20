@@ -31,6 +31,16 @@ class MenuPane extends Component{
                             <MenuEntry icon="notes" text="Notes" />
                         </div>
                     </Link>
+                    <Link to="/canvas">
+                        <div className = "App-content-menu-link">
+                            <MenuEntry icon="canvas" text="Canvas" />
+                        </div>
+                    </Link>
+                    <Link to="/journey">
+                        <div className= "App-content-menu-link">
+                            <MenuEntry icon="journey" text="Journey"></MenuEntry>
+                        </div>
+                    </Link>
                     <Link to ="/notes">
                         <div className="App-content-menu-link">
                             <MenuEntry icon="settings" text="Settings" />
@@ -39,11 +49,6 @@ class MenuPane extends Component{
                     <Link to ="/notes">
                         <div className="App-content-menu-link">
                             <MenuEntry icon="admin" text="Admin" />
-                        </div>
-                    </Link>
-                    <Link to="/canvas">
-                        <div className = "App-content-menu-link">
-                            <MenuEntry icon="canvas" text="Canvas" />
                         </div>
                     </Link>
                 </div>

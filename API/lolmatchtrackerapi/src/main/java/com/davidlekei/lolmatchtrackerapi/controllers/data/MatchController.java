@@ -6,6 +6,7 @@ import com.davidlekei.lolmatchtrackerapi.controllers.Controller;
 
 import com.davidlekei.lolmatchtrackerapi.converters.data.game.champions.ChampionConverter;
 import com.davidlekei.lolmatchtrackerapi.converters.data.game.items.ItemConverter;
+import com.davidlekei.lolmatchtrackerapi.converters.data.game.runes.RuneConverter;
 import com.davidlekei.lolmatchtrackerapi.data.game.Match;
 import com.davidlekei.lolmatchtrackerapi.data.game.champions.Champion;
 import com.davidlekei.lolmatchtrackerapi.data.game.items.Item;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 //TODO: Implement new features
 @RestController
@@ -28,17 +31,26 @@ public class MatchController implements Controller
 	private final int MAX_ITEMS = 7;
 	private final int MAX_NON_TRINKET_ITEMS = 6;
 
-	private final MatchBuilder matchBuilder = MatchBuilder.get();
-	private final RunePageBuilder runePageBuilder = RunePageBuilder.get();
-	private final ChampionConverter championConverter = new ChampionConverter();
-	private final ItemConverter itemConverter = new ItemConverter();
 	private static Database database = DatabaseConnection.get().getDatabase();
+	private final RunePageBuilder runePageBuilder = RunePageBuilder.get();
+	private final ChampionConverter championConverter = ChampionConverter.get();
+	private final ItemConverter itemConverter = ItemConverter.get();
+	private final MatchBuilder matchBuilder = new MatchBuilder();
 
 	/*********************************************************************************
 		GET methods
 	**********************************************************************************/
-	@GetMapping("/match")
-	public Match getMatchFromId(@RequestParam(value="matchId") int id)
+	@CrossOrigin
+	@GetMapping("/matches/test/{id}")
+	public Match testGetMatchFromId(@PathVariable int id)
+	{
+		Database db = DatabaseConnection.get().getDatabase();
+		return db.getMatch(id);
+	}
+
+	@CrossOrigin
+	@GetMapping("/matches/{id}")
+	public Match getMatchFromId(@PathVariable int id)
 	{
 		System.out.println("Received a GET request for Match with ID: " + id);
 		Match match;
@@ -63,8 +75,8 @@ public class MatchController implements Controller
 		duration = "20:00:00";
 
 		//Get champ information
-		championPlayed = championConverter.convert(0);
-		championAgainst = championConverter.convert(1);
+		championPlayed = championConverter.convert(2);
+		championAgainst = championConverter.convert(157);
 
 		//Get and set items into the Items array
 		items = new Item[MAX_NON_TRINKET_ITEMS];
@@ -109,9 +121,19 @@ public class MatchController implements Controller
 		return match;
 	}
 
+	@CrossOrigin
+	@GetMapping("/matches/user/{userId}")
+	public List<Match> getAllMatchesForUser(@PathVariable int userId)
+	{
+		System.out.println("[INFO] - Request for matches recieved for user: " + userId);
+		List<Match> matches = database.getAllMatchesForUser(userId);
+		return matches;
+	}
+
 	/*********************************************************************************
 	 POST methods
 	 **********************************************************************************/
+	@CrossOrigin
 	@PostMapping("/match")
 	@ResponseStatus(HttpStatus.OK)
 	@ExceptionHandler(MatchExceptionHandler.class)
@@ -134,5 +156,13 @@ public class MatchController implements Controller
 	public void printDebug()
 	{
 		System.out.println("MatchController - DEBUG - ");
+	}
+
+	/*********************************************************************************
+	 PRIVATE BUILDER methods
+	 **********************************************************************************/
+	private Match buildMatch()
+	{
+		return null;
 	}
 }
