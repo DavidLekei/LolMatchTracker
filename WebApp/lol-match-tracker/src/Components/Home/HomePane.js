@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Link} from 'react-router-dom'
 
 import MatchInfoSmall from '../Match/MatchInfoSmall';
+import StatsOverview from './StatsOverview'
 
 import './HomePane.css'
 
@@ -58,6 +59,7 @@ class HomePane extends Component{
         return(
             <div className="App-content-home">
                 <div><h2>Your Stats</h2></div>
+                <StatsOverview></StatsOverview>
                 <div><h2>Recent Matches</h2></div>
                 <MatchInfoSmall
                     data={matchData.games[0]}               

@@ -1,0 +1,289 @@
+.journey {
+    font-family: sans-serif;
+    text-align: center;
+    width:100%;
+    height:100%;
+    display: flex;
+    align-items: center;
+    background-color:#ffffff;
+    overflow:auto;
+    padding-top:55px;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+.journey-margin{
+  margin-left:15px;
+  margin-right:15px;
+}
+
+/*TODO: Figure out why I had to add 30vh margin-top padding to get the text pushed down below the "Toolbar". It shouldn't be doing this. */
+.journey-header-text{
+  /* margin-top: 10%; */
+  font-size:42px;
+}
+
+.journey-header-line{
+  max-height:10px;
+}
+
+.journey-section{
+  width:100%;
+  min-height:200px;
+}
+
+.graph-x-axis{
+  margin-left:55px;
+  margin-right:55px;
+}
+
+.graph-date{
+  padding:10px;
+  transform: rotate(-45deg);
+}
+
+.graph-date-line{
+  justify-content:space-evenly;
+}
+
+.journey-step-container{
+  display:flex;
+  flex-direction:column;
+  width:100%;
+}
+
+.journey-step{
+  width:50%;
+  height:auto;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  text-align:center;
+  padding-top:15px;
+  padding-bottom:15px;
+}
+
+.journey-step-left{
+  justify-content:start;
+  padding-left:55px;
+}
+
+.journey-step-right{
+  justify-content:end;
+  padding-right:55px;
+}
+
+.journey-data{
+  color:green;
+}
+
+.border-path{
+  width:100%;
+  height:100%;
+}
+
+
+/* JourneyLine classes */
+.journey-line-section{
+  width:100%;
+  height:200px;
+}
+
+.stroke-black{
+  stroke:black;
+  animation: path-color 4s linear;
+  animation-fill-mode:both;
+}
+
+.rotated{
+  transform:rotateY(180deg);
+}
+
+
+/* Animations */
+
+.appears{
+  animation: appear 1s linear;
+  animation-fill-mode:both;
+}
+
+.delayed-2{
+  animation-delay:2s;
+}
+
+.delayed-4{
+  animation-delay:4s;
+}
+
+.delayed-6{
+  animation-delay:6s;
+}
+
+.journey-line-animation-delay-0{
+  transition:stroke 2000ms;
+  stroke-dasharray:2000;
+  stroke-dashoffset:2000;
+  animation:bottom-to-top-fadein 6s linear forwards;
+  animation-fill-mode:both;
+}
+
+.journey-line-animation-delay-2{
+  transition:stroke 2000ms;
+  stroke-dasharray:2000;
+  stroke-dashoffset:2000;
+  animation:bottom-to-top-fadein 6s linear forwards;
+  animation-fill-mode:both;
+  animation-delay:2s;
+}
+
+.journey-line-animation-delay-4{
+  transition:stroke 2000ms;
+  stroke-dasharray:2000;
+  stroke-dashoffset:2000;
+  animation:bottom-to-top-fadein 6s linear forwards;
+  animation-fill-mode:both;
+  animation-delay:4s;
+}
+
+.lr-fadein{
+  animation:left-right-fadein 4s linear;
+  animation-fill-mode:both;
+}
+
+.blue-gradient-transition{
+  animation:blue-gradient 2s linear;
+  animation-fill-mode:both;
+}
+
+@keyframes appear{
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
+}
+
+@keyframes draw-path{
+  to{
+    stroke-dashoffset:0;
+  }
+}
+
+@keyframes path-color{
+  0%{
+    stroke:black;
+  }
+
+  50%{
+    stroke:#00d5ff;
+  }
+
+  100%{
+    stroke:black;
+  }
+}
+
+@keyframes blue-gradient{
+  0%{
+    color:rgba(2,0,36,1);
+    /* background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%); */
+  }
+
+  50%{
+    color:rgba(9,9,121,1);
+  }
+
+  100%{
+    color:rgba(0,212,255,1);
+  }
+
+  /* 75%{
+    color:rgba(9,9,121,1);
+  }
+
+  100%{
+    color:rgba(2,0,36,1);
+  } */
+}
+
+@keyframes left-right-fadein{
+  from{
+      margin-right:100%;
+  }
+
+  to{
+      margin-right:0%;
+  }
+}
+
+/*Generic classes below */
+  .row{
+    display: flex;
+    flex-direction:row;
+  }
+
+  .column{
+    display: flex;
+    flex-direction:column;
+  }
+
+  .start-left{
+    align-items:start;
+  }
+
+  .red-outline{
+    outline:2px solid red;
+  }
+
+  .yellow-outline{
+    outline:2px solid yellow;
+  }
+
+  .blue-outline{
+    outline:2px solid blue;
+  }
+
+  .green-outline{
+    outline:2px solid green;
+  }
+
+  .black-outline{
+    outline:2px solid black;
+  }
+
+  .bold-text{
+    font-weight:bold;
+  }
+
+  .underline{
+    text-decoration:underline;
+  }
+
+  .evenly-spaced{
+    justify-content:space-evenly;
+  }
+
+  .no-margin{
+    margin:0;
+  }
+
+  .align-left{
+    align-items:start;
+  }
+
+  .align-right{
+    align-items:end;
+  }
+
+  .full-width{
+    width:100%;
+  }
+
+  .font-large{
+    font-size:34px;
+  }

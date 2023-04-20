@@ -1,0 +1,10 @@
+.learning-goals-container{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.learning-goals-fg{
+    /*width:max-content;
+    /*margin-left:45%; /*I hate this, but idk how to fix it otherwise. I want everthing in the center of the page, but aligned on their left side */
+}

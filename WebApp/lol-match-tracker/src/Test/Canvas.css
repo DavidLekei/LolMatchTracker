@@ -1,12 +1,139 @@
 .canvas {
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
+    font-family: sans-serif;
+    text-align: center;
     width:100%;
-    height:100%;
-    min-width:100%;
+    heght:100%;
     min-height:100%;
-    background:#ffffff;
-    outline:1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#ffffff;
+    overflow:auto;
+    padding-top:55px;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .journey-line-section{
+    width:100%;
+    height:200px;
+    /* animation:bottom-to-top-fadein 3s linear;
+    animation-fill-mode:both; */
+  }
+
+/* Animations */
+.lr-fadein{
+  animation:left-right-fadein 4s linear;
+  animation-fill-mode:both;
 }
+
+.blue-gradient-transition{
+  animation:blue-gradient 4s linear;
+  animation-fill-mode:both;
+  animation-iteration-count:infinite;
+}
+
+@keyframes draw-path{
+  to{
+    stroke-dashoffset:0;
+  }
+}
+
+@keyframes blue-gradient{
+  0%{
+    color:rgba(2,0,36,1);
+    /* background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%); */
+  }
+
+  25%{
+    color:rgba(9,9,121,1);
+  }
+
+  50%{
+    color:rgba(0,212,255,1);
+  }
+
+  75%{
+    color:rgba(9,9,121,1);
+  }
+
+  100%{
+    color:rgba(2,0,36,1);
+  }
+}
+
+@keyframes bottom-to-top-fadein{
+  to{
+    stroke-dashoffset:0;
+  }
+}
+
+@keyframes left-right-fadein{
+  from{
+      margin-right:100%;
+  }
+
+  to{
+      margin-right:0%;
+  }
+}
+
+/*Generic classes below */
+  .row{
+    display: flex;
+    flex-direction:row;
+  }
+
+  .column{
+    display: flex;
+    flex-direction:column;
+  }
+
+  .flex-center{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .start-left{
+    align-items:start;
+  }
+
+  .red-outline{
+    outline:2px solid red;
+  }
+
+  .yellow-outline{
+    outline:2px solid yellow;
+  }
+
+  .blue-outline{
+    outline:2px solid blue;
+  }
+
+  .green-outline{
+    outline:2px solid green;
+  }
+
+  .black-outline{
+    outline:2px solid black;
+  }
+
+  .bold-text{
+    font-weight:bold;
+  }
+
+  .underline{
+    text-decoration:underline;
+  }
+
+  .evenly-spaced{
+    justify-content:space-evenly;
+  }
+
+  .no-margin{
+    margin:0;
+  }

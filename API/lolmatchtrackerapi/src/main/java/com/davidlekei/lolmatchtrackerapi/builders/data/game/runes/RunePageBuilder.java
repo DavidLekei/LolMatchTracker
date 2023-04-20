@@ -22,7 +22,7 @@ public class RunePageBuilder implements Builder
 		if(INSTANCE == null)
 		{
 			INSTANCE = new RunePageBuilder();
-			converter = new RuneConverter();
+			converter = RuneConverter.get();
 		}
 
 		INSTANCE.start();

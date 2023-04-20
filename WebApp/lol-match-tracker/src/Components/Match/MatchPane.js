@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import { useParams } from "react-router-dom";
 
@@ -9,7 +9,6 @@ import MatchListviewFilterModal from './MatchListviewFilterModal'
 import Listview from '../Common/Listview/Listview'
 import MatchInfoSmall from './MatchInfoSmall';
 import MatchInfoFull from './MatchInfoFull'
-
 
 function getMatchData(){
     let mockData ={games: [
@@ -139,9 +138,6 @@ function getFilterSettings(){
 //TODO: Match data should be retrieved from here I think... lol even tho we moved it out of here orginally xD
 export default function MatchPane(){
 
-    let {matchid} = useParams();
-    let matchData = getMatchData();
-
     let columns = [
         "Date Played",
         "Champion",
@@ -151,27 +147,50 @@ export default function MatchPane(){
     ]
  
     const [filters, setFilter] = useState(filterSettings);
+    const [isLoading, setIsLoading] = useState(true);
+    const [matchData, setMatchData] = useState({games: []});
 
-    const listviewData = matchData.games.map((id, index) => {
-        return <MatchInfoSmall columns={columns} data={matchData.games[index]} filters={filters} />
-    })
 
-    if(typeof matchid === 'undefined'){
+    //TODO: This should probably call a "getBasicMatchData" type of endpoint, that only gets data for the columns required, instead of ALL data, but that's an optimization we can make in the future
+    useEffect(
+        () => {
+                async function getMatchData(){
+                    await fetch("http://localhost:8080/matches/user/1").then((res) => {
+                        if(res.ok)
+                        {
+                            res.json().then((data) => {
+                                setMatchData(data);
+                                setIsLoading(false);
+                            });
+                        }
+                    })
+                }
+            getMatchData();   
+            }, []
+    );
+
+    if(isLoading)
+    {
+        return(
+            <h1>Loading</h1>
+        )
+    }
+    else{
         return(
             <div id="match-pane" className="match-pane">
                     <MatchListviewFilterModal id="filter-modal" header="Filter Matches" apply_onclick={() => setFilter(getFilterSettings())}></MatchListviewFilterModal>
                     <MatchesPaneHeader header="MATCHES" text="View All Of Your Matches" filter_icon="filter_white" filter_function={showFilterModal}/>
                     <Listview id="match" columns={columns}>
-                        {listviewData}
+                        {
+                            //TODO: Filter should probably be applied HERE somehow, not in the MatchInfoSmall class
+                            //TODO: Or implement a common filter in the Listview.js file
+                            matchData.map((item) => {
+                                return <MatchInfoSmall columns={columns} data={item} filters={filters}/>
+                            })
+                        }
                     </Listview>
             </div>
-        )
-    }else{
-        return(
-            <div className="App-content-home">
-                        <MatchInfoFull matchid={matchid} data={matchData.games[matchid - 1]}/>
-            </div>
-        )
+            )
     }
 }
 

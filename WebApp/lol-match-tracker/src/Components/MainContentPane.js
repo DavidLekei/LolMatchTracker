@@ -2,22 +2,24 @@ import React, {Component} from 'react';
 
 import {
     BrowserRouter as Router,
-    Routes,
-    Route,
-    Link,
-    withRouter
   } from "react-router-dom";
 
 import MenuPane from './Menu/MenuPane'
-import MatchPane from './Match/MatchPane'
-import NotesPane from './Notes/NotesPane'
-import HomePane from './Home/HomePane'
 import DisplayPane from './DisplayPane'
 
 import './MainContentPane.css';
+import LandingPage from './LandingPage/LandingPage'
 
 class MainContentPane extends Component{
     render(){
+
+        if(this.props.loggedIn == false)
+        {
+            return( 
+                <LandingPage />
+            )
+        }
+
         return(
             <div className="App-content-main">
             <Router>

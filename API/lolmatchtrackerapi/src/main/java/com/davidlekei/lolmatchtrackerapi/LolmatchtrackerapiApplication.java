@@ -11,9 +11,10 @@ public class LolmatchtrackerapiApplication {
 
 	public static void main(String[] args)
 	{
-		SpringApplication.run(LolmatchtrackerapiApplication.class, args);
+		DataLoader loader = new DataLoader();
+		loader.loadAll();
 
-		System.out.println("Does this run");
+		SpringApplication.run(LolmatchtrackerapiApplication.class, args);
 	}
 
 }
