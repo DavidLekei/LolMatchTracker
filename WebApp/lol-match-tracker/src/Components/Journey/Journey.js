@@ -1,6 +1,7 @@
 import {React, Component} from 'react';
 import './Journey.css';
 
+import StartJourneyPage from './StartJourneyPage'
 import JourneyLine from './JourneyLine'
 
 class Journey extends Component{
@@ -16,8 +17,13 @@ class Journey extends Component{
     this.getGraphXValues = this.getGraphXValues.bind(this);
     this.getGraphYValues = this.getGraphYValues.bind(this);
     this.getPolylinePoints = this.getPolylinePoints.bind(this);
+    this.userHasActiveJourney = this.userHasActiveJourney.bind(this);
   }
 
+  userHasActiveJourney()
+  {
+    return false;
+  }
 
   //TODO: Think about maybe doing some math such as:
   //Iron = 0
@@ -178,6 +184,12 @@ class Journey extends Component{
   }
 
   render(){   
+
+    if(!this.userHasActiveJourney())
+    {
+      return <StartJourneyPage />
+    }
+
     const journeyData = this.getData()
 
     const xSpacing = this.GRAPH_WIDTH/(journeyData.points.length + 1)
@@ -194,21 +206,6 @@ class Journey extends Component{
     const circles = journeyData.points.map((id, index) => {
       return <circle cx={xValues[index]} cy={yValues[index]} r="5" fill="black"></circle>
     });
-
-    // const observer = new IntersectionObserver(entries => {
-    //     entries.forEach(entry => {
-    //       if(entry.isIntersecting){
-    //         entry.target.classList.add("appears")
-    //       }
-    //     })
-    // })
-
-
-    console.log(document.getElementById("journey-step-1"))
-
-    // observer.observe(document.getElementById("journey-step-1"))
-    // observer.observe(document.getElementById("journey-step-2"))
-    // observer.observe(document.getElementById("journey-step-3"))
 
     return (
     <div className="journey column no-scrollbar">
