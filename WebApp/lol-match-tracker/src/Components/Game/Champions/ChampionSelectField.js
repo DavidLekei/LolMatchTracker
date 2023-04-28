@@ -13,18 +13,25 @@ export default function ChampionSelectField(props){
         }
     });
 
-    console.log(props.id);
+    let addButton;
 
-    return <div className = "modal-filter-dropdown-container"><Autocomplete
-        id={props.id}
-        options={options.sort((a,b) => a.firstLetter.localeCompare(b.firstLetter))}
-        groupBy={(option) => option.firstLetter}
-        getOptionLabel={(option) => option.name}
-        sx={{ width: 200 }}
-        renderInput={(params) => <TextField {...params} label="Champion" />}
-    />
-    <input type="button" label="+"></input>
-    </div>
+    if(props.button === true)
+    {
+        addButton = <input type="button" label="+"></input>
+    }
+
+    return (
+        <div className = "modal-filter-dropdown-container"><Autocomplete
+            id={props.id}
+            options={options.sort((a,b) => a.firstLetter.localeCompare(b.firstLetter))}
+            groupBy={(option) => option.firstLetter}
+            getOptionLabel={(option) => option.name}
+            sx={{ width: 200 }}
+            renderInput={(params) => <TextField {...params} label={props.label} />}
+        />
+        {addButton}
+        </div>
+    )
 }
 
 const champions = [
