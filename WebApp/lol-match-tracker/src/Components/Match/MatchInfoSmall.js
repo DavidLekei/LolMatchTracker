@@ -51,11 +51,11 @@ class MatchInfoSmall extends Component{
         return(
             <tr id={`match-${this.props.data.matchid}`} className={`lv-row lv-data`}>
                 <Link className={`small ${ this.props.data.outcome }`} to={`/matches/` + this.props.data.id}>
+                    <td className={`lv-item lv-outcome match-outcome-${this.props.data.outcome}`}>{this.props.data.outcome}</td>
                     <td className="lv-item lv-date-played">{this.props.data.datePlayed}</td>
                     <td className="lv-item lv-champ">{this.props.data.championPlayed.name}</td>
                     <td className="lv-item lv-champ-against">{this.props.data.championAgainst.name}</td>
                     <td className="lv-item lv-kda">{this.props.data.kda}</td>
-                    <td className={`lv-item lv-outcome match-outcome-${this.props.data.outcome}`}>{this.props.data.outcome}</td>
                 </Link>
             </tr>
         )

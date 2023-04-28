@@ -73,7 +73,18 @@ public class MatchBuilder implements Builder
 
 	public MatchBuilder datePlayed(Timestamp date)
 	{
-		this.match.setDatePlayed(date);
+		//TODO: Have the MatchBuilder take configuration data for how to display dates and times (possibly per user preference)
+		//For now, default to just the date, not the time
+		if(date == null)
+		{
+			this.match.setDatePlayed(""); //TODO: Handle this better
+		}
+		else
+		{
+			String dateString = date.toString().split("T")[0];
+			this.match.setDatePlayed(dateString);
+		}
+		
 		return this;
 	}
 
