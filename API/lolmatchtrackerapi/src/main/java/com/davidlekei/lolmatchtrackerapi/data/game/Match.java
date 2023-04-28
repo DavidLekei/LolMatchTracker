@@ -16,7 +16,7 @@ public class Match implements DataObject
 {
     //TODO: These should be changed from int's to their respective Data classes
     private int id;
-    private Timestamp datePlayed;
+    private String datePlayed;
     private String duration;
     private String riot_id;
     private Champion championPlayed;
@@ -37,7 +37,7 @@ public class Match implements DataObject
         return id;
     }
 
-    public Timestamp getDatePlayed() {
+    public String getDatePlayed() {
         return datePlayed;
     }
 
@@ -75,7 +75,7 @@ public class Match implements DataObject
 
     public void setId(int id) { this.id = id; }
 
-    public void setDatePlayed(Timestamp datePlayed) { this.datePlayed = datePlayed; }
+    public void setDatePlayed(String datePlayed) { this.datePlayed = datePlayed; }
 
     public void setDuration(String duration) { this.duration = duration; }
 

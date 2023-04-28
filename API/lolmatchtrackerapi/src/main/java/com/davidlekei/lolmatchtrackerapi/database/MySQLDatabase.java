@@ -490,7 +490,7 @@ public class MySQLDatabase implements Database
 
 		itemIds = new int[6]; //TODO: Change to constant
 
-		datePlayed = match.getDatePlayed();
+		datePlayed = Timestamp.valueOf(match.getDatePlayed());
 		duration = match.getDuration();
 
 		championPlayedId = match.getChampionPlayed().getId();

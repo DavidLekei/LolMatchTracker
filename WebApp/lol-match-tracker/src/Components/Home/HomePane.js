@@ -21,33 +21,42 @@ class HomePane extends Component{
         let mockData ={games: [
             {
                 matchid:1,
-                date_played:"Today",
+                datePlayed:"4/27/2023",
                 duration:"30:00",
-                champion:"Viktor",
-                outcome:"loss",
-                kills:4,
-                deaths:7,
-                assists:10
+                championPlayed:{
+                    name: "Viktor",
+                },
+                championAgainst:{
+                    name:"Syndra",
+                },
+                outcome:"Loss",
+                kda: "4/7/10"
             },
             {
                 matchid:2,
-                date_played:"3/3/2023",
+                datePlayed:"3/3/2023",
                 duration:"33:28",
-                champion:"Taliyah",
-                outcome:"win",
-                kills:12,
-                deaths:4,
-                assists:16
+                championPlayed:{
+                    name:"Taliyah",
+                },
+                championAgainst:{
+                    name:"Yasuo",
+                },
+                outcome:"Win",
+                kda: "12/4/16"
             },
             {
                 matchid:3,
-                date_played:"2/28/2023",
+                datePlayed:"2/28/2023",
                 duration:"27:23",
-                champion:"Ahri",
-                outcome:"win",
-                kills:8,
-                deaths:1,
-                assists:8
+                championPlayed:{ 
+                    name:"Ahri",
+                },
+                championAgainst:{
+                    name:"Zed",
+                },
+                outcome:"Win",
+                kda:"8/2/14"
             }
         ]}
 

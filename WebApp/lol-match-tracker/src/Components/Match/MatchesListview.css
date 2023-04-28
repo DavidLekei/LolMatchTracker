@@ -62,3 +62,11 @@
 .blurred{
     filter: blur(5px);
 }
+
+.match-outcome-Win{
+    color:green;
+}
+
+.match-outcome-Loss{
+    color:red;
+}
