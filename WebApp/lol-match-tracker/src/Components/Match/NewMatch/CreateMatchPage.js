@@ -7,6 +7,8 @@ import DateTimeCalendar from './DateTimeCalendar'
 
 //Local imports
 import ChampionSelectField from '../../Game/Champions/ChampionSelectField'
+import SummonerSpellSelection from '../../Match/NewMatch/SummonerSpellSelection'
+import RuneSelection from '../../Match/NewMatch/RuneSelection'
 
 export default function CreateMatchPage(props){
 
@@ -15,9 +17,10 @@ export default function CreateMatchPage(props){
             display: "flex",
             flexDirection:"column",
             width: "100%",
-            minHeight:"92%",
+            minHeight:"50vh",
             backgroundColor: "white",
-            marginBottom:"50px",
+            overflow:"auto",
+            paddingBottom:"50px",
         },
         block: {
             display:"flex",
@@ -71,6 +74,12 @@ export default function CreateMatchPage(props){
 
             <div style={pageStyles.block}>
                 <div style={pageStyles.column}>
+                    <h2>K/D/A</h2>
+                </div>
+            </div>
+
+            <div style={pageStyles.block}>
+                <div style={pageStyles.column}>
                     <h2>Build</h2>
                     <div style={pageStyles.row}>
                         <p>Item 1</p>
@@ -81,6 +90,16 @@ export default function CreateMatchPage(props){
                         <p>Item 6</p>
                         <p>Trinket</p>
                     </div>
+                </div>
+            </div>
+
+            <RuneSelection />
+
+            <SummonerSpellSelection />
+
+            <div style={pageStyles.block}>
+                <div style={pageStyles.column}>
+                    <Button variant="contained" color="success">Add</Button>
                 </div>
             </div>
         </div>

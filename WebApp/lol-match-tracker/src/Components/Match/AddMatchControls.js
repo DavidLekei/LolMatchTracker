@@ -16,6 +16,7 @@ class AddMatchControls extends Component{
                 <Link className={``} to={`/matches/new`}>
                     <Button variant="contained" color="success">Add Match</Button>
                 </Link>
+                <Button variant="contained" style={{marginLeft:"15px"}}>Import from Riot</Button>
             </div>
         )
     }
