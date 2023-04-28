@@ -8,7 +8,6 @@ import MatchesPaneHeader from './MatchesPaneHeader'
 import MatchListviewFilterModal from './MatchListviewFilterModal'
 import Listview from '../Common/Listview/Listview'
 import MatchInfoSmall from './MatchInfoSmall';
-import MatchInfoFull from './MatchInfoFull'
 
 function getMatchData(){
     let mockData ={games: [

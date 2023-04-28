@@ -25,6 +25,7 @@ class DisplayPane extends Component{
                     <Route exact path="/home" element={<HomePane />} />
                     <Route path= "/matches" element={<MatchPane />} />
                     <Route path="/matches/:matchid?" element={<MatchInfoFull />} />
+                    <Route path="/matches/new" element={<Canvas />} />
                     <Route exact path="/notes" element={<NotesPane />}/>
                     <Route path="/account" />
                     <Route path="/about" />
