@@ -52,17 +52,17 @@ export default function RuneSelection(props){
                 <h2>Runes</h2>
                 <div style={styles.runeSelection}>
                     <div style={styles.primaryRuneSection}>
-                        <RuneTypes />
+                        <RuneTypes id="primary-rune-types"/>
                         <RuneRow type="keystones" />
-                        <RuneRow type="primary"/>
-                        <RuneRow type="primary"/>
-                        <RuneRow type="primary"/>
+                        <RuneRow type="primary" rowNumber="1"/>
+                        <RuneRow type="primary" rowNumber="2"/>
+                        <RuneRow type="primary" rowNumber="3"/>
                     </div>
                     <div style={styles.secondaryRuneSection}>
                         <RuneTypes />
-                        <RuneRow type="secondary"/>
-                        <RuneRow type="secondary"/>
-                        <RuneRow type="secondary"/>
+                        <RuneRow type="secondary" rowNumber="1"/>
+                        <RuneRow type="secondary" rowNumber="2"/>
+                        <RuneRow type="secondary" rowNumber="3"/>
                     </div>
                 </div>
             </div>
