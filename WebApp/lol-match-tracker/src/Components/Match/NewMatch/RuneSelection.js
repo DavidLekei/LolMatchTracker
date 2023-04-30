@@ -51,8 +51,8 @@ export default function RuneSelection(props){
         }
     }
 
-    const [primaryCategory, changePrimary] = useState();
-    const [secondaryCategory, changeSecondary] = useState();
+    const [primaryCategory, changePrimary] = useState("Precision");
+    const [secondaryCategory, changeSecondary] = useState("");
 
     //let primaryCategory = "Precision";
     //let secondaryCategory = "Inspiration";
@@ -63,8 +63,10 @@ export default function RuneSelection(props){
                 <h2>Runes</h2>
                 <div style={styles.runeSelection}>
                     <div style={styles.primaryRuneSection}>
-                        <RuneTypes id="primary-rune-types" onclick={changePrimary2}/>
-                        <RuneOptions type="primary" category={"Precision"}/>
+                        <RuneTypes id="primary-rune-types" onclick={(category) => {
+                            changePrimary(category)
+                    }}/>
+                        <RuneOptions type="primary" category={primaryCategory}/>
                     </div>
                     <div style={styles.secondaryRuneSection}>
                         <RuneTypes onclick={changePrimary2}/>

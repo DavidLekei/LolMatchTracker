@@ -4,12 +4,11 @@ import './Rune.css'
 
 export default function Rune(props){
 
-    console.log("Name: ", props)
+        let name = props.name.replaceAll(" ", "");
 
         return(
             <div id={props.id} className="rune">
-                {props.name}
+                <img src={`/game/perk-images/Styles/${props.category}/${name}/${name}.png`} id="Precision"></img>
             </div>  
         )
-
 }
