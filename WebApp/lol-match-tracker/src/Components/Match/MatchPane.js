@@ -138,10 +138,10 @@ function getFilterSettings(){
 export default function MatchPane(){
 
     let columns = [
-        "Outcome",
-        "Date Played",
         "Champion",
         "Against",
+        "Outcome",
+        "Date Played",
         "K/D/A",
     ]
  
