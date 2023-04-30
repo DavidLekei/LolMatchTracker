@@ -1,3 +1,7 @@
+.rune{
+    cursor:pointer;
+}
+
 .selected {
-    font-weight:bold;
+    outline:2px solid black;
 }

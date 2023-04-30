@@ -1,7 +1,12 @@
-import {React} from 'react'
+import {React, useState} from 'react'
 
 import RuneTypes from './RuneTypes'
-import RuneRow from './RuneRow'
+import RuneOptions from './RuneOptions'
+
+
+function changePrimary2(){
+    console.log("changePrimary()");
+}
 
 export default function RuneSelection(props){
 
@@ -46,23 +51,24 @@ export default function RuneSelection(props){
         }
     }
 
+    const [primaryCategory, changePrimary] = useState();
+    const [secondaryCategory, changeSecondary] = useState();
+
+    //let primaryCategory = "Precision";
+    //let secondaryCategory = "Inspiration";
+
     return(
         <div style={styles.block}>
             <div style={styles.column}>
                 <h2>Runes</h2>
                 <div style={styles.runeSelection}>
                     <div style={styles.primaryRuneSection}>
-                        <RuneTypes id="primary-rune-types"/>
-                        <RuneRow type="keystones" />
-                        <RuneRow type="primary" rowNumber="1"/>
-                        <RuneRow type="primary" rowNumber="2"/>
-                        <RuneRow type="primary" rowNumber="3"/>
+                        <RuneTypes id="primary-rune-types" onclick={changePrimary2}/>
+                        <RuneOptions type="primary" category={"Precision"}/>
                     </div>
                     <div style={styles.secondaryRuneSection}>
-                        <RuneTypes />
-                        <RuneRow type="secondary" rowNumber="1"/>
-                        <RuneRow type="secondary" rowNumber="2"/>
-                        <RuneRow type="secondary" rowNumber="3"/>
+                        <RuneTypes onclick={changePrimary2}/>
+                        <RuneOptions type="secondary" category={"Domination"} />
                     </div>
                 </div>
             </div>
