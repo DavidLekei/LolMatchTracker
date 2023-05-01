@@ -8,7 +8,7 @@ export default function Rune(props){
 
         return(
             <div id={props.id} className="rune">
-                <img src={`/game/perk-images/Styles/${props.category}/${name}/${name}.png`} id="Precision"></img>
+                <img className="rune-image" src={`/game/perk-images/Styles/${props.category}/${name}/${name}.png`} id={`${name}_img`}></img>
             </div>  
         )
 }

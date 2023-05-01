@@ -1,7 +1,63 @@
+.container{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    minHeight:50vh;
+    backgroundColor:white;
+    overflow:auto;
+    padding-bottom:50px;
+}
+
+.column{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
 .rune{
+    display:flex;
+    align-items:center;
+    justify-content:center;
     cursor:pointer;
+    width:100px;
+    height:100px;
+}
+
+.rune-image{
+    width:60px;
+    height:60px;
 }
 
 .selected {
     outline:2px solid black;
+}
+
+.rune-selection{
+    display:flex;
+    flex-direction:row;
+    width:50vw;
+    height:600px;
+}
+
+.primary-rune-section{
+    width:60%;
+    justify-content:space-evenly;
+    border-right:1px solid black;
+}
+
+.secondary-rune-section{
+    width:40%;
+    justify-content:space-evenly;
+}
+
+.rune-row{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-evenly;
+    width:100%;
+}
+
+.clickable{
+    cursor:pointer;
 }

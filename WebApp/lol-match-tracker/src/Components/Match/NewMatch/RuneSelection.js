@@ -3,74 +3,32 @@ import {React, useState} from 'react'
 import RuneTypes from './RuneTypes'
 import RuneOptions from './RuneOptions'
 
-
-function changePrimary2(){
-    console.log("changePrimary()");
-}
+//TODO: Fix errors that occur when the user mis-clicks on the "RuneTypes" images
+//      IE: If the user clicks on whitespace, and not the actual image, the RuneTypes onclick function throws an error, which needs to be handled.
 
 export default function RuneSelection(props){
 
-    const styles = {
-        container: {
-            display: "flex",
-            flexDirection:"column",
-            width: "100%",
-            minHeight:"50vh",
-            backgroundColor: "white",
-            overflow:"auto",
-            paddingBottom:"50px",
-        },
-        column:{
-            display:"flex",
-            flexDirection:"column",
-            alignItems:"center",
-        },
-        runeSelection:{
-            display:"flex",
-            flexDirection:"row",
-            width:"50vw",
-            height:"600px",
-        },
-        primaryRuneSection:{
-            display:"flex",
-            flexDirection:"column",
-            outline:"2px solid blue",
-            width:"60%",
-            justifyContent:"space-evenly",
-        },
-        secondaryRuneSection:{
-            display:"flex",
-            flexDirection:"column",
-            outline:"2px solid yellow",
-            width:"40%",
-            justifyContent:"space-evenly",
-        },
-        runeRow:{
-            display:"flex",
-            flexDirection:"row",
-        }
-    }
 
     const [primaryCategory, changePrimary] = useState("Precision");
-    const [secondaryCategory, changeSecondary] = useState("");
+    const [secondaryCategory, changeSecondary] = useState("Domination");
 
-    //let primaryCategory = "Precision";
-    //let secondaryCategory = "Inspiration";
 
     return(
-        <div style={styles.block}>
-            <div style={styles.column}>
+        <div>
+            <div className="column">
                 <h2>Runes</h2>
-                <div style={styles.runeSelection}>
-                    <div style={styles.primaryRuneSection}>
+                <div className="rune-selection">
+                    <div className="column primary-rune-section">
                         <RuneTypes id="primary-rune-types" onclick={(category) => {
                             changePrimary(category)
                     }}/>
                         <RuneOptions type="primary" category={primaryCategory}/>
                     </div>
-                    <div style={styles.secondaryRuneSection}>
-                        <RuneTypes onclick={changePrimary2}/>
-                        <RuneOptions type="secondary" category={"Domination"} />
+                    <div className="column secondary-rune-section">
+                        <RuneTypes id="secondary-rune-types" onclick={(category) => {
+                            changeSecondary(category)
+                    }}/>
+                        <RuneOptions type="secondary" category={secondaryCategory} />
                     </div>
                 </div>
             </div>

@@ -2,10 +2,15 @@ import {React, useState} from  'react'
 
 import Rune from './Rune'
 
+import './Rune.css'
+
 function rowClicked(event){
+
+    //Iterate through the children of this row, and mark the div that was clicked on as "selected", and all others get unmarked as selected
     for(var i = 0; i < event.currentTarget.children.length; i++){
 
-        if(event.currentTarget.children[i].id == event.target.id){
+        //If the user clicks directly on the img element within the Rune, then we need to check for event.target.parentElement.id (the ID of the Rune DIV)
+        if(event.currentTarget.children[i].id == event.target.id || event.currentTarget.children[i].id == event.target.parentElement.id){
             event.currentTarget.children[i].className = "rune selected";
         }
         else{
@@ -29,9 +34,9 @@ export default function RuneOptions(props){
                 "Presence of Mind"
             ],
             secondRow:[
-                "Legend: Alacrity",
-                "Legend: Tenacity",
-                "Legend: Bloodline"
+                "Legend Alacrity",
+                "Legend Tenacity",
+                "Legend Bloodline"
             ],
             thirdRow:[
                 "Coup De Grace",
@@ -48,7 +53,7 @@ export default function RuneOptions(props){
             ],
             firstRow:[
                 "Cheap Shot",
-                "Taste of Blood",
+                "Taste Of Blood",
                 "Sudden Impact"
             ],
             secondRow:[
@@ -119,7 +124,7 @@ export default function RuneOptions(props){
                 "Perfect Timing",
             ],
             secondRow:[
-                "Future's Market",
+                "Futures Market",
                 "Minion Dematerializer",
                 "Biscuit Delivery",
             ],
@@ -133,10 +138,8 @@ export default function RuneOptions(props){
 
     if(props.type == "primary"){
 
-        console.log(props.category)
-
         var keystones = runes[props.category].keystones.map((index) => {
-            return <Rune id={`keystone_${index}`} category={props.category} name={index}/>
+            return <Rune id={`keystone_${index}`} category={props.category} name={index} />
         })
 
         var firstRow = runes[props.category].firstRow.map((index) => {
@@ -153,16 +156,16 @@ export default function RuneOptions(props){
 
         return(
             <div>
-                <div id="keystone-row" style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={(event) => rowClicked(event)}>
+                <div id="keystone-row" className="rune-row" onClick={(event) => rowClicked(event)}>
                     {keystones}
                 </div>
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={(event) => rowClicked(event)}>
+                <div className="rune-row" onClick={(event) => rowClicked(event)}>
                     {firstRow}
                 </div>
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={(event) => rowClicked(event)}>
+                <div className="rune-row" onClick={(event) => rowClicked(event)}>
                     {secondRow}
                 </div>
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={(event) => rowClicked(event)}>
+                <div className="rune-row" onClick={(event) => rowClicked(event)}>
                     {thirdRow}
                 </div>
             </div> 

@@ -168,6 +168,12 @@ export default function MatchPane(){
             }, []
     );
 
+    //If data cannot be retrieved from the server after 5 seconds, render the page with no match data
+    setTimeout(() => {
+        setMatchData([])
+        setIsLoading(false);
+    }, 5000)
+
     if(isLoading)
     {
         return(
