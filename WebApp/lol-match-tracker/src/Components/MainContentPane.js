@@ -24,7 +24,7 @@ class MainContentPane extends Component{
             <div className="App-content-main">
             <Router>
                 <MenuPane />
-                <DisplayPane />
+                <DisplayPane loggedIn={this.props.loggedIn}/>
             </Router>
             </div>
         )

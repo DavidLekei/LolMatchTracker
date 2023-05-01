@@ -18,10 +18,29 @@ import CreateMatchPage from '../Components/Match/NewMatch/CreateMatchPage'
 import './MainContentPane.css';
 
 class DisplayPane extends Component{
+
+    constructor(props)
+    {
+        super(props);
+
+        this.state = {
+            loggedIn:this.props.loggedIn
+        }
+    }
+
     render(){
+        console.log("Logged in? " + this.state.loggedIn);
+
+        let toolbar = <span></span>
+
+        if(!this.state.loggedIn){
+            toolbar = <AppToolbar />
+        }
+
         return(
             <div id="display-pane" className="display-pane">
-                <AppToolbar />
+                {toolbar}
+                {/* <AppToolbar /> */}
                 <Routes>
                     <Route exact path="/home" element={<HomePane />} />
                     <Route path= "/matches" element={<MatchPane />} />

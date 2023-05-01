@@ -19,17 +19,30 @@
     align-items:center;
     justify-content:center;
     cursor:pointer;
-    width:100px;
-    height:100px;
+    width:64px;
+    height:64px;
+    margin:15px;
 }
 
-.rune-image{
-    width:60px;
-    height:60px;
+.keystone{
+    width:128px;
+    height:128px;
+}
+
+.keystone-img{
+    width:128px;
+    height:128px;
+    cursor:pointer;
 }
 
 .selected {
-    outline:2px solid black;
+    border:2px solid black;
+    border-radius:50%;
+    filter: grayscale(0%);
+}
+
+.not-selected{
+    filter: grayscale(100%);
 }
 
 .rune-selection{
@@ -56,6 +69,7 @@
     align-items:center;
     justify-content:space-evenly;
     width:100%;
+    margin-bottom:5px;
 }
 
 .clickable{

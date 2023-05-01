@@ -11,10 +11,10 @@ function rowClicked(event){
 
         //If the user clicks directly on the img element within the Rune, then we need to check for event.target.parentElement.id (the ID of the Rune DIV)
         if(event.currentTarget.children[i].id == event.target.id || event.currentTarget.children[i].id == event.target.parentElement.id){
-            event.currentTarget.children[i].className = "rune selected";
+            event.currentTarget.children[i].className = "selected";
         }
         else{
-            event.currentTarget.children[i].className = "rune";
+            event.currentTarget.children[i].className = "not-selected";
         }
     }
 }
@@ -139,7 +139,7 @@ export default function RuneOptions(props){
     if(props.type == "primary"){
 
         var keystones = runes[props.category].keystones.map((index) => {
-            return <Rune id={`keystone_${index}`} category={props.category} name={index} />
+            return <Rune id={`keystone_${index}`} category={props.category} name={index} keystone={true}/>
         })
 
         var firstRow = runes[props.category].firstRow.map((index) => {
