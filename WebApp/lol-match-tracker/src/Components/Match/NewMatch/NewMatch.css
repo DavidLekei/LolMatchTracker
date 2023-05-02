@@ -46,3 +46,15 @@
     justify-content:center;
     margin-top:25px;
 }
+
+.ss-row{
+    display:flex;
+    flex-direction:row;
+    width:100%;
+    align-items:center;
+    justify-content:space-evenly;
+}
+
+.summoner-spell{
+    margin: 0px 10px;
+}

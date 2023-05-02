@@ -78,7 +78,9 @@ export default function CreateMatchPage(props){
 
                 <RuneSelection />
 
-                <SummonerSpellSelection />
+                <div className="new-match-row">
+                    <NewMatchData label="Summoner Spells" component={<SummonerSpellSelection />} />
+                </div>
 
                 <div>
                         <Button variant="contained" color="success">Add</Button>
