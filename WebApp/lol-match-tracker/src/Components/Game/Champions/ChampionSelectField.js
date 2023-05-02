@@ -29,7 +29,7 @@ export default function ChampionSelectField(props){
 
     if(selectedChampion != null && selectedChampion != "")
     {
-        championImg = <img src={`/game/champion/${selectedChampion}.png`}/>
+        championImg = <div className="champ-img-container"><img src={`/game/champion/${selectedChampion}.png`}/></div>
     }
 
     return (
