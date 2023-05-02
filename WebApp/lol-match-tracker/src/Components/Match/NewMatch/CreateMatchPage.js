@@ -52,10 +52,10 @@ export default function CreateMatchPage(props){
 
                 <div className="new-match-row">
                     <div style={{display:"flex", flexDirection: "column", marginRight:"50px"}}>
-                        <NewMatchData label="Champion Played" component={<ChampionSelectField />} />
+                        <NewMatchData label="Champion Played" component={<ChampionSelectField id="new-champ-played"/>} />
                     </div>
                     <div>
-                        <NewMatchData label="Champion Against" component={<ChampionSelectField />} />
+                        <NewMatchData label="Champion Against" component={<ChampionSelectField id="new-champ-against"/>} />
                     </div>
                 </div>
 

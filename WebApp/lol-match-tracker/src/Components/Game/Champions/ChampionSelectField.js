@@ -1,35 +1,53 @@
-import React from 'react';
+import {React, useState} from 'react';
 
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
+const handleChange = (event, value, reason) => {
+    console.log("TEST");
+}
+
 export default function ChampionSelectField(props){
 
-    const options = champions.map((option) => {
-        const firstLetter = option.name[0];
+    const [selectedChampion, updateSelectedChampion] = useState(null);
+
+    const options = champions.map((champion) => {
+        const firstLetter = champion.name[0];
         return {
             firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
-            ...option,
+            ...champion,
         }
     });
 
     let addButton;
+    let championImg;
 
     if(props.button === true)
     {
         addButton = <input type="button" label="+"></input>
     }
 
+    if(selectedChampion != null && selectedChampion != "")
+    {
+        championImg = <img src={`/game/champion/${selectedChampion}.png`}/>
+    }
+
     return (
-        <div className = "modal-filter-dropdown-container"><Autocomplete
+        <div className = "modal-filter-dropdown-container align-column-start"><Autocomplete
             id={props.id}
             options={options.sort((a,b) => a.firstLetter.localeCompare(b.firstLetter))}
             groupBy={(option) => option.firstLetter}
             getOptionLabel={(option) => option.name}
             sx={{ width: 200 }}
-            renderInput={(params) => <TextField {...params} label={props.label} />}
+            renderInput={(params) => <TextField {...params} label={props.label} 
+            onSelect={(event) => {
+                updateSelectedChampion(document.getElementById(event.target.id).value) 
+            }}
+            />
+        }
         />
         {addButton}
+        {championImg}
         </div>
     )
 }
