@@ -4,8 +4,9 @@ import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker'
 
 export default function DateTimeCalendar(props){
     return(
-        <div>
-            <DateTimePicker label={props.label}></DateTimePicker>
-        </div>
+            <div>
+                <h3>{props.label}</h3>
+                <DateTimePicker></DateTimePicker>
+            </div>
     )
 }

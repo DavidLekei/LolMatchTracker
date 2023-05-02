@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 
-import {Link} from 'react-router-dom'
+import './NewMatch.css'
 
 import Button from '@mui/material/Button';
-import DateTimeCalendar from './DateTimeCalendar'
+import {DateTimePicker} from '@mui/x-date-pickers/DateTimePicker'
 
 //Local imports
+import NewMatchData from './NewMatchData'
 import ChampionSelectField from '../../Game/Champions/ChampionSelectField'
 import SummonerSpellSelection from '../../Match/NewMatch/SummonerSpellSelection'
 import RuneSelection from '../../Match/NewMatch/RuneSelection'
@@ -13,15 +14,6 @@ import RuneSelection from '../../Match/NewMatch/RuneSelection'
 export default function CreateMatchPage(props){
 
     const pageStyles = {
-        container: {
-            display: "flex",
-            flexDirection:"column",
-            width: "100%",
-            minHeight:"50vh",
-            backgroundColor: "white",
-            overflow:"auto",
-            paddingBottom:"50px",
-        },
         block: {
             display:"flex",
             flexDirection:"row",
@@ -33,11 +25,6 @@ export default function CreateMatchPage(props){
             display:"flex",
             flexDirection:"row",
             justifyContent:"center",
-        },
-        column:{
-            display:"flex",
-            flexDirection:"column",
-            alignItems:"center",
         },
         marginTop:{
             marginTop:"20px",
@@ -53,53 +40,48 @@ export default function CreateMatchPage(props){
     }
 
     return(
-        <div style={pageStyles.container}>
-            <h1>Add a New Match</h1>
-            <DateTimeCalendar label="Date Played"/>
-            <div style={pageStyles.block}>
-                <div style={pageStyles.row}>
-                    <p style={pageStyles.marginRight}><b>Duration</b></p>
-                    <input defaultValue={"15:00"} style={pageStyles.input}></input>
-                </div>
-            </div>
-
-            <div style={pageStyles.block}>
-                <div style={{display:"flex", flexDirection: "column", marginRight:"50px"}}>
-                    <ChampionSelectField label="Champion Played"></ChampionSelectField>
-                </div>
+        <div className="new-match-container">
+            <div className="new-match-column">
                 <div>
-                <ChampionSelectField label="Champion Against"></ChampionSelectField>
+                    <h1>Add a New Match</h1>
                 </div>
-            </div>
-
-            <div style={pageStyles.block}>
-                <div style={pageStyles.column}>
-                    <h2>K/D/A</h2>
+                <div className="new-match-row">
+                        <NewMatchData label="Date Played" component={<DateTimePicker></DateTimePicker>} />
+                        <NewMatchData label="Duration" component={<input defaultValue={"15:00"} style={{borderRadius:"5%", paddingLeft:"20px", paddingTop:"20px", paddingBottom:"20px"}} />}/>
                 </div>
-            </div>
 
-            <div style={pageStyles.block}>
-                <div style={pageStyles.column}>
-                    <h2>Build</h2>
-                    <div style={pageStyles.row}>
-                        <p>Item 1</p>
-                        <p>Item 2</p>
-                        <p>Item 3</p>
-                        <p>Item 4</p>
-                        <p>Item 5</p>
-                        <p>Item 6</p>
-                        <p>Trinket</p>
+                <div className="new-match-row">
+                    <div style={{display:"flex", flexDirection: "column", marginRight:"50px"}}>
+                        <NewMatchData label="Champion Played" component={<ChampionSelectField />} />
+                    </div>
+                    <div>
+                        <NewMatchData label="Champion Against" component={<ChampionSelectField />} />
                     </div>
                 </div>
-            </div>
 
-            <RuneSelection />
+                <div className="new-match-row">
+                        <h2>K/D/A</h2>
+                </div>
 
-            <SummonerSpellSelection />
+                <div className="new-match-row">
+                        <h2>Build</h2>
+                        <div className="row">
+                            <p>Item 1</p>
+                            <p>Item 2</p>
+                            <p>Item 3</p>
+                            <p>Item 4</p>
+                            <p>Item 5</p>
+                            <p>Item 6</p>
+                            <p>Trinket</p>
+                        </div>
+                </div>
 
-            <div style={pageStyles.block}>
-                <div style={pageStyles.column}>
-                    <Button variant="contained" color="success">Add</Button>
+                <RuneSelection />
+
+                <SummonerSpellSelection />
+
+                <div>
+                        <Button variant="contained" color="success">Add</Button>
                 </div>
             </div>
         </div>
