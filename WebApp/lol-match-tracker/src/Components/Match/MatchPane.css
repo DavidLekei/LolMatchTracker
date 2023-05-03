@@ -1,0 +1,59 @@
+.App-content-match{
+    width: 100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    overflow:auto;
+    border-radius:5px;
+}
+
+.match-pane{
+    z-index:1;
+    position:relative;
+}
+
+.match-header{
+    position:relative;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    color:white;
+    text-align:left;
+}
+
+.match-text{
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.match-filter-img{
+    transform: scale(0.5);
+}
+
+.match-filter-img:hover{
+    cursor:pointer;
+}
+
+.match-filter-modal{
+    position:absolute;
+    display:flex;
+    flex-direction:column;
+    z-index:10;
+    height:100%;
+    width:50%;
+    top:12.5%;
+    left:25%;
+    background:white;
+    display:none;
+    border-radius:5px;
+}
+
+.modal-filter-dropdown-container{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+}

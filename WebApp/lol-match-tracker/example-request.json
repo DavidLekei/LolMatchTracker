@@ -1,0 +1,125 @@
+{
+    "id":16549,
+    "datePlayed":null,
+    "duration":"20:00:00",
+    "riot_id":null,
+    "championPlayed":{
+       "id":144,
+       "name":"Viktor"
+    },
+    "championAgainst":{
+       "id":153,
+       "name":"Yone"
+    },
+    "items":[
+       {
+          "id":0,
+          "name":null,
+          "effect":null,
+          "stats":null
+       },
+       {
+          "id":0,
+          "name":null,
+          "effect":null,
+          "stats":null
+       },
+       {
+          "id":0,
+          "name":null,
+          "effect":null,
+          "stats":null
+       },
+       {
+          "id":0,
+          "name":null,
+          "effect":null,
+          "stats":null
+       },
+       {
+          "id":0,
+          "name":null,
+          "effect":null,
+          "stats":null
+       },
+       {
+          "id":0,
+          "name":null,
+          "effect":null,
+          "stats":null
+       },
+       {
+          "id":0,
+          "name":null,
+          "effect":null
+       }
+    ],
+    "runePage":{
+       "id":0,
+       "keystone":{
+          "id":1,
+          "name":"Press The Attack",
+          "category":"Precision",
+          "effect":null
+       },
+       "primaries":[
+          {
+             "id":1,
+             "name":"Press The Attack",
+             "category":"Precision",
+             "effect":null
+          },
+          {
+             "id":2,
+             "name":"Lethal Tempo",
+             "category":"Precision",
+             "effect":null
+          },
+          {
+             "id":3,
+             "name":"Fleet Footwork",
+             "category":"Precision",
+             "effect":null
+          }
+       ],
+       "secondaries":[
+          {
+             "id":4,
+             "name":"Conqueror",
+             "category":"Precision",
+             "effect":null
+          },
+          {
+             "id":5,
+             "name":"Overheal",
+             "category":"Precision",
+             "effect":null
+          }
+       ],
+       "extras":[
+          {
+             "id":1,
+             "name":"Attack Speed",
+             "category":null,
+             "effect":"+10% Attack Speed"
+          },
+          {
+             "id":2,
+             "name":"Attack Speed",
+             "category":null,
+             "effect":"+10% Attack Speed"
+          },
+          {
+             "id":3,
+             "name":"Attack Speed",
+             "category":null,
+             "effect":"+10% Attack Speed"
+          }
+       ],
+       "user":0
+    },
+    "matchNotes":0,
+    "user":1,
+    "kda":"10/5/14",
+    "outcome":"Win"
+ }

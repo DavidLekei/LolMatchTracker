@@ -1,0 +1,77 @@
+.container{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    minHeight:50vh;
+    backgroundColor:white;
+    overflow:auto;
+    padding-bottom:50px;
+}
+
+.column{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.rune{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    width:64px;
+    height:64px;
+    margin:15px;
+}
+
+.keystone{
+    width:128px;
+    height:128px;
+}
+
+.keystone-img{
+    width:128px;
+    height:128px;
+    cursor:pointer;
+}
+
+.selected {
+    border:2px solid black;
+    border-radius:50%;
+    filter: grayscale(0%);
+}
+
+.not-selected{
+    filter: grayscale(100%);
+}
+
+.rune-selection{
+    display:flex;
+    flex-direction:row;
+    width:50vw;
+    height:600px;
+}
+
+.primary-rune-section{
+    width:60%;
+    justify-content:space-evenly;
+    border-right:1px solid black;
+}
+
+.secondary-rune-section{
+    width:40%;
+    justify-content:space-evenly;
+}
+
+.rune-row{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-evenly;
+    width:100%;
+    margin-bottom:5px;
+}
+
+.clickable{
+    cursor:pointer;
+}
