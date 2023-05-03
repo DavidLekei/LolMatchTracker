@@ -1,6 +1,29 @@
-import {React, Component} from 'react'
+import {React, useState, useEffect} from 'react'
 
 export default function SummonerSpellSelection(props){
+
+    const [summonersSelected, updateSummoners] = useState({
+        unselect:"",
+        spell1:"",
+        spell2:"",
+        lastUpdated:1,
+    });
+
+    useEffect(() => {
+
+        let spell1 = document.getElementById(summonersSelected.spell1);
+        let spell2 = document.getElementById(summonersSelected.spell2);
+        let unselect = document.getElementById(summonersSelected.unselect);
+
+        if(spell1 != null)
+            spell1.className = "summoner-spell ss-selected"
+        
+        if(spell2 != null)
+            spell2.className = "summoner-spell ss-selected"
+
+        if(unselect != null)
+            unselect.className = "summoner-spell ss-not-selected"
+    })
 
     const summonerNames = [
         "Flash",
@@ -15,7 +38,30 @@ export default function SummonerSpellSelection(props){
     ]
 
     let summoners = summonerNames.map((index) => {
-        return <img src={`/game/summoners/${index}.png`} className="summoner-spell"/>
+        return( 
+            <div>
+                <img id={`${index}`} src={`/game/summoners/${index}.png`} className={`summoner-spell ss-not-selected`} onClick={() => {
+                    if(summonersSelected.lastUpdated == 1){
+                        updateSummoners({
+                            ...summonersSelected,
+                            unselect:summonersSelected.spell2,
+                            spell2:index,
+                            lastUpdated:2,
+                        })
+                    }
+                    
+                    if(summonersSelected.lastUpdated == 2){
+                        updateSummoners({
+                            ...summonersSelected,
+                            unselect:summonersSelected.spell1,
+                            spell1:index,
+                            lastUpdated:1,                            
+                        })
+                    }
+
+                }}/>
+            </div>
+        )
     })
 
     return(
