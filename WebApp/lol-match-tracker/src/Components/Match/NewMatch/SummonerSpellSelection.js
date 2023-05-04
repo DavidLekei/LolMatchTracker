@@ -11,6 +11,8 @@ export default function SummonerSpellSelection(props){
 
     useEffect(() => {
 
+        console.log("summonersSelected = ", summonersSelected)
+
         let spell1 = document.getElementById(summonersSelected.spell1);
         let spell2 = document.getElementById(summonersSelected.spell2);
         let unselect = document.getElementById(summonersSelected.unselect);
@@ -40,8 +42,32 @@ export default function SummonerSpellSelection(props){
     let summoners = summonerNames.map((index) => {
         return( 
             <div>
-                <img id={`${index}`} src={`/game/summoners/${index}.png`} className={`summoner-spell ss-not-selected`} onClick={() => {
-                    if(summonersSelected.lastUpdated == 1){
+                <img id={`${index}`} src={`/game/summoners/${index}.png`} className={`summoner-spell ss-not-selected`} onClick={(event) => {
+                    if(summonersSelected.spell1 == event.target.id)
+                    {
+                        console.log("Clicked on: ", event.target.id)
+                
+                        updateSummoners({
+                            ...summonersSelected,
+                            unselect:event.target.id,
+                            spell1: ''
+                        })
+
+                    }
+
+                    else if(summonersSelected.spell2 == event.target.id)
+                    {
+                        console.log("Clicked on: ", event.target.id)
+                
+                        updateSummoners({
+                            ...summonersSelected,
+                            unselect:event.target.id,
+                            spell2: ''
+                        })
+
+                    }
+
+                    else if(summonersSelected.lastUpdated == 1){
                         updateSummoners({
                             ...summonersSelected,
                             unselect:summonersSelected.spell2,
@@ -50,7 +76,7 @@ export default function SummonerSpellSelection(props){
                         })
                     }
                     
-                    if(summonersSelected.lastUpdated == 2){
+                    else if(summonersSelected.lastUpdated == 2){
                         updateSummoners({
                             ...summonersSelected,
                             unselect:summonersSelected.spell1,
