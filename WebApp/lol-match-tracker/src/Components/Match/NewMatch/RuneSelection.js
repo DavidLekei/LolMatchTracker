@@ -1,4 +1,4 @@
-import {React, useState} from 'react'
+import {React, useState, useEffect} from 'react'
 
 import RuneTypes from './RuneTypes'
 import RuneOptions from './RuneOptions'
@@ -13,6 +13,11 @@ export default function RuneSelection(props){
     const [secondaryCategory, changeSecondary] = useState("Domination");
 
 
+    useEffect(() => {
+        console.log("useEffect() called")
+    })
+
+
     return(
         <div>
             <div className="column">
@@ -25,7 +30,7 @@ export default function RuneSelection(props){
                         <RuneOptions type="primary" category={primaryCategory}/>
                     </div>
                     <div className="column secondary-rune-section">
-                        <RuneTypes id="secondary-rune-types" onclick={(category) => {
+                        <RuneTypes id="secondary-rune-types" removeCategory={primaryCategory} onclick={(category) => {
                             changeSecondary(category)
                     }}/>
                         <RuneOptions type="secondary" category={secondaryCategory} />
