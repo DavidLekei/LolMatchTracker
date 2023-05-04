@@ -1,8 +1,50 @@
-import {React, useState} from  'react'
+import {React, useState, useEffect} from  'react'
 
 import Rune from './Rune'
 
 import './Rune.css'
+
+function clearAllSelected(type){
+    let options = document.getElementById("rune-options-" + type)
+
+    console.log("Element that was just updated: " + type)
+
+    if(options == null)
+        return
+
+    for(var i = 0; i < options.children.length; i++){
+
+        let row = options.children[i];
+        console.log(row)
+        for(var j = 0; j < row.children.length; j++){
+            let element = row.children[j]
+            if(i == 0 && type != 'secondary')
+                element.className = "keystone"
+            else
+                element.className = "rune"
+        }
+    }
+}
+
+function markAllSecondariesNotSelected(){
+
+    console.log("Marking all secondaries")
+    let secondaryOptions = document.getElementById("rune-options-secondary");
+
+    for(var i = 0; i < secondaryOptions.children.length; i++)
+    {
+        let row = secondaryOptions.children[i]
+
+        for(var j = 0; j < row.children.length; j++)
+        {
+            if(row.children[j].className != "selected")
+            {
+                row.children[j].className = "not-selected"
+            }
+        }
+    }
+
+}
 
 function rowClicked(event){
 
@@ -19,8 +61,22 @@ function rowClicked(event){
     }
 }
 
+function handleClick(event, secondaries){
+    rowClicked(event)
+
+    if(secondaries >= 2){
+        markAllSecondariesNotSelected()
+    }
+}
+
 export default function RuneOptions(props){
+
+    let secondaries = 0;
     
+    useEffect(() => {
+        clearAllSelected(props.type);
+    })
+
     if(props.category == null)
     {
         return(
@@ -165,7 +221,7 @@ export default function RuneOptions(props){
         })
 
         return(
-            <div>
+            <div id={`rune-options-${props.type}`}>
                 <div id="keystone-row" className="rune-row" onClick={(event) => rowClicked(event)}>
                     {keystones}
                 </div>
@@ -198,14 +254,29 @@ export default function RuneOptions(props){
         })
 
         return(
-            <div>
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={(event) => rowClicked(event)}>
+            <div id={`rune-options-${props.type}`}>
+                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={
+                    (event) => {
+                        secondaries = secondaries + 1
+                        handleClick(event, secondaries)
+                    }
+                }>
                     {firstRow}
                 </div>
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={(event) => rowClicked(event)}>
+                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={
+                    (event) => {
+                        secondaries = secondaries + 1
+                        handleClick(event, secondaries)
+                    }
+                }>
                     {secondRow}
                 </div>
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={(event) => rowClicked(event)}>
+                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={
+                    (event) => {
+                        secondaries = secondaries + 1
+                        handleClick(event, secondaries)
+                    }
+                }>
                     {thirdRow}
                 </div>
             </div> 
