@@ -7,15 +7,12 @@ import './Rune.css'
 function clearAllSelected(type){
     let options = document.getElementById("rune-options-" + type)
 
-    console.log("Element that was just updated: " + type)
-
     if(options == null)
         return
 
     for(var i = 0; i < options.children.length; i++){
 
         let row = options.children[i];
-        console.log(row)
         for(var j = 0; j < row.children.length; j++){
             let element = row.children[j]
             if(i == 0 && type != 'secondary')
@@ -28,7 +25,6 @@ function clearAllSelected(type){
 
 function markAllSecondariesNotSelected(){
 
-    console.log("Marking all secondaries")
     let secondaryOptions = document.getElementById("rune-options-secondary");
 
     for(var i = 0; i < secondaryOptions.children.length; i++)

@@ -35,7 +35,6 @@ export default function RuneTypes(props){
 
     return(
         <div id={props.id} className="rune-row" onClick={(event) => {
-            console.log("RuneTypes.js - event.target.id: " + event.target.id);
             if(event.target.id != 'primary-rune-types' && event.target.id != 'secondary-rune-types'){
                 props.onclick(event.target.id);
             }
