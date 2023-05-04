@@ -20,6 +20,16 @@ function rowClicked(event){
 }
 
 export default function RuneOptions(props){
+    
+    if(props.category == null)
+    {
+        return(
+            <div className="empty-rune-options">
+
+            </div>
+        )
+    }
+
     const runes = {
         Precision:{
             keystones:[

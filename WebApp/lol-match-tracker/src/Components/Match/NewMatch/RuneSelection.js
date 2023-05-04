@@ -9,12 +9,14 @@ import RuneOptions from './RuneOptions'
 export default function RuneSelection(props){
 
 
-    const [primaryCategory, changePrimary] = useState("Precision");
-    const [secondaryCategory, changeSecondary] = useState("Domination");
+    const [primaryCategory, changePrimary] = useState(null);
+    const [secondaryCategory, changeSecondary] = useState(null);
 
 
     useEffect(() => {
-        console.log("useEffect() called")
+        if(primaryCategory == secondaryCategory){
+            changeSecondary(null)
+        }
     })
 
 

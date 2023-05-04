@@ -42,11 +42,6 @@ export default function RuneTypes(props){
 
         }}>
             {runeTypes}
-            {/* <img className="clickable" src={"/game/perk-images/Styles/7201_Precision.png"} id="Precision"></img>
-            <img className="clickable" src={"/game/perk-images/Styles/7200_Domination.png"} id="Domination"></img>
-            <img className="clickable" src={"/game/perk-images/Styles/7202_Sorcery.png"} id="Sorcery"></img>
-            <img className="clickable" src={"/game/perk-images/Styles/7204_Resolve.png"} id="Resolve"></img>
-            <img className="clickable" src={"/game/perk-images/Styles/7203_Whimsy.png"} id="Inspiration"></img> */}
         </div>    
     )
 
