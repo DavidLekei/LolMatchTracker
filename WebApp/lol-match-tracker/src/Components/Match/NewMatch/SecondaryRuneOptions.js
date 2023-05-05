@@ -157,6 +157,22 @@ function rowClicked(event, selectedRunes){
     }
 }
 
+function unmarkAll(){
+    let rows = document.getElementById('rune-options-secondary').children;
+
+    for(var i = 0; i < rows.length; i++){
+
+        let runes = rows[i].children;
+
+        for(var j = 0; j < runes.length; j++){
+
+            runes[j].className = "rune"
+
+        }
+
+    }
+}
+
 function markAllNotSelected(selectedRunes){
     let rows = document.getElementById(`rune-options-secondary`).children
 
@@ -176,12 +192,7 @@ function markAllNotSelected(selectedRunes){
 
 export default function SecondaryRuneOptions(props){
 
-    const [selectedRunes, updateSelectedRunes] = useState({
-            rune1:null,
-            rune2:null,
-            lastUpdated:0
-        }
-    )
+    const [selectedRunes, updateSelectedRunes] = useState(props.selectedRunes)
 
     if(props.category == null){
         return(
@@ -191,16 +202,16 @@ export default function SecondaryRuneOptions(props){
         )
     }
 
-    var firstRow = runes[props.category].firstRow.map((index) => {
-        return <Rune id={`${index}`} category={props.category} name={index} />
+    var firstRow = runes[props.category].firstRow.map((rune, index) => {
+        return <Rune id={`row_1-${index}`} category={props.category} name={rune} />
     })
 
-    var secondRow = runes[props.category].secondRow.map((index) => {
-        return <Rune id={`${index}`} category={props.category} name={index} />
+    var secondRow = runes[props.category].secondRow.map((rune, index) => {
+        return <Rune id={`row_2-${index}`} category={props.category} name={rune} />
     })
 
-    var thirdRow = runes[props.category].thirdRow.map((index) => {
-        return <Rune id={`${index}`} category={props.category} name={index} />
+    var thirdRow = runes[props.category].thirdRow.map((rune, index) => {
+        return <Rune id={`row_3-${index}`} category={props.category} name={rune} />
     })
 
     const rows = [firstRow, secondRow, thirdRow]

@@ -65,10 +65,6 @@ function rowClicked(event){
 }
 
 export default function RuneOptions(props){
-    
-    useEffect(() => {
-        clearAllSelected(props.type);
-    })
 
     if(props.category == null)
     {
