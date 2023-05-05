@@ -1,14 +1,14 @@
 import {React, Component} from 'react';
 import './Canvas.css';
 
-import Journey from '../Components/Journey/Journey'
+import SecondaryRuneOptions from '../Components/Match/NewMatch/SecondaryRuneOptions'
 
 class Canvas extends Component{
 
   render(){
     return(
       <div className="canvas column">
-        <Journey></Journey>
+        <SecondaryRuneOptions category="Precision"/>
       </div>
     )
   }

@@ -4,6 +4,13 @@ import Rune from './Rune'
 
 import './Rune.css'
 
+let selectedSecondaries = {
+    effect1:null,
+    effect2:null
+}
+
+let secondaries = 0;
+
 function clearAllSelected(type){
     let options = document.getElementById("rune-options-" + type)
 
@@ -57,17 +64,7 @@ function rowClicked(event){
     }
 }
 
-function handleClick(event, secondaries){
-    rowClicked(event)
-
-    if(secondaries >= 2){
-        markAllSecondariesNotSelected()
-    }
-}
-
 export default function RuneOptions(props){
-
-    let secondaries = 0;
     
     useEffect(() => {
         clearAllSelected(props.type);
@@ -234,48 +231,5 @@ export default function RuneOptions(props){
             
         )
     }
-    
-    if(props.type == "secondary"){
 
-        var firstRow = runes[props.category].firstRow.map((index) => {
-            return <Rune id={`secondary_1_${index}`} category={props.category} name={index} />
-        })
-
-        var secondRow = runes[props.category].secondRow.map((index) => {
-            return <Rune id={`secondary_2_${index}`} category={props.category} name={index} />
-        })
-
-        var thirdRow = runes[props.category].thirdRow.map((index) => {
-            return <Rune id={`secondary_3_${index}`} category={props.category} name={index} />
-        })
-
-        return(
-            <div id={`rune-options-${props.type}`}>
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={
-                    (event) => {
-                        secondaries = secondaries + 1
-                        handleClick(event, secondaries)
-                    }
-                }>
-                    {firstRow}
-                </div>
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={
-                    (event) => {
-                        secondaries = secondaries + 1
-                        handleClick(event, secondaries)
-                    }
-                }>
-                    {secondRow}
-                </div>
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={
-                    (event) => {
-                        secondaries = secondaries + 1
-                        handleClick(event, secondaries)
-                    }
-                }>
-                    {thirdRow}
-                </div>
-            </div> 
-        )
-    }
 }
