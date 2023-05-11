@@ -1,14 +1,14 @@
 import {React, Component} from 'react';
 import './Canvas.css';
 
-import SecondaryRuneOptions from '../Components/Match/NewMatch/SecondaryRuneOptions'
+import ItemSelectField from '../Components/Game/Champions/Items/ItemSelectField';
 
 class Canvas extends Component{
 
   render(){
     return(
       <div className="canvas column">
-        <SecondaryRuneOptions category="Precision"/>
+          <ItemSelectField label="Select Item"/>
       </div>
     )
   }

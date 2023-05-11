@@ -1,0 +1,9 @@
+.item-selected {
+    border:2px solid black;
+    border-radius:50%;
+    filter: grayscale(0%);
+}
+
+.item-not-selected{
+    filter: grayscale(100%);
+}
