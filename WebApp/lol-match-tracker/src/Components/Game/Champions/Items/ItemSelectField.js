@@ -61,7 +61,7 @@ function removeLegendaryItem(itemClicked){
 }
 
 function markSelectedLegendaryItems(){
-    const items = document.getElementById('legendary-container')
+    const items = document.getElementById('Legendary-container')
 
     for(let item of items.children){
         if(legendaryItems.includes(item.id)){
@@ -75,7 +75,7 @@ function markSelectedLegendaryItems(){
 }
 
 function unselectAllLegendaryItems(){
-    const items = document.getElementById('legendary-container')
+    const items = document.getElementById('Legendary-container')
 
     for(let item of items.children){
         item.className = "item item-legendary"
