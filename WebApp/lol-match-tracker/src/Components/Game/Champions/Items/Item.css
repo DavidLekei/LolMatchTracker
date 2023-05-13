@@ -7,3 +7,27 @@
 .item-not-selected{
     filter: grayscale(100%);
 }
+
+.item-filter-container{
+    width:100%;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-evenly;
+}
+
+.item-filter-selection{
+    cursor:pointer;
+    width:100%;
+    height:50px;
+    border:2px solid black;
+    font-weight:bold;
+    text-align:center;
+    vertical-align:middle;
+    line-height: 50px;
+}
+
+.item-filter-enabled{
+    color:white;
+    background-color:black;
+}

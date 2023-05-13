@@ -127,18 +127,14 @@ function selectBoots(itemClicked){
 export default function ItemSelectField(props){
 
     const mythic = []
+    const legendary = []
 
     itemList.map((item) => {
         if(item.type == 'Mythic'){
                 mythic.push(item)
         }
-    })
-
-    const legendary = itemList.map((item) => {
-        if(item.type == "Legendary"){
-            return(
-                <Item type="legendary" name={item.name} img={item.img} onclick={selectLegendary} classes={item.class}/>
-            )
+        else if(item.type == 'Legendary'){
+            legendary.push(item)
         }
     })
 
@@ -158,10 +154,7 @@ export default function ItemSelectField(props){
                 <div id="boots-container" style={{display:"flex", flexDirection:"row", flexWrap:"wrap", width:"70%", outline:"2px solid blue"}}>
                     {boots}
                 </div>
-                <h2>Legendary</h2>
-                <div id="legendary-container" style={{display:"flex", flexDirection:"row", flexWrap:"wrap", width:"70%", outline:"2px solid blue"}}>
-                    {legendary}
-                </div>
+                <ItemsContainer type="Legendary" items={legendary} itemOnClick={selectLegendary} />
         </div>
     )
 
