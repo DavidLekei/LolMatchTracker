@@ -51,6 +51,8 @@ class DisplayPane extends Component{
                     <Route path="/about" />
                     <Route path="/canvas" element={<Canvas />} />
                     <Route path="/journey" element={<Journey />} />
+                    <Route path="/signUp" />
+                    <Route path="/signIn" />
                 </Routes>
             </div>
         )
