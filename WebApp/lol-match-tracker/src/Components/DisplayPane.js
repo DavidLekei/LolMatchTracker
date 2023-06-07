@@ -14,6 +14,7 @@ import HomePane from './Home/HomePane'
 import Canvas from '../Test/Canvas'
 import Journey from '../Components/Journey/Journey'
 import CreateMatchPage from '../Components/Match/NewMatch/CreateMatchPage'
+import SignInPage from './SignInPage/SignInPage';
 
 import './MainContentPane.css';
 
@@ -51,8 +52,6 @@ class DisplayPane extends Component{
                     <Route path="/about" />
                     <Route path="/canvas" element={<Canvas />} />
                     <Route path="/journey" element={<Journey />} />
-                    <Route path="/signUp" />
-                    <Route path="/signIn" />
                 </Routes>
             </div>
         )

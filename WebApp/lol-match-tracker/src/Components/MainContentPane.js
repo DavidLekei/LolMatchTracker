@@ -12,7 +12,6 @@ import LandingPage from './LandingPage/LandingPage'
 
 class MainContentPane extends Component{
     render(){
-
         if(this.props.loggedIn == false)
         {
             return( 
@@ -26,10 +25,6 @@ class MainContentPane extends Component{
                 <DisplayPane loggedIn={this.props.loggedIn}/>
             </div>
         )
-    }
-
-    btn_onclick(){
-        alert("Logged in");
     }
 }
 
