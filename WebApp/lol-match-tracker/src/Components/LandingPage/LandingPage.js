@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useContext} from 'react';
 
 import {
     BrowserRouter as Router,
@@ -10,11 +10,16 @@ import './LandingPage.css'
 
 import LandingPageHero from './LandingPageHero';
 import SignInPage from '../SignInPage/SignInPage';
+import AuthButton from '../Common/AuthButton';
 
-class LandingPage extends Component{
+import { AuthContext } from '../../Auth/AuthenticationProvider';
 
-    render(){
-        return(
+function LandingPage(props){
+
+    const {user, setUser} = useContext(AuthContext)
+    console.log('user: ', user)
+
+    return(
             <div className="lp-main">
                 <Routes>
                     <Route path="/" element={<LandingPageHero />} />
@@ -22,8 +27,7 @@ class LandingPage extends Component{
                     <Route path="/signIn" element={<SignInPage />}/>
                 </Routes>
             </div>
-        )
-    }
+    )
 
 }
 
