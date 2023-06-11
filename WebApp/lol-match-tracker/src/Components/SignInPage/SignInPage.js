@@ -1,5 +1,7 @@
 import React, {useContext, useState} from 'react'
 
+import { Navigate } from 'react-router-dom'
+
 import Button from '@mui/material/Button/Button'
 import TextField from '@mui/material/TextField/TextField'
 
@@ -16,12 +18,18 @@ function logInButtonPressed(authContext, loadingState){
 
     console.log('username: ' + username + ' password: ' + password + ' authContext: ', authContext)
 
-    authContext.setUser({
+    //TODO: Need to send Auth server API request here
+    //      Auth server would be the one returning the token
+    let data = {
         username: username,
         token: 'this is a valid token for testing',
         logInTime: '6/10/2023 11:35:00',
         validUntil: '6/11/2023 11:35:00'
-    })
+    }
+
+    authContext.setUser(data)
+    localStorage.setItem("token", data.token);
+    console.log("Set Local Storage for key 'token': ", data.token);
 
     setTimeout(() => {
         console.log("Timed out")
@@ -44,11 +52,7 @@ export default function SignInPage(props){
     }
 
     if(user){
-        return(
-            <div>
-                Already Logged In
-            </div>
-        )
+        return <Navigate to="/" />
     }
 
     return(
