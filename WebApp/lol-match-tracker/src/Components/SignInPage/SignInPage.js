@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 
 import Button from '@mui/material/Button/Button'
 import TextField from '@mui/material/TextField/TextField'
@@ -9,11 +9,7 @@ import { AuthContext } from '../../Auth/AuthenticationProvider'
 import './common.css'
 import './signinpage.css'
 
-function authenticateUser(username, password){
-
-}
-
-function logInButtonPressed(authContext){
+function logInButtonPressed(authContext, loadingState){
     //Encrypt password - do i have to do this manually if the site uses HTTPS?
     let username = document.getElementById('signin-textfield-username').value;
     let password = document.getElementById('signin-textfield-password').value;
@@ -26,11 +22,34 @@ function logInButtonPressed(authContext){
         logInTime: '6/10/2023 11:35:00',
         validUntil: '6/11/2023 11:35:00'
     })
+
+    setTimeout(() => {
+        console.log("Timed out")
+        loadingState.setLoading(false)
+    }, 3000)
 }
 
 export default function SignInPage(props){
 
     const {user, setUser} = useContext(AuthContext);
+
+    const [loading, setLoading] = useState(false)
+
+    if(loading){
+        return (
+            <div>
+                Loading
+            </div>
+        )
+    }
+
+    if(user){
+        return(
+            <div>
+                Already Logged In
+            </div>
+        )
+    }
 
     return(
         <div className="h-fullscreen w-fullscreen flex-cntnr-col flex-center-children">
@@ -69,7 +88,8 @@ export default function SignInPage(props){
                             color="success"    
                             className="w-100"
                             onClick={() => {
-                                logInButtonPressed({user, setUser});
+                                setLoading(true)
+                                logInButtonPressed({user, setUser}, {loading, setLoading});
                             }}
                         >
                             Log in
