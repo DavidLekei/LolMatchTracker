@@ -6,7 +6,7 @@
 import {React, Component, useContext, createContext, useState} from 'react'
 
 const API_SERVER_URL = 'http://localhost:8080/auth/validateToken'
-const ONE_DAY_IN_UNIX_SECONDS = 86400
+const ONE_DAY_IN_UNIX_SECONDS = 86400000
 const LOCAL_STORAGE_DATA = 'user_data'
 
 export const AuthContext = createContext({});
@@ -48,10 +48,10 @@ export function checkLocalStorageForToken(){
     return true
 }
 
-export function addUserDataToLocalStorage(username, token){
+export function addUserDataToLocalStorage(user_data, token){
+    console.log("Adding user_data to local storage. user_data: ", user_data)
     let data = {
-        username: username,
-        user_token: token,
+        ...user_data,
         created: Date.now(),
         expires: Date.now() + ONE_DAY_IN_UNIX_SECONDS
     }
@@ -76,7 +76,7 @@ export default function AutheticationProvider(props){
 
     if(!user){
         if(checkLocalStorageForToken()){
-            console.log('Found Token in Local Storage: ', localStorage.getItem('user_token'))
+            console.log('Found Token in Local Storage: ', localStorage.getItem('user_data'))
 
             if(validateToken(localStorage.getItem('user_token'))){
                 console.log('Token from Local Storage is still valid. Signing user in.')

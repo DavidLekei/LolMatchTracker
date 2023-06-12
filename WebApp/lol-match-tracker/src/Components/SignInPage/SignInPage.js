@@ -22,9 +22,8 @@ function logInButtonPressed(authContext, loadingState, callback){
     //      Auth server would be the one returning the token
     let data = {
         username: username,
-        token: 'this is a valid token for testing',
-        logInTime: '6/10/2023 11:35:00',
-        validUntil: '6/11/2023 11:35:00'
+        user_token: 'user_token',
+        title: 'Creator'
     }
 
     //3 second delay to 'simulate' network
@@ -32,7 +31,7 @@ function logInButtonPressed(authContext, loadingState, callback){
         console.log("Timed out")
         loadingState.setLoading(false)
         authContext.setUser(data)
-        addUserDataToLocalStorage(username, 'user_token')
+        addUserDataToLocalStorage(data, 'user_token')
         console.log("Set Local Storage for key 'token': ", data.token);
         //TODO: Navigate to /home should only be called if the log in was successful.
         //      I think this means that the logInButtonPressed function will need to be made to be async
