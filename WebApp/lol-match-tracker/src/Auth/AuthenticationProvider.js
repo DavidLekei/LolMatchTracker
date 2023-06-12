@@ -40,7 +40,8 @@ export function checkLocalStorageForToken(){
         return false
     }
 
-    if(Date.now() < data.expires){
+    // console.log("data.expires: ", data.expires, "Date.now(): ", Date.now(), " difference: ", (Date.now() > data.expires))
+    if(Date.now() > data.expires){
         return false
     }
 
