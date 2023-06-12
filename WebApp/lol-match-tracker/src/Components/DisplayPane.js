@@ -14,6 +14,7 @@ import HomePane from './Home/HomePane'
 import Canvas from '../Test/Canvas'
 import Journey from '../Components/Journey/Journey'
 import CreateMatchPage from '../Components/Match/NewMatch/CreateMatchPage'
+import SignInPage from './SignInPage/SignInPage';
 
 import './MainContentPane.css';
 
@@ -24,16 +25,16 @@ class DisplayPane extends Component{
         super(props);
 
         this.state = {
-            loggedIn:this.props.loggedIn
+            user:this.props.user
         }
     }
 
     render(){
-        console.log("Logged in? " + this.state.loggedIn);
+        console.log("Logged in as: ", this.state.user);
 
         let toolbar = <span></span>
 
-        if(!this.state.loggedIn){
+        if(!this.state.user){
             toolbar = <AppToolbar />
         }
 
@@ -42,6 +43,7 @@ class DisplayPane extends Component{
                 {toolbar}
                 {/* <AppToolbar /> */}
                 <Routes>
+                    <Route path="/" element={<HomePane />} />
                     <Route exact path="/home" element={<HomePane />} />
                     <Route path= "/matches" element={<MatchPane />} />
                     <Route path="/matches/:matchid?" element={<MatchInfoFull />} />

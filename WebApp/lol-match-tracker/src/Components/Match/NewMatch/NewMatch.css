@@ -57,4 +57,15 @@
 
 .summoner-spell{
     margin: 0px 10px;
+    width:64px;
+    height:64px;
+    cursor:pointer;
+}
+
+.ss-selected {
+    filter: grayscale(0%);
+}
+
+.ss-not-selected{
+    filter: grayscale(100%);
 }

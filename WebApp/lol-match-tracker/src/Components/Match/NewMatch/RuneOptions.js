@@ -1,8 +1,53 @@
-import {React, useState} from  'react'
+import {React, useState, useEffect} from  'react'
 
 import Rune from './Rune'
 
 import './Rune.css'
+
+let selectedSecondaries = {
+    effect1:null,
+    effect2:null
+}
+
+let secondaries = 0;
+
+function clearAllSelected(type){
+    let options = document.getElementById("rune-options-" + type)
+
+    if(options == null)
+        return
+
+    for(var i = 0; i < options.children.length; i++){
+
+        let row = options.children[i];
+        for(var j = 0; j < row.children.length; j++){
+            let element = row.children[j]
+            if(i == 0 && type != 'secondary')
+                element.className = "keystone"
+            else
+                element.className = "rune"
+        }
+    }
+}
+
+function markAllSecondariesNotSelected(){
+
+    let secondaryOptions = document.getElementById("rune-options-secondary");
+
+    for(var i = 0; i < secondaryOptions.children.length; i++)
+    {
+        let row = secondaryOptions.children[i]
+
+        for(var j = 0; j < row.children.length; j++)
+        {
+            if(row.children[j].className != "selected")
+            {
+                row.children[j].className = "not-selected"
+            }
+        }
+    }
+
+}
 
 function rowClicked(event){
 
@@ -20,6 +65,16 @@ function rowClicked(event){
 }
 
 export default function RuneOptions(props){
+
+    if(props.category == null)
+    {
+        return(
+            <div className="empty-rune-options">
+
+            </div>
+        )
+    }
+
     const runes = {
         Precision:{
             keystones:[
@@ -155,7 +210,7 @@ export default function RuneOptions(props){
         })
 
         return(
-            <div>
+            <div id={`rune-options-${props.type}`}>
                 <div id="keystone-row" className="rune-row" onClick={(event) => rowClicked(event)}>
                     {keystones}
                 </div>
@@ -172,33 +227,5 @@ export default function RuneOptions(props){
             
         )
     }
-    
-    if(props.type == "secondary"){
 
-        var firstRow = runes[props.category].firstRow.map((index) => {
-            return <Rune id={`secondary_1_${index}`} category={props.category} name={index} />
-        })
-
-        var secondRow = runes[props.category].secondRow.map((index) => {
-            return <Rune id={`secondary_2_${index}`} category={props.category} name={index} />
-        })
-
-        var thirdRow = runes[props.category].thirdRow.map((index) => {
-            return <Rune id={`secondary_3_${index}`} category={props.category} name={index} />
-        })
-
-        return(
-            <div>
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={(event) => rowClicked(event)}>
-                    {firstRow}
-                </div>
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={(event) => rowClicked(event)}>
-                    {secondRow}
-                </div>
-                <div style={{display:"flex", flexDirection:"row", justifyContent:"space-evenly"}} onClick={(event) => rowClicked(event)}>
-                    {thirdRow}
-                </div>
-            </div> 
-        )
-    }
 }

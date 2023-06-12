@@ -1,28 +1,29 @@
-import React, {Component} from 'react';
+import React, {Component, useContext} from 'react';
+
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+  } from "react-router-dom";
 
 import './LandingPage.css'
 
-import AppToolbar from '../Toolbar/AppToolbar';
-import LandingPageHeader from './LandingPageHeader'
-import LandingPageInfoSection from './LandingPageInfoSection'
+import LandingPageHero from './LandingPageHero';
+import SignInPage from '../SignInPage/SignInPage';
+import AuthButton from '../Common/AuthButton';
 
-class LandingPage extends Component{
+import { AuthContext } from '../../Auth/AuthenticationProvider';
 
-    render(){
-        return(
+function LandingPage(props){
+
+    const {user, setUser} = useContext(AuthContext)
+    console.log('user: ', user)
+
+    return(
             <div className="lp-main">
-                <AppToolbar loggedIn={false}/>
-                <LandingPageHeader text="Improve." textSide="left"/>
-                <LandingPageHeader text="Consistently." textSide="right"/>
-                <LandingPageInfoSection heading="Track your progress" textSide="left">
-                </LandingPageInfoSection>
-                <LandingPageInfoSection heading="Take detailed notes" textSide="right">
-                </LandingPageInfoSection>
-                <LandingPageInfoSection heading="Stay focused" textSide="left">
-                </LandingPageInfoSection>
+                <LandingPageHero />
             </div>
-        )
-    }
+    )
 
 }
 

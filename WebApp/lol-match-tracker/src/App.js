@@ -4,16 +4,22 @@ import './App.css';
 import React, {Component} from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { BrowserRouter as Router} from "react-router-dom";
 
 import MainContentPane from './Components/MainContentPane'
+import AuthenticationProvider from './Auth/AuthenticationProvider';
 
 function App() {
   return (
     <div className="App">
       {/* <AppToolbar /> */}
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <MainContentPane loggedIn={true}/>
-      </LocalizationProvider>
+        <Router>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <AuthenticationProvider>
+              <MainContentPane loggedIn={false}/>
+            </AuthenticationProvider>
+          </LocalizationProvider>
+        </Router>
     </div>
   );
 }

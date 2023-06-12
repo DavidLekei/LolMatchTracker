@@ -2,7 +2,6 @@
     display:flex;
     flex-direction:column;
     width:100%;
-    minHeight:50vh;
     backgroundColor:white;
     overflow:auto;
     padding-bottom:50px;
@@ -54,13 +53,17 @@
 
 .primary-rune-section{
     width:60%;
-    justify-content:space-evenly;
+    justify-content:start;
     border-right:1px solid black;
 }
 
 .secondary-rune-section{
     width:40%;
-    justify-content:space-evenly;
+    justify-content:start;
+}
+
+.secondary-rune-section > img {
+    flex: 1 1 128px;
 }
 
 .rune-row{
@@ -72,6 +75,15 @@
     margin-bottom:5px;
 }
 
+.rune-type-row{
+    margin-bottom:50px;
+}
+
 .clickable{
     cursor:pointer;
+}
+
+.empty-rune-options{
+    width:60%;
+    justify-content:space-evenly;
 }

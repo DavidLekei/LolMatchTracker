@@ -1,14 +1,14 @@
 import {React, Component} from 'react';
 import './Canvas.css';
 
-import Journey from '../Components/Journey/Journey'
+import ItemSelectField from '../Components/Game/Champions/Items/ItemSelectField';
 
 class Canvas extends Component{
 
   render(){
     return(
       <div className="canvas column">
-        <Journey></Journey>
+          <ItemSelectField label="Select Item"/>
       </div>
     )
   }
