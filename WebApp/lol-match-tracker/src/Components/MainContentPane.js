@@ -28,11 +28,7 @@ export default function MainContentPane(props){
     const publicRoutes = ["/", "/signUp", "/signIn"]
 
     if(!user){
-        console.log("No user set");
-        if(!publicRoutes.includes(location.pathname)){
-            console.log("The path: " + location.pathname + " IS NOT found in publicRoutes")
-            navigate("/")
-        }
+
         return(
             <Routes>
                 <Route path="/" element={<LandingPageHero />} />

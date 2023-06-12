@@ -11,7 +11,7 @@ import { AuthContext } from '../../Auth/AuthenticationProvider'
 import './common.css'
 import './signinpage.css'
 
-function logInButtonPressed(authContext, loadingState){
+function logInButtonPressed(authContext, loadingState, callback){
     //Encrypt password - do i have to do this manually if the site uses HTTPS?
     let username = document.getElementById('signin-textfield-username').value;
     let password = document.getElementById('signin-textfield-password').value;
@@ -34,6 +34,10 @@ function logInButtonPressed(authContext, loadingState){
         authContext.setUser(data)
         localStorage.setItem("token", data.token);
         console.log("Set Local Storage for key 'token': ", data.token);
+        //TODO: Navigate to /home should only be called if the log in was successful.
+        //      I think this means that the logInButtonPressed function will need to be made to be async
+        //      and I'll need to implement some kind of hook upon response from the auth server
+        callback('/home')
     }, 3000)
 
 }
@@ -96,11 +100,7 @@ export default function SignInPage(props){
                             className="w-100"
                             onClick={() => {
                                 setLoading(true)
-                                logInButtonPressed({user, setUser}, {loading, setLoading});
-                                //TODO: Navigate to /home should only be called if the log in was successful.
-                                //      I think this means that the logInButtonPressed function will need to be made to be async
-                                //      and I'll need to implement some kind of hook upon response from the auth server
-                                navigate('/home')
+                                logInButtonPressed({user, setUser}, {loading, setLoading}, navigate);
                             }}
                         >
                             Log in
