@@ -47,14 +47,17 @@ class MatchInfoSmall extends Component{
 
         }
 
-        console.log(this.props.data)
+        let championPlayedName = this.props.data.championPlayed.name;
+
         return(
-            <tr id={`match-${this.props.data.matchid}`} className={`lv-row lv-data`}>
+            <tr id={`match-${this.props.data.matchid}`} className={`lv-row lv-data`} style={{paddingLeft:""}}>
                 <Link className={`small ${ this.props.data.outcome }`} to={`/matches/` + this.props.data.id}>
+                    <td><img src={`/game/champion/${championPlayedName}.png`} style={{width:"40px", height:"40px"}}></img></td>
+                    <td><img src={`/game/champion/${this.props.data.championAgainst.name}.png`} style={{width:"40px", height:"40px"}}></img></td>
                     <td className={`lv-item lv-outcome match-outcome-${this.props.data.outcome}`}>{this.props.data.outcome}</td>
                     <td className="lv-item lv-date-played">{this.props.data.datePlayed}</td>
-                    <td className="lv-item lv-champ">{this.props.data.championPlayed.name}</td>
-                    <td className="lv-item lv-champ-against">{this.props.data.championAgainst.name}</td>
+                    {/* <td className="lv-item lv-champ">{this.props.data.championPlayed.name}</td> */}
+                    {/* <td className="lv-item lv-champ-against">{this.props.data.championAgainst.name}</td> */}
                     <td className="lv-item lv-kda">{this.props.data.kda}</td>
                 </Link>
             </tr>

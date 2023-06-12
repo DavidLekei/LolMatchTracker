@@ -13,18 +13,41 @@ import NotesPane from './Notes/NotesPane'
 import HomePane from './Home/HomePane'
 import Canvas from '../Test/Canvas'
 import Journey from '../Components/Journey/Journey'
+import CreateMatchPage from '../Components/Match/NewMatch/CreateMatchPage'
+import SignInPage from './SignInPage/SignInPage';
 
 import './MainContentPane.css';
 
 class DisplayPane extends Component{
+
+    constructor(props)
+    {
+        super(props);
+
+        this.state = {
+            user:this.props.user
+        }
+    }
+
     render(){
+        console.log("Logged in as: ", this.state.user);
+
+        let toolbar = <span></span>
+
+        if(!this.state.user){
+            toolbar = <AppToolbar />
+        }
+
         return(
             <div id="display-pane" className="display-pane">
-                <AppToolbar />
+                {toolbar}
+                {/* <AppToolbar /> */}
                 <Routes>
+                    <Route path="/" element={<HomePane />} />
                     <Route exact path="/home" element={<HomePane />} />
                     <Route path= "/matches" element={<MatchPane />} />
                     <Route path="/matches/:matchid?" element={<MatchInfoFull />} />
+                    <Route path="/matches/new" element={<CreateMatchPage />} />
                     <Route exact path="/notes" element={<NotesPane />}/>
                     <Route path="/account" />
                     <Route path="/about" />

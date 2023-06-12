@@ -19,7 +19,7 @@ class MatchListviewFilterModal extends Component{
         return(
             <div id={this.props.id} className={`match-filter-modal`}>
                 <ModalHeader text="Filter Matches" exit_onclick=""></ModalHeader>
-                <ChampionSelectField id="match-filter-champ-select"></ChampionSelectField>
+                <ChampionSelectField id="match-filter-champ-select" label="Champion" button={true}></ChampionSelectField>
                 {/* <DropdownMenu id="match-filter-champ-select" label="Champion Played"></DropdownMenu> */}
                 <DropdownMenu id="match-filter-champ-against-select" label="Against"></DropdownMenu>
                 <DateInput id="match-filter-start-date" label="Start Date"></DateInput>

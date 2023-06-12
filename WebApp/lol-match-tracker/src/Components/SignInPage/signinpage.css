@@ -1,0 +1,17 @@
+#sign-in-dialog{
+    width:30%;
+    min-height:30%;
+    padding-top:50px;
+    padding-left:15px;
+    padding-right:15px;
+}
+
+.signin-dialog-margin{
+    margin-bottom:15px;
+}
+
+.signin-footer{
+    margin-top:50px;
+    width:30%;
+    font-size:12px;
+}

@@ -1,6 +1,8 @@
-import React, {Component} from 'react';
+import React, {useContext} from 'react';
 
 import {Link} from "react-router-dom";
+
+import { AuthContext } from '../../Auth/AuthenticationProvider';
 
 import MenuEntry from './MenuEntry'
 import MenuHeader from './MenuHeader'
@@ -9,12 +11,16 @@ import MenuUserInfo from './MenuUserInfo'
 import './MenuPane.css';
 
 //Material 
-class MenuPane extends Component{
-    render(){
+export default function MenuPane(props){
+
+        const {user, setUser} = useContext(AuthContext)
+
+        console.log("in MenuPage.js, user: ", user)
+
         return(
             <div className="App-content-menu">
                 <MenuHeader text="LoL Match Tracker" />
-                <MenuUserInfo image="user-example" name="David Lekei" title="Creator" />
+                <MenuUserInfo image="user-example" name={user.username} title={user.title?user.title : ''} />
                 <div className="App-content-menu-list">
                     <Link to ="/home">
                         <div className="App-content-menu-link">
@@ -55,6 +61,3 @@ class MenuPane extends Component{
             </div>
         )
     }
-}
-
-export default MenuPane;
