@@ -1,26 +1,51 @@
-import React, {Component, useContext} from 'react';
+import React, {useContext} from 'react';
 
 import { AuthContext } from '../Auth/AuthenticationProvider';
+
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    useLocation,
+    Navigate,
+    useNavigate
+  } from "react-router-dom";
 
 import MenuPane from './Menu/MenuPane'
 import DisplayPane from './DisplayPane'
 
 import './MainContentPane.css';
-import LandingPage from './LandingPage/LandingPage'
+import LandingPageHero from './LandingPage/LandingPage'
+import SignInPage from './SignInPage/SignInPage';
 
 export default function MainContentPane(props){
 
     const {user, setUser} = useContext(AuthContext);
 
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const publicRoutes = ["/", "/signUp", "/signIn"]
+
     if(!user){
+        console.log("No user set");
+        if(!publicRoutes.includes(location.pathname)){
+            console.log("The path: " + location.pathname + " IS NOT found in publicRoutes")
+            navigate("/")
+        }
         return(
-            <LandingPage />
+            <Routes>
+                <Route path="/" element={<LandingPageHero />} />
+                <Route path="/signUp" />
+                <Route path="/signIn" element={<SignInPage />}/>
+                <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
         )
     }else{
         return(
             <div className="App-content-main">
                 <MenuPane />
-                <DisplayPane loggedIn={props.loggedIn}/>
+                <DisplayPane user={user}/>
             </div>
         )
     }

@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react'
 
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 import Button from '@mui/material/Button/Button'
 import TextField from '@mui/material/TextField/TextField'
@@ -27,14 +27,15 @@ function logInButtonPressed(authContext, loadingState){
         validUntil: '6/11/2023 11:35:00'
     }
 
-    authContext.setUser(data)
-    localStorage.setItem("token", data.token);
-    console.log("Set Local Storage for key 'token': ", data.token);
-
+    //3 second delay to 'simulate' network
     setTimeout(() => {
         console.log("Timed out")
         loadingState.setLoading(false)
+        authContext.setUser(data)
+        localStorage.setItem("token", data.token);
+        console.log("Set Local Storage for key 'token': ", data.token);
     }, 3000)
+
 }
 
 export default function SignInPage(props){
@@ -42,6 +43,8 @@ export default function SignInPage(props){
     const {user, setUser} = useContext(AuthContext);
 
     const [loading, setLoading] = useState(false)
+
+    const navigate = useNavigate();
 
     if(loading){
         return (
@@ -94,6 +97,10 @@ export default function SignInPage(props){
                             onClick={() => {
                                 setLoading(true)
                                 logInButtonPressed({user, setUser}, {loading, setLoading});
+                                //TODO: Navigate to /home should only be called if the log in was successful.
+                                //      I think this means that the logInButtonPressed function will need to be made to be async
+                                //      and I'll need to implement some kind of hook upon response from the auth server
+                                navigate('/home')
                             }}
                         >
                             Log in

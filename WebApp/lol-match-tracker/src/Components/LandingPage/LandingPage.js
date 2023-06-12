@@ -21,11 +21,7 @@ function LandingPage(props){
 
     return(
             <div className="lp-main">
-                <Routes>
-                    <Route path="/" element={<LandingPageHero />} />
-                    <Route path="/signUp" />
-                    <Route path="/signIn" element={<SignInPage />}/>
-                </Routes>
+                <LandingPageHero />
             </div>
     )
 
