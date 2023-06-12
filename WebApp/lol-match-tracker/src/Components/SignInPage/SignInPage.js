@@ -6,7 +6,7 @@ import Button from '@mui/material/Button/Button'
 import TextField from '@mui/material/TextField/TextField'
 
 import AuthButton from '../Common/AuthButton'
-import { AuthContext } from '../../Auth/AuthenticationProvider'
+import { AuthContext, addUserDataToLocalStorage } from '../../Auth/AuthenticationProvider'
 
 import './common.css'
 import './signinpage.css'
@@ -32,7 +32,7 @@ function logInButtonPressed(authContext, loadingState, callback){
         console.log("Timed out")
         loadingState.setLoading(false)
         authContext.setUser(data)
-        localStorage.setItem("token", data.token);
+        addUserDataToLocalStorage(username, 'user_token')
         console.log("Set Local Storage for key 'token': ", data.token);
         //TODO: Navigate to /home should only be called if the log in was successful.
         //      I think this means that the logInButtonPressed function will need to be made to be async

@@ -6,6 +6,8 @@
 import {React, Component, useContext, createContext, useState} from 'react'
 
 const API_SERVER_URL = 'http://localhost:8080/auth/validateToken'
+const ONE_DAY_IN_UNIX_SECONDS = 86400
+const LOCAL_STORAGE_DATA = 'user_data'
 
 export const AuthContext = createContext({});
 
@@ -27,12 +29,38 @@ export async function validateToken(token){
     return false
 }
 
-function checkLocalStorageForToken(){
-    if(localStorage.getItem("token")){
-        return true
+export function checkLocalStorageForToken(){
+    let data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA));
+
+    console.log("Found data: ", data)
+
+    if(!data){
+        return false
     }
 
-    return false
+    if(!data.user_token){
+        return false
+    }
+
+    if(Date.now() < data.expires){
+        return false
+    }
+
+    return true
+}
+
+export function addUserDataToLocalStorage(username, token){
+    let data = {
+        username: username,
+        user_token: token,
+        created: Date.now(),
+        expires: Date.now() + ONE_DAY_IN_UNIX_SECONDS
+    }
+    localStorage.setItem(LOCAL_STORAGE_DATA, JSON.stringify(data))
+}
+
+function getUserDataFromLocalStorage(){
+    return JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA))
 }
 
 export async function authenticateUser(username, password){
@@ -45,23 +73,21 @@ export async function authenticateUser(username, password){
 
 export default function AutheticationProvider(props){
 
-    const [user, setUser] = useState(
-        // username:"TestUser1",
-        // token:"dMcO0lm1AKnCvo11n52CC2nbk2512nan",
-        // loginTime:"1/2/3 12:12:00",
-        // validUntil:"1/3/3 12:12:00"
-    )
+    const [user, setUser] = useState()
 
-    if(checkLocalStorageForToken()){
-        console.log('Found Token in Local Storage: ', localStorage.getItem('token'))
+    if(!user){
+        if(checkLocalStorageForToken()){
+            console.log('Found Token in Local Storage: ', localStorage.getItem('user_token'))
 
-        if(validateToken(localStorage.getItem('token'))){
-            console.log('Token from Local Storage is still valid. Signing user in.')
+            if(validateToken(localStorage.getItem('user_token'))){
+                console.log('Token from Local Storage is still valid. Signing user in.')
+                setUser(getUserDataFromLocalStorage())
+            }else{
+                console.log('Token from Local Storage is NOT valid. User must sign in again.')
+            }
         }else{
-            console.log('Token from Local Storage is NOT valid. User must sign in again.')
+            console.log('Token NOT FOUND in Local Storage')
         }
-    }else{
-        console.log('Token NOT FOUND in Local Storage')
     }
         
     return (
