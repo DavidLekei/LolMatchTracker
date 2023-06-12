@@ -32,8 +32,6 @@ export async function validateToken(token){
 export function checkLocalStorageForToken(){
     let data = JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA));
 
-    console.log("Found data: ", data)
-
     if(!data){
         return false
     }
