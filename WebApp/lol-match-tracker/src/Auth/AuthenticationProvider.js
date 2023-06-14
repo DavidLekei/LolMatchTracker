@@ -3,30 +3,39 @@
 //      If token is valid, set user to the current user, display App homepage
 //      If token is NOT valid, remove from storage, display Sign In Page
 
-import {React, Component, useContext, createContext, useState} from 'react'
+import {React, Component, useContext, createContext, useState, useEffect} from 'react'
 
-const API_SERVER_URL = 'http://localhost:8080/auth/validateToken'
+const API_SERVER_URL = 'http://localhost:8080/auth/authenticate'
 const ONE_DAY_IN_UNIX_SECONDS = 86400000
 const LOCAL_STORAGE_DATA = 'user_data'
 
 export const AuthContext = createContext({});
 
-export async function validateToken(token){
-    let response = await fetch(API_SERVER_URL);
+export async function validateToken(data, setUser){
 
-    if(response.ok){
-        let data = response.json()
-        console.log('AuthenticationProvider - validateToken() - response.json(): ', data)
-
-        if(data.isValid){
-            return true
-        }
-
-    }else{
-        console.log('AuthenticationProvider - validateToken() - ERROR - Request Failed')
+    if(Date.now() < data.expires){
+        setUser(getUserDataFromLocalStorage())
+        return true
     }
 
-    return false
+        console.log('Token has expired, fetching new one.')
+
+        await fetch(API_SERVER_URL,
+        {
+          method: 'POST',
+          headers: {
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+          },
+          body: data.user_token 
+        }).then((response) => {
+            if(response.ok){
+                response.json().then((data) => {
+                    console.log('data returned from API: ', data);
+                    setUser(data)
+                })
+            }
+        })
 }
 
 export function checkLocalStorageForToken(){
@@ -37,11 +46,6 @@ export function checkLocalStorageForToken(){
     }
 
     if(!data.user_token){
-        return false
-    }
-
-    // console.log("data.expires: ", data.expires, "Date.now(): ", Date.now(), " difference: ", (Date.now() > data.expires))
-    if(Date.now() > data.expires){
         return false
     }
 
@@ -75,17 +79,16 @@ export default function AutheticationProvider(props){
     const [user, setUser] = useState()
 
     if(!user){
-        if(checkLocalStorageForToken()){
-            console.log('Found Token in Local Storage: ', localStorage.getItem('user_data'))
 
-            if(validateToken(localStorage.getItem('user_token'))){
-                console.log('Token from Local Storage is still valid. Signing user in.')
-                setUser(getUserDataFromLocalStorage())
-            }else{
-                console.log('Token from Local Storage is NOT valid. User must sign in again.')
-            }
-        }else{
+        if(checkLocalStorageForToken()){
+
+            validateToken(JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA)), setUser)
+
+        }
+        else{
+
             console.log('Token NOT FOUND in Local Storage')
+
         }
     }
         

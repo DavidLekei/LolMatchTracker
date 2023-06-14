@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 import { useParams } from "react-router-dom";
 
@@ -134,8 +134,26 @@ function getFilterSettings(){
     }
 }
 
+function useTraceUpdate(props) {
+    const prev = useRef(props);
+    useEffect(() => {
+      const changedProps = Object.entries(props).reduce((ps, [k, v]) => {
+        if (prev.current[k] !== v) {
+          ps[k] = [prev.current[k], v];
+        }
+        return ps;
+      }, {});
+      if (Object.keys(changedProps).length > 0) {
+        console.log('Changed props:', changedProps);
+      }
+      prev.current = props;
+    });
+  }
+
 //TODO: Match data should be retrieved from here I think... lol even tho we moved it out of here orginally xD
-export default function MatchPane(){
+export default function MatchPane(props){
+
+    useTraceUpdate(props)
 
     let columns = [
         "Champion",
@@ -170,6 +188,7 @@ export default function MatchPane(){
 
     //If data cannot be retrieved from the server after 5 seconds, render the page with no match data
     setTimeout(() => {
+        console.log("timeout triggered")
         setMatchData([])
         setIsLoading(false);
     }, 5000)
@@ -184,7 +203,7 @@ export default function MatchPane(){
         return(
             <div id="match-pane" className="match-pane">
                     <MatchListviewFilterModal id="filter-modal" header="Filter Matches" apply_onclick={() => setFilter(getFilterSettings())}></MatchListviewFilterModal>
-                    <MatchesPaneHeader header="MATCHES" text="View All Of Your Matches" filter_icon="filter_white" filter_function={showFilterModal}/>
+                    <MatchesPaneHeader header="MATCHES" text="View All Of Your Matches" filter_icon="filter_white" filter_function={showFilterModal} tableId='listview-match'/>
                     <Listview id="match" columns={columns}>
                         {
                             //TODO: Filter should probably be applied HERE somehow, not in the MatchInfoSmall class

@@ -15,8 +15,6 @@ export default function MenuPane(props){
 
         const {user, setUser} = useContext(AuthContext)
 
-        console.log("in MenuPage.js, user: ", user)
-
         return(
             <div className="App-content-menu">
                 <MenuHeader text="LoL Match Tracker" />
