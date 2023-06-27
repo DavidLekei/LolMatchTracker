@@ -16,7 +16,7 @@ export default function MatchesPaneHeader(props){
                         <div className="match-filter-img" onClick={props.filter_function}>
                             <img src={`/icons/${props.filter_icon}.png`}></img>
                         </div>
-                        <SearchButton searchFunction={props.search_function} tableId="" criteria={{}}/>
+                        <SearchButton searchFunction={props.search_function} tableId={'listview-match'} criteria={{}}/>
                     </div>
                 </div>
             </div>

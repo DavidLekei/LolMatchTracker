@@ -150,7 +150,7 @@ function useTraceUpdate(props) {
     });
   }
 
-//TODO: Match data should be retrieved from here I think... lol even tho we moved it out of here orginally xD
+//TODO: Figure out how to properly use setTimeout() to display an error/warning if the users data does not get returned from the server in X seconds
 export default function MatchPane(props){
 
     useTraceUpdate(props)
@@ -164,8 +164,7 @@ export default function MatchPane(props){
     ]
  
     const [filters, setFilter] = useState(filterSettings);
-    const [isLoading, setIsLoading] = useState(true);
-    const [matchData, setMatchData] = useState({games: []});
+    const [matchData, setMatchData] = useState(null);
 
 
     //TODO: This should probably call a "getBasicMatchData" type of endpoint, that only gets data for the columns required, instead of ALL data, but that's an optimization we can make in the future
@@ -177,7 +176,6 @@ export default function MatchPane(props){
                         {
                             res.json().then((data) => {
                                 setMatchData(data);
-                                setIsLoading(false);
                             });
                         }
                     })
@@ -186,24 +184,17 @@ export default function MatchPane(props){
             }, []
     );
 
-    //If data cannot be retrieved from the server after 5 seconds, render the page with no match data
-    setTimeout(() => {
-        console.log("timeout triggered")
-        setMatchData([])
-        setIsLoading(false);
-    }, 5000)
-
-    if(isLoading)
-    {
+    if(!matchData){
         return(
             <h1>Loading</h1>
         )
     }
+
     else{
         return(
             <div id="match-pane" className="match-pane">
                     <MatchListviewFilterModal id="filter-modal" header="Filter Matches" apply_onclick={() => setFilter(getFilterSettings())}></MatchListviewFilterModal>
-                    <MatchesPaneHeader header="MATCHES" text="View All Of Your Matches" filter_icon="filter_white" filter_function={showFilterModal} tableId='listview-match'/>
+                    <MatchesPaneHeader header="MATCHES" text="View All Of Your Matches" filter_icon="filter_white" filter_function={showFilterModal}/>
                     <Listview id="match" columns={columns}>
                         {
                             //TODO: Filter should probably be applied HERE somehow, not in the MatchInfoSmall class
