@@ -14,6 +14,8 @@ public class LolmatchtrackerapiApplication {
 		DataLoader loader = new DataLoader();
 		loader.loadAll();
 
+		System.out.println("Adding this to see if my changes are doing anything!");
+
 		SpringApplication.run(LolmatchtrackerapiApplication.class, args);
 	}
 

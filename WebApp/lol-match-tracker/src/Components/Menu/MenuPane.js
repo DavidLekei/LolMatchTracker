@@ -15,8 +15,6 @@ export default function MenuPane(props){
 
         const {user, setUser} = useContext(AuthContext)
 
-        console.log("in MenuPage.js, user: ", user)
-
         return(
             <div className="App-content-menu">
                 <MenuHeader text="LoL Match Tracker" />
@@ -35,6 +33,11 @@ export default function MenuPane(props){
                     <Link to ="/notes">
                         <div className="App-content-menu-link">
                             <MenuEntry icon="notes" text="Notes" />
+                        </div>
+                    </Link>
+                    <Link to="/recordings">
+                        <div className="App-content-menu-link">
+                            <MenuEntry icon="video" text="Recordings" />
                         </div>
                     </Link>
                     <Link to="/canvas">

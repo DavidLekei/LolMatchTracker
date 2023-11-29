@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 import { useParams } from "react-router-dom";
 
@@ -134,8 +134,26 @@ function getFilterSettings(){
     }
 }
 
-//TODO: Match data should be retrieved from here I think... lol even tho we moved it out of here orginally xD
-export default function MatchPane(){
+function useTraceUpdate(props) {
+    const prev = useRef(props);
+    useEffect(() => {
+      const changedProps = Object.entries(props).reduce((ps, [k, v]) => {
+        if (prev.current[k] !== v) {
+          ps[k] = [prev.current[k], v];
+        }
+        return ps;
+      }, {});
+      if (Object.keys(changedProps).length > 0) {
+        console.log('Changed props:', changedProps);
+      }
+      prev.current = props;
+    });
+  }
+
+//TODO: Figure out how to properly use setTimeout() to display an error/warning if the users data does not get returned from the server in X seconds
+export default function MatchPane(props){
+
+    useTraceUpdate(props)
 
     let columns = [
         "Champion",
@@ -146,8 +164,7 @@ export default function MatchPane(){
     ]
  
     const [filters, setFilter] = useState(filterSettings);
-    const [isLoading, setIsLoading] = useState(true);
-    const [matchData, setMatchData] = useState({games: []});
+    const [matchData, setMatchData] = useState(null);
 
 
     //TODO: This should probably call a "getBasicMatchData" type of endpoint, that only gets data for the columns required, instead of ALL data, but that's an optimization we can make in the future
@@ -159,7 +176,6 @@ export default function MatchPane(){
                         {
                             res.json().then((data) => {
                                 setMatchData(data);
-                                setIsLoading(false);
                             });
                         }
                     })
@@ -168,18 +184,12 @@ export default function MatchPane(){
             }, []
     );
 
-    //If data cannot be retrieved from the server after 5 seconds, render the page with no match data
-    setTimeout(() => {
-        setMatchData([])
-        setIsLoading(false);
-    }, 5000)
-
-    if(isLoading)
-    {
+    if(!matchData){
         return(
             <h1>Loading</h1>
         )
     }
+
     else{
         return(
             <div id="match-pane" className="match-pane">

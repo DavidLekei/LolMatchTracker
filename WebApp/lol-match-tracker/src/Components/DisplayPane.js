@@ -10,6 +10,7 @@ import AppToolbar from './Toolbar/AppToolbar'
 import MatchPane from './Match/MatchPane'
 import MatchInfoFull from './Match/MatchInfoFull'
 import NotesPane from './Notes/NotesPane'
+import Recordings from './Recording/Recordings'
 import HomePane from './Home/HomePane'
 import Canvas from '../Test/Canvas'
 import Journey from '../Components/Journey/Journey'
@@ -49,6 +50,7 @@ class DisplayPane extends Component{
                     <Route path="/matches/:matchid?" element={<MatchInfoFull />} />
                     <Route path="/matches/new" element={<CreateMatchPage />} />
                     <Route exact path="/notes" element={<NotesPane />}/>
+                    <Route path="/recordings" element={<Recordings />} />
                     <Route path="/account" />
                     <Route path="/about" />
                     <Route path="/canvas" element={<Canvas />} />

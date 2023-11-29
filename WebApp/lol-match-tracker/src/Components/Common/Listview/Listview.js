@@ -54,8 +54,6 @@ export default function Listview(props){
     //TODO: This needs to be taken out of here so that the user can add/remove columns to be displayed.
     //NOTE: MatchPane is also a functional component that utilizes useState(), which will most likely need to be used here eventually as well, so we can refer to MatchPane.js
 
-    console.log(props.filters);
-
     //TODO: Fetch match data from server/API
     //TODO: The matchinfosmall's should be created using a map()
     //TODO: The CSS implemented to make this table look good with 4 columns is BAD, need a better solution once we start letting users customize columns
