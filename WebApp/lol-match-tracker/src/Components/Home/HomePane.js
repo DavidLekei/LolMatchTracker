@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import {BrowserRouter as Router, Link} from 'react-router-dom'
 
+import QuickActions from './QuickActions'
 import MatchInfoSmall from '../Match/MatchInfoSmall';
 import StatsOverview from './StatsOverview'
 
@@ -67,6 +68,8 @@ class HomePane extends Component{
         let matchData = this.getMatchData();
         return(
             <div className="App-content-home">
+                <QuickActions />
+
                 <div><h2>Your Stats</h2></div>
                 <StatsOverview></StatsOverview>
                 <div><h2>Recent Matches</h2></div>

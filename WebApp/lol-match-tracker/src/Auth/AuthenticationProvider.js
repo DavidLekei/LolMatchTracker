@@ -76,7 +76,10 @@ export async function authenticateUser(username, password){
 
 export default function AutheticationProvider(props){
 
+    const [isAuthenticated, setIsAuthenticated] = useState()
+    const [token, setToken] = useState()
     const [user, setUser] = useState()
+
 
     if(!user){
 
@@ -93,7 +96,14 @@ export default function AutheticationProvider(props){
     }
         
     return (
-        <AuthContext.Provider value={{user,  setUser}}>
+        <AuthContext.Provider 
+            value={{
+                isAuthenticated,
+                setIsAuthenticated,
+                token,
+                setToken,
+                user,
+                setUser}}>
             {props.children}
         </AuthContext.Provider>
     )
