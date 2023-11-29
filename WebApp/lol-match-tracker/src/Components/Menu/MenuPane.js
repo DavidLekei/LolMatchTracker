@@ -35,6 +35,11 @@ export default function MenuPane(props){
                             <MenuEntry icon="notes" text="Notes" />
                         </div>
                     </Link>
+                    <Link to="/recordings">
+                        <div className="App-content-menu-link">
+                            <MenuEntry icon="video" text="Recordings" />
+                        </div>
+                    </Link>
                     <Link to="/canvas">
                         <div className = "App-content-menu-link">
                             <MenuEntry icon="canvas" text="Canvas" />
