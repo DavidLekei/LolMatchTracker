@@ -15,7 +15,7 @@ import java.io.*;
 public class RecordingController implements Controller {
 
 	private final String RECORDING_ROOT = "C:/Users/David/Projects/LoLMatchTracker/TestRecordings";
-	private final String VIDEO_EXTENSION = ".h264";
+	private final String VIDEO_EXTENSION = ".webm";
 	private final int MAX_BYTE_BUFFER = 1000000000; //1GB
 
 	@CrossOrigin
@@ -39,7 +39,7 @@ public class RecordingController implements Controller {
 		try {
 			byte[] bytes = recording.getBytes();
 			makeUserDirectory(userId);
-			try(FileOutputStream outputStream = new FileOutputStream(RECORDING_ROOT + "/" + userId + "/" + nextFileName + ".h264")){
+			try(FileOutputStream outputStream = new FileOutputStream(RECORDING_ROOT + "/" + userId + "/" + nextFileName + VIDEO_EXTENSION)){
 				outputStream.write(bytes);
 			}
 

@@ -18,7 +18,7 @@ import java.io.IOException;
 public class GetRecordingsController {
 
 	private final String RECORDING_ROOT = "C:/Users/David/Projects/LoLMatchTracker/TestRecordings";
-	private final String VIDEO_EXTENSION = ".h264";
+	private final String VIDEO_EXTENSION = ".webm";
 	private final int MAX_BYTE_BUFFER = 1000000000; //1GB
 
 	@CrossOrigin

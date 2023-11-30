@@ -18,19 +18,23 @@ async function uploadVideo(blob){
 }
 
 export default function Recorder(props){
-	const constraints = {audio: false, video: {displaySurface: "window", logicalSurface: false}} //TODO: Get audio:true/false from user settings
+	const constraints = {video: {displaySurface: "monitor", logicalSurface: false}, audio: true, systemAudio:"include"} //TODO: Get audio:true/false from user settings
 	let chunks = []
 
+	console.log('recorder')
+	
 	const onSuccess = (stream) => {
 
-		const mediaRecorder = new MediaRecorder(stream)
+		console.log('stream: ', stream)
+
+		const mediaRecorder = new MediaRecorder(stream, {mimeType: "video/webm"})
 
 		mediaRecorder.ondataavailable = (e) => {
 			chunks.push(e.data)
 		}
 
 		mediaRecorder.onstop = (e) => {
-			const blob = new Blob(chunks, {'type' : 'video/h264'})
+			const blob = new Blob(chunks, {'type' : 'video/webm'})
 			chunks = []
 			uploadVideo(blob)
 			//const videoURL = window.URL.createObjectURL(blob)
