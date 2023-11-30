@@ -20,8 +20,6 @@ async function uploadVideo(blob){
 export default function Recorder(props){
 	const constraints = {video: {displaySurface: "monitor", logicalSurface: false}, audio: true, systemAudio:"include"} //TODO: Get audio:true/false from user settings
 	let chunks = []
-
-	console.log('recorder')
 	
 	const onSuccess = (stream) => {
 
@@ -53,6 +51,7 @@ export default function Recorder(props){
 	const onError = (error) => {
 		alert('ERROR: Could not start recorder.')
 		console.log('error:', error)
+		props['callback']()
 	}
 
 
