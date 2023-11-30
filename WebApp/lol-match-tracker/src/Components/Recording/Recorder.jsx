@@ -13,19 +13,17 @@ async function uploadVideo(blob){
 				//'Access-Control-Allow-Origin':'http://localhost:8080'
 			}
 		}).then((res) => {
-			console.log('uploadVideo! response')
 		})
 }
 
 export default function Recorder(props){
 	const constraints = {video: {displaySurface: "monitor", logicalSurface: false}, audio: true, systemAudio:"include"} //TODO: Get audio:true/false from user settings
 	let chunks = []
+
 	
 	const onSuccess = (stream) => {
 
-		console.log('stream: ', stream)
-
-		const mediaRecorder = new MediaRecorder(stream, {mimeType: "video/webm"})
+		const mediaRecorder = new MediaRecorder(stream, {mimeType: 'video/webm'}) //Will throw an exception for mp4, as Chrome apparently does not support mp4
 
 		mediaRecorder.ondataavailable = (e) => {
 			chunks.push(e.data)
@@ -39,13 +37,15 @@ export default function Recorder(props){
 		}
 
 
-		mediaRecorder.start()
-
 		let stopButton = document.getElementById(props['stopButtonId'])
 		stopButton.onclick = () => {
+			console.log('stopped')
 			mediaRecorder.stop()
 			props['callback']()
 		}
+	
+
+		mediaRecorder.start()
 	}
 
 	const onError = (error) => {
