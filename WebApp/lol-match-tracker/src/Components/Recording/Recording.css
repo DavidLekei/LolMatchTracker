@@ -1,0 +1,11 @@
+.pane{
+	color:white;
+}
+
+.recording{
+	display:flex;
+	flex-direction: column;
+	width:350px;
+	height:300px;
+	outline:2px solid red;
+}

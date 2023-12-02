@@ -5,53 +5,82 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.RandomAccess;
+import com.davidlekei.lolmatchtrackerapi.util.FileUtils;
 
 @Controller
 public class GetRecordingsController {
 
 	private final String RECORDING_ROOT = "C:/Users/David/Projects/LoLMatchTracker/TestRecordings";
-	private final String VIDEO_EXTENSION = ".webm";
+	private final String VIDEO_EXTENSION = ".mp4";
 	private final int MAX_BYTE_BUFFER = 1000000000; //1GB
 
 	@CrossOrigin
 	@GetMapping("/recordings")
-	public ResponseEntity<byte[]> getRecording(@RequestParam("videoId") int videoId, @RequestParam("userId") int userId){
-		//I don't like passing the userId via the URL like this, but for the sake of speed I'm going to do it like this for now
-		//There must be a way to pass the userId via a cookie/session token
+	@ResponseBody
+	public ResponseEntity<StreamingResponseBody> getRecording(@RequestParam("videoId") int videoId, @RequestParam("userId") int userId, @RequestHeader(value = "range", required=false) String range){
 
-		System.out.println("We hit the GET /recording endpoint! videoId = " + videoId + " - userId = " + userId);
+		try{
+			StreamingResponseBody response;
 
-		try(FileInputStream inputStream = new FileInputStream(new File(RECORDING_ROOT + "/" + userId + "/" + videoId + VIDEO_EXTENSION))){
+			String filePathString = RECORDING_ROOT + "/" + userId + "/" + videoId + VIDEO_EXTENSION;
 
-			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-			int n;
-			byte[] data = new byte[MAX_BYTE_BUFFER];
+			File video = new File(filePathString);
+			Long fileSize = video.length();
 
-			while((n = inputStream.read(data, 0, data.length)) != -1) {
-				buffer.write(data, 0, n);
+			byte[] buffer = new byte[MAX_BYTE_BUFFER];
+
+			final HttpHeaders responseHeaders = new HttpHeaders();
+
+			String[] ranges = range.split("-");
+			Long rangeStart = Long.parseLong(ranges[0].substring(6));//bytes=
+			Long rangeEnd;
+
+			if(ranges.length > 1){
+				rangeEnd = Long.parseLong(ranges[1]);
+			}else{
+				rangeEnd = fileSize - 1;
 			}
 
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Content-Type", "video/h264");
+			if(fileSize < rangeEnd){
+				rangeEnd = fileSize - 1;
+			}
 
-			System.out.println("Sending Response");
-			return new ResponseEntity<byte[]>(new VideoMultipartFile(buffer.toByteArray()).getBytes(), HttpStatus.OK);
+			responseHeaders.add("Content-Type", "video/mp4");
+			responseHeaders.add("Content-Length", String.valueOf((rangeEnd - rangeStart) + 1));
+			responseHeaders.add("Accepts-Ranges", "bytes");
+			responseHeaders.add("Content-Range", "bytes " + rangeStart + "-" + rangeEnd + "/" + fileSize);
+			responseHeaders.add("Etag", "Test");
+			responseHeaders.add("Last-Modified", FileUtils.getFileLastModifiedDate(video));
+			final Long _rangeEnd = rangeEnd;
+			response = os -> {
+				RandomAccessFile file = new RandomAccessFile(video, "r");
+				try (file){
+					long pos = rangeStart;
+					file.seek(pos);
+					while(pos < _rangeEnd){
+						file.read(buffer);
+						os.write(buffer);
+						pos += buffer.length;
+					}
+					os.flush();
+				} catch(Exception e){e.printStackTrace();}
+			};
 
-			//return new VideoMultipartFile(buffer.toByteArray());
-
-		}catch(IOException ioe){
-			ioe.printStackTrace();
+			return new ResponseEntity<StreamingResponseBody>(response, responseHeaders, HttpStatus.PARTIAL_CONTENT);
+		}catch(Exception e){
+			e.printStackTrace();
 		}
-
-		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
+
+
 
 }
