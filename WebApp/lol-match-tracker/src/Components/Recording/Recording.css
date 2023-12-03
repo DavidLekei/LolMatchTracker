@@ -1,11 +1,48 @@
 .pane{
 	color:white;
+	overflow-y:scroll;
+}
+
+.recordings-container{
+	display:grid;
+	grid-template-columns: auto auto auto;
+	padding-left:8%;
 }
 
 .recording{
 	display:flex;
 	flex-direction: column;
 	width:350px;
-	height:300px;
-	outline:2px solid red;
+	height:auto;
+	margin: 5% 2% 0% 0%;
+}
+
+.recording-thumbnail{
+	border-radius:5%;
+	cursor: pointer;
+}
+
+.recording-text{
+	font-size:13px;
+	color: #98989a;
+}
+
+.recordings-controls{
+	display:flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	margin: 2% 0% 2% 0%
+}
+
+#record-button{
+	background: linear-gradient(90deg, hsla(146, 81%, 68%, 1) 0%, hsla(136, 56%, 41%, 1) 100%, hsla(232, 75%, 69%, 1) 100%);
+
+}
+
+#upload-button{
+	background: linear-gradient(90deg, hsla(287, 62%, 80%, 1) 0%, hsla(293, 98%, 48%, 1) 100%);
+}
+
+#search-button{
+	background: linear-gradient(90deg, hsla(216, 82%, 68%, 1) 0%, hsla(235, 82%, 51%, 1) 100%, hsla(232, 75%, 69%, 1) 100%);
 }

@@ -1,4 +1,9 @@
+import {useState} from 'react'
+
+import VideoPlayer from '../Video/VideoPlayer'
 import Recording from './Recording'
+import RecordingsControls from './RecordingsControls'
+import {getRecordings} from '../../API/api'
 
 import Button from '@mui/material/Button'
 
@@ -6,27 +11,55 @@ import './Recording.css'
 
 export default function Recordings(props){
 
-	let video = document.getElementById('recording-video-player')
+	const [loaded, setLoaded] = useState(false)
+	const [recordings, setRecordings] = useState();
 
-	const checkVideo = () => {
-		console.log('?')
+	const onClick = () => {
+		window.location = '/recordings/1'
+	}
 
-		// video.addEventListener('seeking', (e) => {
-		// 	console.log(e)
-		// })
-		console.log(video.seekable.start(0), ' - ', video.seekable.end(0))
+	const createRecordings = (data) => {
+		let recordings = data.map((recording, index) => {
+			return(
+				<Recording data={recording} onClick={onClick} />
+			)
+		})
+
+		setLoaded(true)
+		setRecordings(recordings)
+	}
+
+	if(!loaded){
+		getRecordings(1, createRecordings);
 	}
 
 	return(
 		<div className="pane">
 			<h1 className="white">Recordings</h1>
-			{/*<Recording />*/}
-			<video id="recording-video-player" controls preload='auto' width='1080'>
-				{/*<source src="/video/1.mp4" type="video/mp4" />*/}
-				<source src='http://localhost:8080/recordings?videoId=1&userId=1' type="video/mp4"/>
-			</video>
+			<RecordingsControls />
+			<div className="recordings-container">
+				{recordings ? recordings : <div>Loading</div>}
+				{/*<Recording 
+					data={{title: 'Recording-001', date:'Fri, 01 Dec 2023', championPlayed:'Ahri', championAgainst:'Zed', outcome:'Win', thumbnail:'test_thumbnail.jpg'}}
+					onClick={onClick}
+				/>
+				<Recording 
+					data={{title: 'Recording-001', date:'Fri, 01 Dec 2023', championPlayed:'Ahri', championAgainst:'Zed', outcome:'Win', thumbnail:'test_thumbnail.jpg'}}
+					onClick={onClick}
+				/>
+				<Recording
+					data={{title: 'Recording-001', date:'Fri, 01 Dec 2023', championPlayed:'Ahri', championAgainst:'Zed', outcome:'Win', thumbnail:'test_thumbnail.jpg'}}
+					onClick={onClick}
+				/>
+				<Recording 
+					data={{title: 'Recording-001', date:'Fri, 01 Dec 2023', championPlayed:'Ahri', championAgainst:'Zed', outcome:'Win', thumbnail:'test_thumbnail.jpg'}}
+					onClick={onClick}
+				/>*/}
+			</div>
 
-			<Button variant="contained" onClick={checkVideo}>Check Video</Button>
+			{/*<VideoPlayer />*/}
+
+			{/*<Button variant="contained" onClick={checkVideo}>Check Video</Button>*/}
 		</div>
 	)
 }

@@ -3,6 +3,7 @@ package com.davidlekei.lolmatchtrackerapi.controllers.recording;
 import com.davidlekei.lolmatchtrackerapi.controllers.Controller;
 
 import com.davidlekei.lolmatchtrackerapi.data.VideoMultipartFile;
+import com.davidlekei.lolmatchtrackerapi.data.recording.Recording;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class RecordingController implements Controller {
@@ -17,13 +20,6 @@ public class RecordingController implements Controller {
 	private final String RECORDING_ROOT = "C:/Users/David/Projects/LoLMatchTracker/TestRecordings";
 	private final String VIDEO_EXTENSION = ".webm";
 	private final int MAX_BYTE_BUFFER = 1000000000; //1GB
-
-	@CrossOrigin
-	@GetMapping("/recording/test")
-	public String test(){
-		return "Test passed";
-	}
-
 
 	@CrossOrigin
 	@PostMapping("/recording")
@@ -55,6 +51,15 @@ public class RecordingController implements Controller {
 		if(!dir.exists()){
 			dir.mkdirs();
 		}
+	}
+
+	@CrossOrigin
+	@GetMapping("/recordings")
+	public List<Recording> getRecordings(@RequestParam("userId") int userId){
+		Recording recording = new Recording("Test Recording", "Sylas", "Ekko", "Loss", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
+		ArrayList<Recording> recordingList = new ArrayList<Recording>();
+		recordingList.add(recording);
+		return recordingList;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.davidlekei.lolmatchtrackerapi.controllers.recording;
 
 import com.davidlekei.lolmatchtrackerapi.data.VideoMultipartFile;
+import com.davidlekei.lolmatchtrackerapi.data.recording.Recording;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.RandomAccess;
 import com.davidlekei.lolmatchtrackerapi.util.FileUtils;
 
@@ -23,9 +26,9 @@ public class GetRecordingsController {
 	private final int MAX_BYTE_BUFFER = 1000000000; //1GB
 
 	@CrossOrigin
-	@GetMapping("/recordings")
+	@GetMapping("/recordings/{videoId}")
 	@ResponseBody
-	public ResponseEntity<StreamingResponseBody> getRecording(@RequestParam("videoId") int videoId, @RequestParam("userId") int userId, @RequestHeader(value = "range", required=false) String range){
+	public ResponseEntity<StreamingResponseBody> getRecording(@PathVariable("videoId") int videoId, @RequestParam("userId") int userId, @RequestHeader(value = "range", required=false) String range){
 
 		try{
 			StreamingResponseBody response;
