@@ -19,7 +19,7 @@ export default function RecordingPlayer(props){
 	return(
 		<div className="recording-player">
 			<EditableText element='h1' bold id="title" onEdit={editTitle}>Something here</EditableText>
-			<div className="video-player-overlay">
+			<div id="video-player-overlay" className="video-player-overlay">
 				<VideoPlayer />
 			</div>
 			<EditableText element='p' id='date' onEdit={editDate}>Date</EditableText>
