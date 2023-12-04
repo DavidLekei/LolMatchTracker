@@ -56,8 +56,32 @@ public class RecordingController implements Controller {
 	@CrossOrigin
 	@GetMapping("/recordings")
 	public List<Recording> getRecordings(@RequestParam("userId") int userId){
-		Recording recording = new Recording("Test Recording", "Sylas", "Ekko", "Loss", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
 		ArrayList<Recording> recordingList = new ArrayList<Recording>();
+		Recording recording = new Recording(13, "Test Recording", "Sylas", "Ekko", "Loss", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
+		recordingList.add(recording);
+		recording = new Recording(1, "Sylas Game 2", "Sylas", "Viktor", "Win", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
+		recordingList.add(recording);
+		recording = new Recording(2, "Sylas Game 2", "Sylas", "Viktor", "Win", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
+		recordingList.add(recording);
+		recording = new Recording(3, "Sylas Game 3", "Sylas", "Zed", "Win", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
+		recordingList.add(recording);
+		recording = new Recording(4, "Ekko Game 1", "Ekko", "Viktor", "Win", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
+		recordingList.add(recording);
+		recording = new Recording(5, "Ekko Game 2", "Ekko", "Talon", "Loss", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
+		recordingList.add(recording);
+		recording = new Recording(6, "Ekko Game 3", "Ekko", "Akali", "Loss", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
+		recordingList.add(recording);
+		recording = new Recording(7, "Random Normal Game", "Syndra", "Orianna", "Win", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
+		recordingList.add(recording);
+		recording = new Recording(8, "Ekko Game 4", "Ekko", "Viktor", "Win", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
+		recordingList.add(recording);
+		recording = new Recording(9, "Sylas Game 4", "Sylas", "Ahri", "Win", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
+		recordingList.add(recording);
+		recording = new Recording(10, "Sylas Game 5", "Sylas", "Kled", "Loss", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
+		recordingList.add(recording);
+		recording = new Recording(11, "Sylas Game 6", "Sylas", "Viktor", "Loss", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
+		recordingList.add(recording);
+		recording = new Recording(12, "Sylas Game 7", "Sylas", "Akali", "Win", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
 		recordingList.add(recording);
 		return recordingList;
 	}

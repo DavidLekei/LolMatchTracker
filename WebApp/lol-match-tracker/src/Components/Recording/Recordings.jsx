@@ -39,22 +39,6 @@ export default function Recordings(props){
 			<RecordingsControls />
 			<div className="recordings-container">
 				{recordings ? recordings : <div>Loading</div>}
-				{/*<Recording 
-					data={{title: 'Recording-001', date:'Fri, 01 Dec 2023', championPlayed:'Ahri', championAgainst:'Zed', outcome:'Win', thumbnail:'test_thumbnail.jpg'}}
-					onClick={onClick}
-				/>
-				<Recording 
-					data={{title: 'Recording-001', date:'Fri, 01 Dec 2023', championPlayed:'Ahri', championAgainst:'Zed', outcome:'Win', thumbnail:'test_thumbnail.jpg'}}
-					onClick={onClick}
-				/>
-				<Recording
-					data={{title: 'Recording-001', date:'Fri, 01 Dec 2023', championPlayed:'Ahri', championAgainst:'Zed', outcome:'Win', thumbnail:'test_thumbnail.jpg'}}
-					onClick={onClick}
-				/>
-				<Recording 
-					data={{title: 'Recording-001', date:'Fri, 01 Dec 2023', championPlayed:'Ahri', championAgainst:'Zed', outcome:'Win', thumbnail:'test_thumbnail.jpg'}}
-					onClick={onClick}
-				/>*/}
 			</div>
 
 			{/*<VideoPlayer />*/}

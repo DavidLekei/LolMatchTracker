@@ -1,21 +1,15 @@
 package com.davidlekei.lolmatchtrackerapi.controllers.recording;
 
-import com.davidlekei.lolmatchtrackerapi.data.VideoMultipartFile;
 import com.davidlekei.lolmatchtrackerapi.data.recording.Recording;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.util.OnCommittedResponseWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.RandomAccess;
 import com.davidlekei.lolmatchtrackerapi.util.FileUtils;
 
 @Controller
@@ -25,6 +19,8 @@ public class GetRecordingsController {
 	private final String VIDEO_EXTENSION = ".mp4";
 	private final int MAX_BYTE_BUFFER = 1000000000; //1GB
 
+	//private StreamingResponseBody test(OutputStream )
+
 	@CrossOrigin
 	@GetMapping("/recordings/{videoId}")
 	@ResponseBody
@@ -32,7 +28,6 @@ public class GetRecordingsController {
 
 		try{
 			StreamingResponseBody response;
-
 			String filePathString = RECORDING_ROOT + "/" + userId + "/" + videoId + VIDEO_EXTENSION;
 
 			File video = new File(filePathString);
@@ -62,6 +57,7 @@ public class GetRecordingsController {
 			responseHeaders.add("Content-Range", "bytes " + rangeStart + "-" + rangeEnd + "/" + fileSize);
 			responseHeaders.add("Etag", "Test");
 			responseHeaders.add("Last-Modified", FileUtils.getFileLastModifiedDate(video));
+
 			final Long _rangeEnd = rangeEnd;
 			response = os -> {
 				RandomAccessFile file = new RandomAccessFile(video, "r");
@@ -83,7 +79,6 @@ public class GetRecordingsController {
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
-
 
 
 }

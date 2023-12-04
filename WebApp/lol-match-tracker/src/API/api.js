@@ -1,24 +1,31 @@
-//I think this function is useless, since we're using a <source> element in Video.jsx
-export async function getRecording(videoId, userId, callback){
-	await fetch(`http://localhost:8080/recordings/${videoId}`, {
-		method: 'POST',
-		headers: {
-
-		},
-		body: JSON.stringify({userId:userId})
-	}).then((res) => {
-		callback(res)
-	})
-}
-
-export async function getRecordings(userId, callback){
-	await fetch(`http://localhost:8080/recordings?userId=${userId}`)
-	.then((res) => {
+async function get(url, callback){
+	await fetch(url).then((res) => {
 		if(res.ok){
-			res.json()
-			.then((data) => {
+			res.json().then((data) => {
 				callback(data)
 			})
 		}
 	})
+}
+
+async function post(url, headers, body, callback){
+	await fetch(url, {
+		method: 'POST',
+		headers: headers,
+		body: body
+	}).then((res) => {
+		if(res.ok){
+			res.json().then((data) => {
+				callback(data)
+			})
+		}
+	})
+}
+
+export async function getRecordings(userId, callback){
+	get(`http://localhost:8080/recordings?userId=${userId}`, callback)
+}
+
+export async function getRecordingData(videoId, userId, callback){
+	get(`http://localhost/8080/recordings/${videoId}?userId=${userId}`, callback)
 }

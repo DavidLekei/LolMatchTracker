@@ -14,3 +14,26 @@
     outline:2px solid black;
     cursor:pointer;
 }
+
+.editable-text{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items:center;
+}
+
+.editable-text-icon:hover{
+    cursor: pointer;
+}
+
+#edit-icon{
+    color:blue;
+}
+
+#done-icon{
+    color:green;
+}
+
+#cancel-icon{
+    color:red;
+}
