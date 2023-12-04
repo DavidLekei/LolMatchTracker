@@ -78,6 +78,10 @@ export default function EditableText(props){
 		element = <h6 id={props.id}>{text}</h6>
 		break;
 
+	case 'area':
+		element = <textarea id={props.id} rows="20" cols="150" disabled="true">{text}</textarea>
+		break;
+
 	default:
 		element = <p id={props.id}>{text}</p>
 	}

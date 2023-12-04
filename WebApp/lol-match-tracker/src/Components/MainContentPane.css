@@ -11,7 +11,7 @@
     height:auto;
     display:flex;
     flex-direction:column;
-    overflow-y:hidden;
+    overflow-y:scroll;
     background: #13161f;
     padding:15px;
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
