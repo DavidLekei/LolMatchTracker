@@ -4,24 +4,16 @@ import VideoControls from './VideoControls'
 import {useState} from 'react'
 import {useLocation, useParams} from 'react-router-dom'
 
-export default function VideoPlayer(props){
+import './Video.css'
 
-	const [showControls, setShowControls] = useState(false)
+export default function VideoPlayer(props){
 
 	const {videoId} = useParams()
 
-	document.getElementById('video-player-overlay').addEventListener("mouseenter", (event) => {
-		setShowControls(true)
-	})
-
-	document.getElementById('video-player-overlay').addEventListener("mouseleave", (event) => {
-		setShowControls(false)
-	})
-
 	return(
-		<div className="video-player-container">
+		<div id="video-player-container" className="video-player-container">
 			<Video className="video-player" videoId={videoId} userId="1" />
-			{showControls?<VideoControls />:null}
+			<VideoControls />
 		</div>
 	)
 }
