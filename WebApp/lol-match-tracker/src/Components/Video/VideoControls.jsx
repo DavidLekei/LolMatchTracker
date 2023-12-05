@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Slider from '@mui/material/Slider';
 import VolumeDown from '@mui/icons-material/VolumeDown';
-import VolumeUp from '@mui/icons-material/VolumeUp';
+import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 
@@ -19,14 +19,10 @@ export default function VideoControls(props){
 
 	const [volume, setVolume] = useState(30);
 	const [progress, setProgress] = useState(0)
-	// const [duration, setDuration] = useState([0, 100])
-
-	// const handleDrag = (event, newValue) => {
-	// 	console.log('when does this get called? ', newValue)
-	// 	setProgress(newValue)
-	// }
-
+	const [playing, setPlaying] = useState(false)
 	const [isFullscreen, setIsFullscreen] = useState(false)
+	const [muted, setMuted] = useState(false)
+	const [volumeWhenMuted, setVolumeWhenMuted] = useState(volume)
 
 	const handleVolumeChange = (event, newValue) => {
 		getVideo().volume = (volume/100)
@@ -39,21 +35,31 @@ export default function VideoControls(props){
 
 	const play = () => {
 		getVideo().play()
+		setPlaying(true)
 	}
 
 	const pause = () => {
 		getVideo().pause()
+		setPlaying(false)
 	}
 
 	const stop = () => {
 		pause()
 		getVideo().currentTime = 0
+		setPlaying(false)
 	}
 
 	const mute = () => {
-		console.log('mute')
 		getVideo().volume = 0.0
+		setVolumeWhenMuted(volume)
 		setVolume(0)
+		setMuted(true)
+	}
+
+	const unmute = () => {
+		getVideo().volume = volumeWhenMuted/100
+		setVolume(volumeWhenMuted)
+		setMuted(false)
 	}
 
 	const max = () => {
@@ -84,12 +90,13 @@ export default function VideoControls(props){
 	}
 
 	const addAnnotation = () => {
+		pause()
 		const video = getVideo()
-		video.pause()
 		const currentTime = video.currentTime
 		const progressBar = document.getElementById('progress-bar')
 		const annotationContainer = document.getElementById('annotation-container')
 		const annotationInput = document.getElementById('annotation-input')
+		annotationInput.style = `margin-left:${currentTime * 2}px`
 		annotationContainer.className = ""
 		annotationInput.focus()
 		console.log('currentTime : ', currentTime)
@@ -150,15 +157,14 @@ export default function VideoControls(props){
 			</div>
 			<div className="video-controls">
 				<div className="control-group playback-controls">
-					<PlayArrowIcon className="video-player-icon" onClick={play}/>
-					<PauseOutlinedIcon className="video-player-icon" onClick={pause}/>
+					{playing ? <PauseOutlinedIcon className="video-player-icon" onClick={pause}/> : <PlayArrowIcon className="video-player-icon" onClick={play}/>}
 					<StopIcon className="video-player-icon" onClick={stop}/>
 				</div>
 				<div className="control-group  other-controls">
 					<TextSnippetOutlinedIcon className="video-player-icon" onClick={addAnnotation}/>
 					<Box sx={{ width: 200 }}>
 						<Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-						  <VolumeDown id="volume-down" className="video-player-icon" onClick={mute}/>
+						  {muted ? <VolumeOffOutlinedIcon id="muted-icon" className="video-player-icon" onClick={unmute}/> : <VolumeDown id="volume-down" className="video-player-icon" onClick={mute}/>}
 						  <Slider aria-label="Volume" value={volume} onChange={handleVolumeChange} />
 						</Stack>
 					</Box>
