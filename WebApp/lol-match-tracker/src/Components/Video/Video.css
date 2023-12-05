@@ -38,13 +38,10 @@
 	width:35%;
 }
 
-.other-controls{
-/*	justify-content: end;*/
+#progress-bar{
+	width:100%;
+	margin-bottom:20px;
 }
-
-/*.other-controls > * {
-	margin-right:30px;
-}*/
 
 .video-player-icon{
 	transform: scale(2.5);
