@@ -13,6 +13,7 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import {useState, useEffect} from 'react'
 
 import './Video.css'
+import AddAnnotation from './AddAnnotation'
 
 export default function VideoControls(props){
 
@@ -83,6 +84,16 @@ export default function VideoControls(props){
 	}
 
 	const addAnnotation = () => {
+		const video = getVideo()
+		video.pause()
+		const currentTime = video.currentTime
+		const progressBar = document.getElementById('progress-bar')
+		const annotationContainer = document.getElementById('annotation-container')
+		const annotationInput = document.getElementById('annotation-input')
+		annotationContainer.className = ""
+		annotationInput.focus()
+		console.log('currentTime : ', currentTime)
+		console.log('progressBar.value : ', progressBar.value)
 
 	}
 
@@ -93,6 +104,7 @@ export default function VideoControls(props){
 
 		document.getElementById('video-player-overlay').addEventListener("mouseleave", (event) => {
 			document.getElementById('video-controls').className = "hidden"
+			document.getElementById('annotation-container').className = "hidden"
 		})
 
 		getVideo().addEventListener('timeupdate', (event) => {
@@ -102,12 +114,39 @@ export default function VideoControls(props){
 			progressBar.value = (currentTime / duration) * 100
 			console.log('value: ', progressBar.value)
 		})
+
+		document.getElementById('annotation-input').addEventListener('keyup', (event) => {
+			if(event.key == 'Enter'){
+				const annotationContainer = document.getElementById('annotation-container')
+				const annotationInput = document.getElementById('annotation-input')
+				const currentTime = getVideo().currentTime
+
+				let minutes = Math.floor(currentTime / 60)
+				let seconds = Math.floor(currentTime % 60)
+
+				if(minutes < 10){
+					minutes = '0' + minutes
+				}
+
+				if(seconds < 10){
+					seconds = '0' + seconds
+				}
+
+				const time = minutes + ':' + seconds
+
+				const annotation = '@' + time + ' - ' + annotationInput.value + '\n'
+				const notes = document.getElementById('notes').value += annotation
+				annotationInput.value = ""
+				annotationContainer.className = "hidden"
+			}
+		})
 	}, [])
 
 	return(
 		<div id="video-controls">
+			<AddAnnotation />
 			<div className="progress-controls">
-				<input id="progress-bar" type="range" value="0" min="0" max="100" step="0.25"/>
+				<input id="progress-bar" type="range" value="0" min="0" max="100" step="0.25" onClick={() => {console.log('test')}}/>
 			</div>
 			<div className="video-controls">
 				<div className="control-group playback-controls">

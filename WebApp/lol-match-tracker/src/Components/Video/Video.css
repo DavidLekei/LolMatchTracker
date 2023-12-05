@@ -58,3 +58,13 @@
 #volume-down{
 	cursor: pointer;
 }
+
+#annotation-container{
+	display: flex;
+	flex-direction: row;
+	width:25%;
+}
+
+#add-annotation > input{
+	width:25%;
+}
