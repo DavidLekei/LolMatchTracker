@@ -79,14 +79,8 @@ export default function VideoControls(props){
 		setIsFullscreen(false)
 	}
 
-	// const updateProgress = () => {
-	// 	// setProgress(progress + 4)
-	// }
-
 	const seek = (event, newValue) => {
-		console.log('seek')
 		setProgress(newValue)
-		console.log('setProgress called?')
 	}
 
 	const addAnnotation = () => {
@@ -99,12 +93,13 @@ export default function VideoControls(props){
 		annotationInput.style = `margin-left:${currentTime * 2}px`
 		annotationContainer.className = ""
 		annotationInput.focus()
-		console.log('currentTime : ', currentTime)
-		console.log('progressBar.value : ', progressBar.value)
-
 	}
 
 	useEffect(() => {
+		getVideo().addEventListener('stalled', (event) => {
+			console.log('stalled')
+		})
+
 		document.getElementById('video-player-overlay').addEventListener("mouseenter", (event) => {
 			document.getElementById('video-controls').className = ""
 		})
@@ -119,7 +114,6 @@ export default function VideoControls(props){
 			const duration = getVideo().duration
 			const progressBar = document.getElementById('progress-bar')
 			progressBar.value = (currentTime / duration) * 100
-			console.log('value: ', progressBar.value)
 		})
 
 		document.getElementById('annotation-input').addEventListener('keyup', (event) => {
