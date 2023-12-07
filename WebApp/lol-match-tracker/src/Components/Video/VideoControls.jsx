@@ -79,8 +79,11 @@ export default function VideoControls(props){
 		setIsFullscreen(false)
 	}
 
-	const seek = (event, newValue) => {
-		setProgress(newValue)
+	const seek = (e) => {
+		const video = getVideo()
+		const seekTo = (e.target.value / 100) * video.duration
+		setProgress(e.target.value)
+		video.currentTime = seekTo
 	}
 
 	const addAnnotation = () => {
@@ -141,15 +144,16 @@ export default function VideoControls(props){
 				annotationContainer.className = "hidden"
 			}
 		})
+
 	}, [])
 
 	return(
 		<div id="video-controls">
 			<AddAnnotation />
-			<div className="progress-controls">
-				<input id="progress-bar" type="range" value="0" min="0" max="100" step="0.25" onClick={() => {console.log('test')}}/>
+			<div id="progress-bar-container" className="">
+				<input id="progress-bar" className="" type="range" value={progress} min="0" max="100" step="0.25" onChange={seek}/>
 			</div>
-			<div className="video-controls">
+			<div className="video-control-buttons">
 				<div className="control-group playback-controls">
 					{playing ? <PauseOutlinedIcon className="video-player-icon" onClick={pause}/> : <PlayArrowIcon className="video-player-icon" onClick={play}/>}
 					<StopIcon className="video-player-icon" onClick={stop}/>

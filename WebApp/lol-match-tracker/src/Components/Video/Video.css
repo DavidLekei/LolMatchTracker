@@ -16,12 +16,15 @@
 	grid-row: 1;
 }
 
-.video-player{
-	z-index: -1;
+#recording-video-player{
+	z-index:1;
 }
 
-.video-controls{
-	z-index: 100;
+#video-controls{
+	z-index:12;
+}
+
+.video-control-buttons{
 	height:32px;
 	display:flex;
 	flex-direction: row;
@@ -41,6 +44,10 @@
 #progress-bar{
 	width:100%;
 	margin-bottom:20px;
+}
+
+#progress-bar:hover{
+	cursor: pointer;
 }
 
 .video-player-icon{
