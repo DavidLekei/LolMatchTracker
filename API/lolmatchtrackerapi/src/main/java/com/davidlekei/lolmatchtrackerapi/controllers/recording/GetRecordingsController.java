@@ -1,6 +1,9 @@
 package com.davidlekei.lolmatchtrackerapi.controllers.recording;
 
 import com.davidlekei.lolmatchtrackerapi.data.recording.Recording;
+import com.davidlekei.lolmatchtrackerapi.storage.LocalStorage;
+import com.davidlekei.lolmatchtrackerapi.storage.Storage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,17 +22,18 @@ public class GetRecordingsController {
 	private final String VIDEO_EXTENSION = ".mp4";
 	private final int MAX_BYTE_BUFFER = 1000000000; //1GB
 
-	//private StreamingResponseBody test(OutputStream )
+	@Autowired
+	private Storage storage;
 
 	@CrossOrigin
 	@GetMapping("/recordings/{videoId}")
 	@ResponseBody
-	public ResponseEntity<StreamingResponseBody> getRecording(@PathVariable("videoId") int videoId, @RequestParam("userId") int userId, @RequestHeader(value = "range", required=false) String range){
+	public ResponseEntity<StreamingResponseBody> getRecording(@PathVariable("videoId") int videoId, @RequestParam("username") String username, @RequestHeader(value = "range", required=false) String range){
 
 		try{
 			System.out.println("Request for Video Received!");
 			StreamingResponseBody response;
-			String filePathString = RECORDING_ROOT + "/" + userId + "/" + videoId + VIDEO_EXTENSION;
+			String filePathString = RECORDING_ROOT + "/" + username + "/" + videoId + VIDEO_EXTENSION;
 
 			File video = new File(filePathString);
 			Long fileSize = video.length();
@@ -64,14 +68,7 @@ public class GetRecordingsController {
 			responseHeaders.add("Last-Modified", FileUtils.getFileLastModifiedDate(video));
 
 			final Long _rangeEnd = rangeEnd;
-//			RandomAccessFile file = new RandomAccessFile(video, "r");
-//			try(file) {
-//				file.seek(rangeStart);
-//				file.read(buffer);
-//			}catch(Exception e){
-//				System.out.println("Error reading file");
-//				e.printStackTrace();
-//			}
+
 			response = os -> {
 				RandomAccessFile file = new RandomAccessFile(video, "r");
 				try (file){

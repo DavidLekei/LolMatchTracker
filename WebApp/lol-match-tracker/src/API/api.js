@@ -1,3 +1,7 @@
+import {useContext} from 'react'
+
+import { AuthContext } from '../Auth/AuthenticationProvider';
+
 async function get(url, callback){
 	await fetch(url).then((res) => {
 		if(res.ok){
@@ -22,10 +26,23 @@ async function post(url, headers, body, callback){
 	})
 }
 
-export async function getRecordings(userId, callback){
-	get(`http://localhost:8080/recordings?userId=${userId}`, callback)
-}
+export default function API(){
+	const {user} = useContext(AuthContext)
 
-export async function getRecordingData(videoId, userId, callback){
-	get(`http://localhost/8080/recordings/${videoId}?userId=${userId}`, callback)
+	//TODO: Create a 'SettingsContext' to get user settings
+
+	const getRecordings = async (callback) => {
+		get(`http://localhost:8080/recordings?username=${user.username}`, callback)
+	}
+
+	const getRecordingData = async (videoId, userId, callback) => {
+		get(`http://localhost/8080/recordings/${videoId}?username=${user.username}`, callback)
+	}
+
+	const api = {
+		getRecordings: getRecordings,
+		getRecordingData: getRecordingData
+	}
+
+	return api
 }

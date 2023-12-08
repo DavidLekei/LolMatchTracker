@@ -4,6 +4,8 @@ import com.davidlekei.lolmatchtrackerapi.controllers.Controller;
 
 import com.davidlekei.lolmatchtrackerapi.data.VideoMultipartFile;
 import com.davidlekei.lolmatchtrackerapi.data.recording.Recording;
+import com.davidlekei.lolmatchtrackerapi.storage.Storage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,21 +23,22 @@ public class RecordingController implements Controller {
 	private final String VIDEO_EXTENSION = ".webm";
 	private final int MAX_BYTE_BUFFER = 1000000000; //1GB
 
+	@Autowired
+	private Storage storage;
+
 	@CrossOrigin
 	@PostMapping("/recording")
-	public boolean uploadRecording(@RequestParam("recording") MultipartFile recording){
+	public boolean uploadRecording(@RequestParam("recording") MultipartFile recording, @RequestParam("username") String username, @RequestParam("token") String token){
 
-		System.out.println("uploadRecording reached!");
-		System.out.println("recording: " + recording);
-
-		int userId = 1; //TODO: Get this from Request somehow
+		//int userId = 1; //TODO: Get this from Request somehow
+		System.out.println("/recording - uploadRecording() - token: " + token + "\nTODO: Validate token");
 
 		String nextFileName = "1"; //TODO: Write a method to check the output directory and determine the next name ie file1, file2, file3 exist, so file4 is the next name
 
 		try {
 			byte[] bytes = recording.getBytes();
-			makeUserDirectory(userId);
-			try(FileOutputStream outputStream = new FileOutputStream(RECORDING_ROOT + "/" + userId + "/" + nextFileName + VIDEO_EXTENSION)){
+			makeUserDirectory(username);
+			try(FileOutputStream outputStream = new FileOutputStream(RECORDING_ROOT + "/" + username + "/" + nextFileName + VIDEO_EXTENSION)){
 				outputStream.write(bytes);
 			}
 
@@ -45,8 +48,8 @@ public class RecordingController implements Controller {
 			return true;
 	}
 
-	private void makeUserDirectory(int userId){
-		File dir = new File(RECORDING_ROOT + "/" + userId);
+	private void makeUserDirectory(String username){
+		File dir = new File(RECORDING_ROOT + "/" + username);
 
 		if(!dir.exists()){
 			dir.mkdirs();
@@ -55,7 +58,7 @@ public class RecordingController implements Controller {
 
 	@CrossOrigin
 	@GetMapping("/recordings")
-	public List<Recording> getRecordings(@RequestParam("userId") int userId){
+	public List<Recording> getRecordings(@RequestParam("username") String username){
 		ArrayList<Recording> recordingList = new ArrayList<Recording>();
 		Recording recording = new Recording(13, "Test Recording", "Sylas", "Ekko", "Loss", "Sat, 02 Dec 2023", "test_thumbnail.jpg");
 		recordingList.add(recording);

@@ -3,13 +3,16 @@ import {useState} from 'react'
 import VideoPlayer from '../Video/VideoPlayer'
 import Recording from './Recording'
 import RecordingsControls from './RecordingsControls'
-import {getRecordings} from '../../API/api'
+import API from '../../API/api'
 
 import Button from '@mui/material/Button'
 
 import './Recording.css'
 
 export default function Recordings(props){
+
+	const api = API()
+	console.log(api)
 
 	const [loaded, setLoaded] = useState(false)
 	const [recordings, setRecordings] = useState();
@@ -30,7 +33,7 @@ export default function Recordings(props){
 	}
 
 	if(!loaded){
-		getRecordings(1, createRecordings);
+		api.getRecordings(createRecordings);
 	}
 
 	return(

@@ -1,9 +1,13 @@
-async function uploadVideo(blob){
+import {useContext} from 'react'
+
+import { AuthContext } from '../../Auth/AuthenticationProvider';
+
+async function uploadVideo(blob, username, token){
 
 	const formData = new FormData()
 	formData.append('recording', blob, 'test2')
 
-	await fetch("http://localhost:8080/recording", {
+	await fetch(`http://localhost:8080/recording?username=${username}&token=${token}`, {
 			method: "POST",
 			body: formData,//blob,//.arrayBuffer(),
 			headers:{
@@ -17,6 +21,9 @@ async function uploadVideo(blob){
 }
 
 export default function Recorder(props){
+
+	const {user} = useContext(AuthContext)
+
 	const constraints = {video: {displaySurface: "monitor", logicalSurface: false}, audio: true, systemAudio:"include"} //TODO: Get audio:true/false from user settings
 	let chunks = []
 
@@ -32,7 +39,7 @@ export default function Recorder(props){
 		mediaRecorder.onstop = (e) => {
 			const blob = new Blob(chunks, {'type' : 'video/webm'})
 			chunks = []
-			uploadVideo(blob)
+			uploadVideo(blob, user.username, user.user_token)
 			//const videoURL = window.URL.createObjectURL(blob)
 		}
 
