@@ -18,7 +18,8 @@
 }
 
 .App-theme {
-  background-color: #E7E7E7;
+  background-color:white;
+/*  background-color: #E7E7E7;*/
   min-height: 100vh;
   display: flex;
   flex-direction: column;

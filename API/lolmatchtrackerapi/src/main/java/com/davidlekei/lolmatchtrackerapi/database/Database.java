@@ -7,6 +7,7 @@ import com.davidlekei.lolmatchtrackerapi.data.game.champions.Champion;
 import com.davidlekei.lolmatchtrackerapi.data.game.items.Item;
 import com.davidlekei.lolmatchtrackerapi.data.game.runes.Rune;
 import com.davidlekei.lolmatchtrackerapi.data.game.runes.RunePage;
+import com.davidlekei.lolmatchtrackerapi.data.recording.Recording;
 import com.davidlekei.lolmatchtrackerapi.exceptions.persistence.TransactionException;
 
 import java.sql.ResultSet;
@@ -39,4 +40,8 @@ public interface Database
 
 	public int persistRunePage(RunePage runePage, int userId) throws SQLException;
 	public void persistMatch(Match match) throws SQLException, TransactionException;
+
+	//Recordings
+	public List<Recording> getRecordings(String username) throws SQLException;
+	public void saveRecording(String filePath, String username) throws SQLException;
 }

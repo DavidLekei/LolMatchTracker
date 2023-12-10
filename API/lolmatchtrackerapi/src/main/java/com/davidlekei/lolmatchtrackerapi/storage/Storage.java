@@ -1,11 +1,15 @@
 package com.davidlekei.lolmatchtrackerapi.storage;
 
 import com.davidlekei.lolmatchtrackerapi.data.DataObject;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 
 public interface Storage {
 
-	public DataObject get(int id);
+	public File getFile(String username, int videoId);
 
-	public void save(DataObject obj);
+	public String saveFile(MultipartFile recording, String username) throws IOException;
 
 }

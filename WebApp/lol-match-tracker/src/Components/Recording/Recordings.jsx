@@ -12,7 +12,6 @@ import './Recording.css'
 export default function Recordings(props){
 
 	const api = API()
-	console.log(api)
 
 	const [loaded, setLoaded] = useState(false)
 	const [recordings, setRecordings] = useState();

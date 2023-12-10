@@ -1,15 +1,19 @@
 package com.davidlekei.lolmatchtrackerapi.storage;
 
 import com.davidlekei.lolmatchtrackerapi.data.DataObject;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 
 public class S3Storage implements Storage{
 	@Override
-	public DataObject get(int id) {
+	public File getFile(String username, int videoId) {
 		return null;
 	}
 
 	@Override
-	public void save(DataObject obj) {
-
+	public String saveFile(MultipartFile recording, String username)  throws IOException {
+		return "";
 	}
 }

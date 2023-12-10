@@ -1,20 +1,15 @@
-import React, {Component} from 'react';
-
 import './LandingPage.css'
 
-class LandingPageInfoSection extends Component{
+export default function LandingPageInfoSection(props){
 
-    render(){
-
-        if(this.props.textSide == "right"){
+        if(props.textSide == "right"){
             return(
                 <section className="lp-main-attraction">
-                    <div className="lp-main-attraction-image">
-                        <h2>IMG</h2>
-                    </div>
+                    <img className="lp-main-attraction-image" src={props.image} />
                     <div className="lp-main-attraction-text">
-                        <h2>{this.props.heading}</h2>
-                        <p>This is some filler text describing what can be done on the App. This is some filler text describing what can be done on the App. This is some filler text describing what can be done on the App.</p>
+                        <h2>{props.heading}</h2>
+                        <p>{props.subtext}</p>
+                        <p>{props.subtext2}</p>
                     </div>
                 </section>
             )
@@ -23,17 +18,14 @@ class LandingPageInfoSection extends Component{
             return(
                 <section className="lp-main-attraction">
                     <div className="lp-main-attraction-text">
-                        <h2>{this.props.heading}</h2>
-                        <p>This is some filler text describing what can be done on the App.</p>
+                        <h2>{props.heading}</h2>
+                        <p>{props.subtext}</p>
+                        <p>{props.subtext2}</p>
                     </div>
-                    <div className="lp-main-attraction-image">
-                        <h2>IMG</h2>
-                    </div>
+                    <img className="lp-main-attraction-image" src={props.image} />
                 </section>
             )
         }
-    }
+    
 
 }
-
-export default LandingPageInfoSection;

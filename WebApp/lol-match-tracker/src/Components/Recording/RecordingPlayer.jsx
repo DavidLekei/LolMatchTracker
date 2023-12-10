@@ -53,7 +53,7 @@ export default function RecordingPlayer(props){
 			<div id="video-player-overlay" className="video-player-overlay">
 				<VideoPlayer url={videoUrl}/>
 			</div>
-			<EditableText element='p' id='date' onEdit={editDate}>Date</EditableText>
+			{/*<EditableText element='p' id='date' onEdit={editDate}>Date</EditableText>*/}
 			<h2>Notes</h2>
 			<textarea id="notes" rows="50" cols="130" />
 		</div>

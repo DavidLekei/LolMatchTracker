@@ -3,12 +3,13 @@
 }
 
 .video-player-overlay{
-	width:1080px;
+	width:1440px;
 }
 
 .video-player-container{
 	display:grid;
 	align-items: end;
+	width:100%;
 }
 
 .video-player-container > *{
@@ -18,10 +19,12 @@
 
 #recording-video-player{
 	z-index:1;
+	width:100%;
 }
 
 #video-controls{
 	z-index:12;
+	color:white;
 }
 
 .video-control-buttons{

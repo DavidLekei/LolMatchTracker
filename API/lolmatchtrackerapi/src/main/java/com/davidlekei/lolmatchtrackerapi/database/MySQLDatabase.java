@@ -14,6 +14,7 @@ import com.davidlekei.lolmatchtrackerapi.data.game.runes.Keystone;
 import com.davidlekei.lolmatchtrackerapi.data.game.runes.Rune;
 import com.davidlekei.lolmatchtrackerapi.data.game.runes.RuneExtra;
 import com.davidlekei.lolmatchtrackerapi.data.game.runes.RunePage;
+import com.davidlekei.lolmatchtrackerapi.data.recording.Recording;
 import com.davidlekei.lolmatchtrackerapi.exceptions.persistence.TransactionException;
 import org.hibernate.Transaction;
 
@@ -600,5 +601,55 @@ public class MySQLDatabase implements Database
 		}
 
 		return count;
+	}
+
+	/*
+	////////////////////////
+	Recordings
+	////////////////////////
+	*/
+
+	public List<Recording> getRecordings(String username) throws SQLException{
+		String query = "select r.id AS `videoId`, r.title, played.name AS `champion_played`, against.name AS `champion_against`, m.outcome, r.created_on AS `date` FROM Recording r JOIN Game m on m.id = r.match_id JOIN Champion played on played.id = m.champion_played JOIN Champion against on against.id = m.champion_against WHERE r.user_id = ?;";
+		List<Recording> recordings = new ArrayList<Recording>();
+		int userId = getUserIdFromUsername(username);
+
+		PreparedStatement ps = connection.prepareStatement(query);
+		ps.setInt(1, userId);
+		ResultSet results = ps.executeQuery();
+
+		while(results.next()){
+			String date = results.getTimestamp("date").toString();
+			recordings.add(new Recording(results.getInt("videoId"), results.getString("title"), results.getString("champion_played"), results.getString("champion_against"), results.getString("outcome"), date, "test_thumbnail.jpg"));
+		}
+
+		return recordings;
+	}
+
+	public void saveRecording(String filePath, String username) throws SQLException{
+		String query = "INSERT INTO Recording(path, user_id, created_on) VALUES(?, ?, NOW());";
+
+		int userId = getUserIdFromUsername(username);
+
+		PreparedStatement ps = connection.prepareStatement(query);
+		ps.setString(1, filePath);
+		ps.setInt(2, userId);
+
+		ps.executeUpdate();
+	}
+
+	private int getUserIdFromUsername(String username) throws SQLException{
+		String query = "SELECT id FROM user WHERE username = ?";
+		PreparedStatement ps = connection.prepareStatement(query);
+		ps.setString(1, username);
+
+		int id = -1;
+
+		ResultSet results = ps.executeQuery();
+		while(results.next()){
+			id = results.getInt("id");
+		}
+
+		return id;
 	}
 }

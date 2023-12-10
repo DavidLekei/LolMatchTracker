@@ -1,7 +1,3 @@
-.pane{
-	color:white;
-}
-
 .recordings-container{
 	display:grid;
 	grid-template-columns: auto auto auto;
@@ -34,7 +30,8 @@
 }
 
 .recording-player{
-	color:white;
+	color:black;
+	background-color:white;
 	display:flex;
 	flex-direction: column;
 	align-items:center;
