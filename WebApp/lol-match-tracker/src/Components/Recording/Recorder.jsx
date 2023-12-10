@@ -2,31 +2,50 @@ import {useContext} from 'react'
 
 import { AuthContext } from '../../Auth/AuthenticationProvider';
 
-async function uploadVideo(blob, username, token){
+// async function uploadVideo(blob, username, token){
 
-	const formData = new FormData()
-	formData.append('recording', blob, 'test2')
+// 	const formData = new FormData()
+// 	formData.append('recording', blob, 'test2')
 
-	await fetch(`http://localhost:8080/recording?username=${username}&token=${token}`, {
-			method: "POST",
-			body: formData,//blob,//.arrayBuffer(),
-			headers:{
-				//'Content-Type':'multipart/form-data'
-				//'Content-Type':'application/json'
-				//'Content-Type':'video/h264',
-				//'Access-Control-Allow-Origin':'http://localhost:8080'
-			}
-		}).then((res) => {
-		})
-}
+// 	await fetch(`http://localhost:8080/recording?username=${username}&token=${token}`, {
+// 			method: "POST",
+// 			body: formData,//blob,//.arrayBuffer(),
+// 			headers:{
+// 				//'Content-Type':'multipart/form-data'
+// 				//'Content-Type':'application/json'
+// 				//'Content-Type':'video/h264',
+// 				//'Access-Control-Allow-Origin':'http://localhost:8080'
+// 			}
+// 		}).then((res) => {
+// 		})
+// }
 
 export default function Recorder(props){
+
+	console.log('Recording initd')
 
 	const {user} = useContext(AuthContext)
 
 	const constraints = {video: {displaySurface: "monitor", logicalSurface: false}, audio: true, systemAudio:"include"} //TODO: Get audio:true/false from user settings
 	let chunks = []
 
+	//TODO: This could probably be moved to API.js now but we can do that later
+	const uploadVideo = async(blob, title) => {
+		const formData = new FormData()
+		formData.append('recording', blob, 'test2')
+
+		await fetch(`http://localhost:8080/recording?username=${user.username}&title=${title}&token=${user.token}`, {
+				method: "POST",
+				body: formData,//blob,//.arrayBuffer(),
+				headers:{
+					//'Content-Type':'multipart/form-data'
+					//'Content-Type':'application/json'
+					//'Content-Type':'video/h264',
+					//'Access-Control-Allow-Origin':'http://localhost:8080'
+				}
+			}).then((res) => {
+			})
+	}
 	
 	const onSuccess = (stream) => {
 
@@ -39,8 +58,7 @@ export default function Recorder(props){
 		mediaRecorder.onstop = (e) => {
 			const blob = new Blob(chunks, {'type' : 'video/webm'})
 			chunks = []
-			uploadVideo(blob, user.username, user.user_token)
-			//const videoURL = window.URL.createObjectURL(blob)
+			props['callback'](blob)
 		}
 
 
@@ -48,7 +66,6 @@ export default function Recorder(props){
 		stopButton.onclick = () => {
 			console.log('stopped')
 			mediaRecorder.stop()
-			props['callback']()
 		}
 	
 
@@ -71,5 +88,6 @@ export default function Recorder(props){
 
 	return({
 		start:start,
+		upload:uploadVideo
 	})
 }

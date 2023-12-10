@@ -610,7 +610,8 @@ public class MySQLDatabase implements Database
 	*/
 
 	public List<Recording> getRecordings(String username) throws SQLException{
-		String query = "select r.id AS `videoId`, r.title, played.name AS `champion_played`, against.name AS `champion_against`, m.outcome, r.created_on AS `date` FROM Recording r JOIN Game m on m.id = r.match_id JOIN Champion played on played.id = m.champion_played JOIN Champion against on against.id = m.champion_against WHERE r.user_id = ?;";
+		//String query = "select r.id AS `videoId`, r.title, played.name AS `champion_played`, against.name AS `champion_against`, m.outcome, r.created_on AS `date` FROM Recording r JOIN recording_to_match rm on rm.recording_id = r.id JOIN Game m on m.id = rm.match_id JOIN Champion played on played.id = m.champion_played JOIN Champion against on against.id = m.champion_against WHERE r.user_id = ?;";
+		String query = "select r.id AS `videoId`, r.title, played.name AS `champion_played`, against.name AS `champion_against`, m.outcome, r.created_on AS `date` FROM Recording r LEFT JOIN recording_to_match rm on rm.recording_id = r.id LEFT JOIN Game m on m.id = rm.match_id LEFT JOIN Champion played on played.id = m.champion_played LEFT JOIN Champion against on against.id = m.champion_against WHERE r.user_id = ?;";
 		List<Recording> recordings = new ArrayList<Recording>();
 		int userId = getUserIdFromUsername(username);
 
@@ -626,16 +627,51 @@ public class MySQLDatabase implements Database
 		return recordings;
 	}
 
-	public void saveRecording(String filePath, String username) throws SQLException{
-		String query = "INSERT INTO Recording(path, user_id, created_on) VALUES(?, ?, NOW());";
+	public int saveRecording(String filePath, String username, String title) throws SQLException{
+		String query = "INSERT INTO Recording(path, user_id, created_on, title) VALUES(?, ?, NOW(), ?);";
 
 		int userId = getUserIdFromUsername(username);
 
-		PreparedStatement ps = connection.prepareStatement(query);
+		PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 		ps.setString(1, filePath);
 		ps.setInt(2, userId);
+		ps.setString(3, title);
 
 		ps.executeUpdate();
+		ResultSet keys = ps.getGeneratedKeys();
+		if(keys.next()) {
+			return keys.getInt(1);
+		}else{
+			throw new SQLException("No ID created for the video: " + filePath);
+		}
+	}
+
+	public int saveRecording(String filePath, String username, String title, int matchId) throws SQLException{
+		int videoId = saveRecording(filePath, username, title);
+		String query = "INSERT INTO recording_to_match(recording_id, match_id) VALUES(?, ?);";
+
+		PreparedStatement ps = connection.prepareStatement(query);
+		ps.setInt(1, videoId);
+		ps.setInt(2, matchId);
+
+		ps.executeUpdate();
+		return videoId;
+	}
+
+	public String getFilePathForVideoId(int videoId, String username) throws SQLException{
+		String query = "SELECT path FROM Recording WHERE id = ? AND user_id = ?";
+
+		PreparedStatement ps = connection.prepareStatement(query);
+		ps.setInt(1, videoId);
+		ps.setInt(2, getUserIdFromUsername(username));
+
+		ResultSet results = ps.executeQuery();
+
+		if(results.next()){
+			return results.getString("path");
+		}else{
+			throw new SQLException("Could not find video id " + videoId + " for user: " + username);
+		}
 	}
 
 	private int getUserIdFromUsername(String username) throws SQLException{

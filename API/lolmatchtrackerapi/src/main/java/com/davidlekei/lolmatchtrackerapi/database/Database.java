@@ -43,5 +43,8 @@ public interface Database
 
 	//Recordings
 	public List<Recording> getRecordings(String username) throws SQLException;
-	public void saveRecording(String filePath, String username) throws SQLException;
+		//Returns the videoId number
+	public int saveRecording(String filePath, String username, String title) throws SQLException;
+	public int saveRecording(String filePath, String username, String title, int matchId) throws SQLException;
+	public String getFilePathForVideoId(int videoId, String username) throws SQLException;
 }

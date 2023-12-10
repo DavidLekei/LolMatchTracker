@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class S3Storage implements Storage{
 	@Override
-	public File getFile(String username, int videoId) {
+	public File getFile(String path) {
 		return null;
 	}
 

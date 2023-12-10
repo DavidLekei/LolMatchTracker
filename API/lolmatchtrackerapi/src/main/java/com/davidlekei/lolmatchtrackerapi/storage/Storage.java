@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public interface Storage {
 
-	public File getFile(String username, int videoId);
+	public File getFile(String path);
 
 	public String saveFile(MultipartFile recording, String username) throws IOException;
 

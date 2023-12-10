@@ -29,20 +29,22 @@ public class RecordingController implements Controller {
 
 	@CrossOrigin
 	@PostMapping("/recording")
-	public ResponseEntity uploadRecording(@RequestParam("recording") MultipartFile recording, @RequestParam("username") String username, @RequestParam("token") String token){
+	public ResponseEntity uploadRecording(@RequestParam("recording") MultipartFile recording, @RequestParam("username") String username, @RequestParam("title") String title, @RequestParam("token") String token){
 
 		System.out.println("/recording - uploadRecording() - token: " + token + "\nTODO: Validate token");
 		String filePath;
 
 		try{
 			filePath = storage.saveFile(recording, username);
-			database.saveRecording(filePath, username);
+			database.saveRecording(filePath, username, title);
 			return ResponseEntity.ok().build();
 		}catch(IOException ioe){
 			System.out.println("Failed to write file for user: " + username);
+			ioe.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}catch(SQLException sqle){
 			System.out.println("Could not save Recording to database for user: " + username);
+			sqle.printStackTrace();
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 	}

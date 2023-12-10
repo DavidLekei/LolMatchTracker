@@ -1,6 +1,8 @@
 package com.davidlekei.lolmatchtrackerapi.controllers.recording;
 
 import com.davidlekei.lolmatchtrackerapi.data.recording.Recording;
+import com.davidlekei.lolmatchtrackerapi.database.Database;
+import com.davidlekei.lolmatchtrackerapi.database.DatabaseConnection;
 import com.davidlekei.lolmatchtrackerapi.storage.LocalStorage;
 import com.davidlekei.lolmatchtrackerapi.storage.Storage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class GetRecordingsController {
 	@Autowired
 	private Storage storage;
 
+	private static Database database = DatabaseConnection.get().getDatabase();
+
 	@CrossOrigin
 	@GetMapping("/recordings/{videoId}")
 	@ResponseBody
@@ -32,7 +36,8 @@ public class GetRecordingsController {
 
 		try{
 			StreamingResponseBody response;
-			File video = storage.getFile(username, videoId);
+			String filePath = database.getFilePathForVideoId(videoId, username);
+			File video = storage.getFile(filePath);
 			Long fileSize = video.length();
 
 			byte[] buffer = new byte[4096];

@@ -20,7 +20,7 @@ public class AuthController implements Controller {
 	@PostMapping("/auth/authenticate")
 	public UserAuthData authenticate(@RequestBody String username) //TODO: Make custom 'UserAuthRequest' object that contains uername, password, etc from RequestBody
 	{
-		return new UserAuthData(username, "token_generated_from_api", "Creator", getCurrentUnixTimestamp(), getCurrentUnixTimestamp() + ONE_DAY_UNIX_TIME);
+		return new UserAuthData(username, "token_generated_from_api", "Diamond 1", getCurrentUnixTimestamp(), getCurrentUnixTimestamp() + ONE_DAY_UNIX_TIME);
 	}
 
 	@Override

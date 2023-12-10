@@ -15,8 +15,8 @@ public class LocalStorage implements Storage {
 	private final String FFMPEG_CMD = "ffmpeg -y -i \"%s" + WRITE_VIDEO_EXTENSION + "\" -c:v copy -c:a aac -movflags faststart -strict -2 \"%s" + READ_VIDEO_EXTENSION + "\"";
 
 	@Override
-	public File getFile(String username, int videoId) {
-		return new File(RECORDING_ROOT_FOLDER + "/" + username + "/" + videoId + READ_VIDEO_EXTENSION);
+	public File getFile(String path) {
+		return new File(path);
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class LocalStorage implements Storage {
 		}
 
 		//TODO: This happens too fast, ffmpeg doesn't have enough time to convert the video it seems like. Need to figure out a way to do this better later
-//		delete(fileName);
+		delete(fileName);
 
 		return fileName + READ_VIDEO_EXTENSION;
 	}
@@ -63,6 +63,7 @@ public class LocalStorage implements Storage {
 			System.out.println("Executing command: \n" + cmd);
 			try {
 				proc = Runtime.getRuntime().exec(cmd);
+				proc.waitFor();
 //TODO : Wrap these output statements in a if(debug) statement
 //				BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
 //				BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
@@ -82,6 +83,9 @@ public class LocalStorage implements Storage {
 			}catch(IOException ioe){
 				System.out.println("IOExecption caught while running FFMPEG conversion.");
 				ioe.printStackTrace();
+			}catch(InterruptedException ie){
+				System.out.println("FFMPEG was interrupted. File not deleted.");
+				ie.printStackTrace();
 			}
 		}
 	}

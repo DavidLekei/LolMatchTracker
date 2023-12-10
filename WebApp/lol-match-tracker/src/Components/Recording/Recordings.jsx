@@ -34,7 +34,7 @@ export default function Recordings(props){
 	if(!loaded){
 		api.getRecordings(createRecordings);
 	}
-
+	console.log('recordings page loaded')
 	return(
 		<div className="pane">
 			<h1 className="white">Recordings</h1>

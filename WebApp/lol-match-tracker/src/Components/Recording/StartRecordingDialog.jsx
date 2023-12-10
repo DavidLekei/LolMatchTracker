@@ -9,20 +9,43 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import Recorder from './Recorder'
+import SaveRecordingModal from './SaveRecordingModal'
 
 export default function StartRecordingDialog(){
 
 	const [open, setOpen] = useState(false)
+	const [openSaveRecording, setOpenSaveRecording] = useState(false)
+	const [videoData, setVideoData] = useState(null)
+
 	const handleOpen = () => {
 		setOpen(true)
 		handleStartRecording()
 	}
-	const handleClose = () => {setOpen(false)}
+	const handleClose = (data) => {
+		setVideoData(data)
+		setOpen(false)
+		setOpenSaveRecording(true)
+	}
 
-	const recorder = Recorder({stopButtonId: "stop-recording-button", callback: handleClose})
+	const closeSaveRecording = () => {
+		setOpenSaveRecording(false)
+	}
+
+	const handleSave = (title) => {
+		recorder.upload(videoData, title)
+		setOpenSaveRecording(false)
+	}
+
+	const recorder = Recorder({stopButtonId: "stop-recording-button", callback: handleClose, onSave: handleSave})
 
 	const handleStartRecording = () => {
 		recorder.start()
+	}
+
+	if(openSaveRecording){
+		return(
+			<SaveRecordingModal open={openSaveRecording} onCancel={closeSaveRecording} onSave={handleSave}/>
+		)
 	}
 
 	return(
