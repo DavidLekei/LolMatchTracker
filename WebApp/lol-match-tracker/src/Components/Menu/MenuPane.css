@@ -1,40 +1,45 @@
 .App-content-menu{
-    width: 20vw;
+    width: 12vw;
     min-height: 90vh;
     display:flex;
     flex-direction:column;
 }
 
 .App-content-menu-list{
+    height:100%;
     display:flex;
     flex-direction:column;
-    align-items:left;
+    align-items:center;
+    justify-content: space-evenly;
 }
 
 .App-content-menu-link{
-    height:50px;
-    width:auto;
-    display:flex;
-    align-items:center;
-    justify-content:start;
     font-weight:bold;
-    margin-top:50px;
+    width:50%;
 }
 
 .menu-header{
-    justify-content:start;
+    display:flex;
+    align-items: center;
+    justify-content:center;
     font-size:16px;
+}
+
+.menu-header-logo{
+    margin: 25px 0px 15px -25px;
+    width:96px;
+    cursor: pointer;
 }
 
 .menu-entry{
     display:flex;
     flex-direction:row;
     align-items:center;
-    margin-left:50px;
 }
 
 .menu-entry-img{
-    transform: scale(0.3);
+    width:30px;
+    margin-right: 20px;
 }
 
 .menu-entry-text{
@@ -67,7 +72,6 @@
 }
 
 a{
-    width:50%;
 }
 
 a:link{

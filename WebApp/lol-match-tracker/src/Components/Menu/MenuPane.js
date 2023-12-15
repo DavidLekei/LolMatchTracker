@@ -17,49 +17,49 @@ export default function MenuPane(props){
 
         return(
             <div className="App-content-menu">
-                <MenuHeader text="LoL Match Tracker" />
+                <MenuHeader image="logo.svg" />
                 <MenuUserInfo image="user-example" name={user.username} title={user.title?user.title : ''} />
                 <div className="App-content-menu-list">
-                    <Link to ="/home">
-                        <div className="App-content-menu-link">
+                    <div className="App-content-menu-link">
+                        <Link to ="/home">
                             <MenuEntry icon="home" text="Home" />
-                        </div>
-                    </Link>
-                    <Link to ="/matches">
-                        <div className="App-content-menu-link">
+                        </Link>
+                    </div>
+                    <div className="App-content-menu-link">
+                        <Link to ="/matches">
                             <MenuEntry icon="matches" text="Matches" />
-                        </div>
-                    </Link>
-                    <Link to ="/notes">
-                        <div className="App-content-menu-link">
+                        </Link>
+                    </div>
+                    <div className="App-content-menu-link">
+                        <Link to ="/notes">
                             <MenuEntry icon="notes" text="Notes" />
-                        </div>
-                    </Link>
-                    <Link to="/recordings">
-                        <div className="App-content-menu-link">
+                        </Link>
+                    </div>
+                    <div className="App-content-menu-link">
+                        <Link to="/recordings">
                             <MenuEntry icon="video" text="Recordings" />
-                        </div>
-                    </Link>
-                    <Link to="/canvas">
-                        <div className = "App-content-menu-link">
+                        </Link>
+                    </div>
+                    <div className="App-content-menu-link">
+                        <Link to="/canvas">
                             <MenuEntry icon="canvas" text="Canvas" />
-                        </div>
-                    </Link>
-                    <Link to="/journey">
-                        <div className= "App-content-menu-link">
+                        </Link>
+                    </div>
+                    <div className="App-content-menu-link">
+                        <Link to="/journey">
                             <MenuEntry icon="journey" text="Journey"></MenuEntry>
-                        </div>
-                    </Link>
-                    <Link to ="/notes">
-                        <div className="App-content-menu-link">
+                        </Link>
+                    </div>
+                    <div className="App-content-menu-link">
+                        <Link to ="/notes">
                             <MenuEntry icon="settings" text="Settings" />
-                        </div>
-                    </Link>
-                    <Link to ="/notes">
-                        <div className="App-content-menu-link">
+                        </Link>
+                    </div>
+                    <div className="App-content-menu-link">
+                        <Link to ="/notes">
                             <MenuEntry icon="admin" text="Admin" />
-                        </div>
-                    </Link>
+                        </Link>
+                    </div>
                 </div>
             </div>
         )
