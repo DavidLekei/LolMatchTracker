@@ -16,5 +16,14 @@
     margin-left:25px;
 }
 .btn-container{
-    mid-width: 30vw;
+    width:30%;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.btn-container > img {
+    width:52px;
+    cursor: pointer;
 }

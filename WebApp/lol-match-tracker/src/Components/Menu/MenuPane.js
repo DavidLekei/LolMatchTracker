@@ -18,7 +18,7 @@ export default function MenuPane(props){
         return(
             <div className="App-content-menu">
                 <MenuHeader image="logo.svg" />
-                <MenuUserInfo image="user-example" name={user.username} title={user.title?user.title : ''} />
+                {/*<MenuUserInfo image="user-example" name={user.username} title={user.title?user.title : ''} />*/}
                 <div className="App-content-menu-list">
                     <div className="App-content-menu-link">
                         <Link to ="/home">
@@ -51,7 +51,7 @@ export default function MenuPane(props){
                         </Link>
                     </div>
                     <div className="App-content-menu-link">
-                        <Link to ="/notes">
+                        <Link to ="/settings">
                             <MenuEntry icon="settings" text="Settings" />
                         </Link>
                     </div>

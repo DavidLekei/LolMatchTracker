@@ -1,47 +1,36 @@
-import React, {Component} from 'react';
+import {useContext} from 'react';
 import './toolbar.css';
 
 import {Link} from "react-router-dom";
 
+import {AuthContext} from '../../Auth/AuthenticationProvider'
+
 //Material components
 import Button from '@mui/material/Button';
 
-class AppToolbar extends Component{
-    render(){
+export default function AppToolbar(props){
 
-        if(this.props.loggedIn == false)
-        {
-            return(
-                <div className="App-toolbar">
-                    <div className="btn-container">
-                        <Button variant="contained" component={Link} to="/signIn">Log In</Button>
-                        <Button variant="contained">Sign Up</Button>
-                        {/* <Router>
-                            <Link to="/login"><Button variant="contained" onClick={this.btn_onclick}>Log in</Button></Link>
-                            <Button variant="contained">Sign Up</Button>
-                        </Router> */}
-                    </div>
-                </div>
-            )
-        }
+    const auth = useContext(AuthContext)
 
+    if(!auth.user)
+    {
         return(
             <div className="App-toolbar">
                 <div className="btn-container">
-                    <Button variant="contained">Log In</Button>
+                    <Button variant="contained" component={Link} to="/signIn">Log In</Button>
                     <Button variant="contained">Sign Up</Button>
-                    {/* <Router>
-                        <Link to="/login"><Button variant="contained" onClick={this.btn_onclick}>Log in</Button></Link>
-                        <Button variant="contained">Sign Up</Button>
-                    </Router> */}
                 </div>
             </div>
         )
     }
-
-    btn_onclick(){
-        alert("Logged in");
-    }
+    return(
+        <div className="App-toolbar">
+            <div className="btn-container">
+                <img src="/icons/user-example.png" />
+                <h3>{auth.user.username}</h3>
+                <Button variant="contained">Log Out</Button>
+            </div>
+        </div>
+    )
 }
 
-export default AppToolbar;

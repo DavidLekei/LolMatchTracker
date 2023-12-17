@@ -17,6 +17,7 @@ import DisplayPane from './DisplayPane'
 import './MainContentPane.css';
 import LandingPageHero from './LandingPage/LandingPage'
 import SignInPage from './SignInPage/SignInPage';
+import Splash from './splash/Splash'
 
 export default function MainContentPane(props){
 
@@ -39,34 +40,12 @@ export default function MainContentPane(props){
         )
     }else{
         return(
-            <div className="App-content-main">
-                <MenuPane />
-                <DisplayPane user={user}/>
-            </div>
+            <Splash fadeText="tracker.io">
+                <div className="App-content-main">
+                    <MenuPane />
+                    <DisplayPane user={user}/>
+                </div>
+            </Splash>
         )
     }
 }
-
-// class MainContentPane extends Component{
-
-//     render(){
-
-//         const {user, setUser} = useContext(AuthContext);
-
-//         if(this.props.loggedIn == false)
-//         {
-//             return( 
-//                 <LandingPage />
-//             )
-//         }
-
-//         return(
-//             <div className="App-content-main">
-//                 <MenuPane />
-//                 <DisplayPane loggedIn={this.props.loggedIn}/>
-//             </div>
-//         )
-//     }
-// }
-
-// export default MainContentPane;

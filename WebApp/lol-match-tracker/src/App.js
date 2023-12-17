@@ -8,6 +8,7 @@ import { BrowserRouter as Router} from "react-router-dom";
 
 import MainContentPane from './Components/MainContentPane'
 import AuthenticationProvider from './Auth/AuthenticationProvider';
+import SettingsProvider from './Components/Settings/SettingsProvider'
 
 function App() {
   return (
@@ -16,7 +17,9 @@ function App() {
         <Router>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <AuthenticationProvider>
-              <MainContentPane loggedIn={false}/>
+              <SettingsProvider>
+                <MainContentPane loggedIn={false}/>
+              </SettingsProvider>
             </AuthenticationProvider>
           </LocalizationProvider>
         </Router>

@@ -12,6 +12,7 @@ import MatchInfoFull from './Match/MatchInfoFull'
 import NotesPane from './Notes/NotesPane'
 import Recordings from './Recording/Recordings'
 import RecordingPlayer from './Recording/RecordingPlayer'
+import Settings from './Settings/Settings'
 import HomePane from './Home/HomePane'
 import Canvas from '../Test/Canvas'
 import Journey from '../Components/Journey/Journey'
@@ -43,7 +44,7 @@ class DisplayPane extends Component{
         return(
             <div id="display-pane" className="display-pane">
                 {toolbar}
-                {/* <AppToolbar /> */}
+                 <AppToolbar /> 
                 <Routes>
                     <Route path="/" element={<HomePane />} />
                     <Route exact path="/home" element={<HomePane />} />
@@ -53,6 +54,7 @@ class DisplayPane extends Component{
                     <Route exact path="/notes" element={<NotesPane />}/>
                     <Route path="/recordings" element={<Recordings />} />
                     <Route path="/recordings/:videoId" element={<RecordingPlayer />} />
+                    <Route path="/settings" element={<Settings />} />
                     <Route path="/account" />
                     <Route path="/about" />
                     <Route path="/canvas" element={<Canvas />} />

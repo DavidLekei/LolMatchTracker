@@ -3,6 +3,9 @@
     min-height: 90vh;
     display:flex;
     flex-direction:column;
+    box-shadow: 0 0 15px #cacccb;
+    clip-path: inset(0px -7px 0px 0px);
+    padding: 0px 20px 0px 0px;
 }
 
 .App-content-menu-list{
@@ -37,6 +40,10 @@
     align-items:center;
 }
 
+.menu-entry:hover{
+    transform: translate3d(5px, -5px, 5px);
+}
+
 .menu-entry-img{
     width:30px;
     margin-right: 20px;
@@ -45,6 +52,10 @@
 .menu-entry-text{
     font-size:16px;
     font-weight:bold;
+}
+
+.menu-entry-text:hover{
+    text-decoration: underline;
 }
 
 .menu-user-info{

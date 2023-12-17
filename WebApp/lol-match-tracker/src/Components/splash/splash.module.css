@@ -1,0 +1,87 @@
+#fadeText{
+	background:transparent;
+	animation-name: fade-out;
+	animation-delay: .75s;
+	animation-duration: 2s;
+	animation-fill-mode: forwards;
+}
+
+#splash{
+	overflow:hidden;
+	position: relative;
+}
+
+#lineWrapper{
+	height:450%;
+	width:235%;
+	z-index: 15;
+	margin-left:0%;
+	margin-top:0%;
+	background:transparent;
+	animation-name: line-animation;
+	animation-delay:1s;
+	animation-duration: 5s;
+	animation-fill-mode: forwards;
+	position:absolute;
+	background-image: linear-gradient(to right top, #3dd9f5, #10ccf9, #00befa, #14affa, #3d9ff5);
+	transform: rotate(45deg);
+}
+
+.fullscreen{
+	min-width:100vw;
+	min-height:100vh;
+	z-index: 0;
+}
+
+.contentCentered{
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	justify-content: center;
+}
+
+.line{
+	width:5000px;
+	position: absolute;
+	background-color:black;
+/*	right: -1000px;*/
+	top:0px;
+}
+
+.thickLine{
+	height:1rem;
+}
+
+.thinLine{
+	height:0.5rem;
+}
+
+@keyframes line-animation {
+	0% {
+		color: black;
+	}
+
+	50% {
+		color:black;
+		margin-left:-250%;
+		margin-top:100%;
+	}
+
+	100%{
+		margin-left:-250%;
+		margin-top:100%;
+		display:none;
+	}
+}
+
+@keyframes fade-out{
+
+	50%{
+		opacity: 0;
+	}
+
+  	100%{
+  		opacity:0;
+    	display: none;
+  	}
+}
