@@ -51,8 +51,8 @@ export default function SignInPage(props){
 
     if(loading){
         return (
-            <div>
-                Loading
+            <div style={{width:'100%', height:'100vh', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', backgroundImage: 'linear-gradient(to right top, #3dd9f5, #10ccf9, #00befa, #14affa, #3d9ff5)'}}>
+                <h1>tracker.io</h1>
             </div>
         )
     }

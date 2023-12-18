@@ -1,8 +1,8 @@
 #fadeText{
 	background:transparent;
 	animation-name: fade-out;
-	animation-delay: .75s;
-	animation-duration: 2s;
+	animation-delay: 0s;
+	animation-duration: 1s;
 	animation-fill-mode: forwards;
 }
 
@@ -19,8 +19,8 @@
 	margin-top:0%;
 	background:transparent;
 	animation-name: line-animation;
-	animation-delay:1s;
-	animation-duration: 5s;
+	animation-delay:0s;
+	animation-duration: 3s;
 	animation-fill-mode: forwards;
 	position:absolute;
 	background-image: linear-gradient(to right top, #3dd9f5, #10ccf9, #00befa, #14affa, #3d9ff5);

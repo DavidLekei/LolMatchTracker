@@ -2,7 +2,7 @@ import styles from './splash.module.css'
 
 function FadeText(props){
 	return(
-		<div id={styles.fadeText} style={{position:'absolute', right:'46%', display:'flex', alignItems:'center', justifyContent:'center', minHeight:'100vh', zIndex:'1501'}}>
+		<div id={styles.fadeText} style={{position:'absolute', width:'100%', display:'flex', alignItems:'center', justifyContent:'center', minHeight:'100vh', zIndex:'1501'}}>
 			<h1>{props.text}</h1>
 		</div>
 	)

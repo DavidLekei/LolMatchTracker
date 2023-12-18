@@ -6,16 +6,18 @@ import './Notes.css'
 export default function NoteCard(props){
 	return(
 		<Box className="note-card"
-			sx={{
-				display: 'flex',
-				flexWrap: 'wrap',
-				alignItems:'center',
-				justifyContent:'center',
+			sx={props.small ? {
 				'& > :not(style)': {
 					m: 1,
 					width:256,
 					height:256,
 				},
+			} : {
+				'& > :not(style)':{
+					m: 1,
+					width:400,
+					height:400,
+				}
 			}}
 		>
 			<Paper elevation={10} style={{textAlign:'left', padding:'15px'}}>
