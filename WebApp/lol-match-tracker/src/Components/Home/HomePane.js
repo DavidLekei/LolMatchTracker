@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 
 import {BrowserRouter as Router, Link} from 'react-router-dom'
 
-import QuickActions from './QuickActions'
 import MatchInfoSmall from '../Match/MatchInfoSmall';
 import StatsOverview from './StatsOverview'
+import RankSection from './RankSection'
+import NoteCard from '../Notes/NoteCard'
 
 import './HomePane.css'
 
@@ -66,23 +67,49 @@ class HomePane extends Component{
 
     render(){
         let matchData = this.getMatchData();
+
+        const mockRankData =  {
+            division: 'Diamond',
+            level: '2',
+            lp: '72',
+            server: 'North America'
+        }
+
+        const mockGoalData = {
+            division: 'Master',
+            lp: '0',
+            server: 'North America'
+        }
         return(
             <div className="App-content-home">
-                <QuickActions />
-
-                <div><h2>Your Stats</h2></div>
-                <StatsOverview></StatsOverview>
-                <div><h2>Recent Matches</h2></div>
-                <MatchInfoSmall
-                    data={matchData.games[0]}               
-                />
-                <MatchInfoSmall
-                    data={matchData.games[1]}              
-                />
-                <MatchInfoSmall
-                    data={matchData.games[2]}               
-                />
-                <div><h2>Recent Notes</h2></div>
+                <div style={{width:'100%', display:'flex', flexDirection:'row', justifyContent:'space-evenly'}}>
+                    <div style={{width:'30%', display:'flex', flexDirection:'column', justifyContent:'space-evenly'}}>
+                        <RankSection current data={mockRankData}/>
+                        <RankSection goal data={mockGoalData}/>
+                    </div>
+                    {/*<div><h2>Your Stats</h2></div>*/}
+                    {/*<StatsOverview></StatsOverview>*/}
+                    <div style={{display:'flex', flexDirection:'column', justifyContent:'space-evenly'}}>
+                        <div><h2>Recent Matches</h2></div>
+                        <MatchInfoSmall
+                            data={matchData.games[0]}               
+                        />
+                        <MatchInfoSmall
+                            data={matchData.games[1]}              
+                        />
+                        <MatchInfoSmall
+                            data={matchData.games[2]}               
+                        />
+                    </div>
+                </div>
+                <div style={{width:'100%'}}>
+                    <h2>Recent Notes</h2>
+                    <div style={{display:'flex', flexDirection:'row', justifyContent:'space-evenly'}}>
+                        <NoteCard title="Taliyah" text="After ulting, be patient when jumping off the wall, and when using abilities after jumping off. Many players will panic around the wall"/>
+                        <NoteCard title="Ahri vs Sylas" text="HOLD CHARM! If you miss a charm, he has 9 seconds to all in, and he will win"/>
+                        <NoteCard title="Ekko Mid" text="Be patient, CS under tower. Ekko doesn't have very strong laning early on, but can wave clear super well post level 7. Just be patient!"/>
+                    </div>
+                </div>
             </div>
         )
     }

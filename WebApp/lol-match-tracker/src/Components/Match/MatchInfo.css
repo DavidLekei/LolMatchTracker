@@ -14,11 +14,9 @@
     font-weight:bold;
     align-items:center;
     justify-content:space-between;
+    color:black;
 }
 
-.small:hover{
-    background-color:#374e99;
-}
 
 .full{
     flex: 0 1 auto;
@@ -26,18 +24,26 @@
     width: 100%;
 }
 
-.win{
+.Win{
     /*outline:2px solid #075ce6;*/
-    background-color: #5383e8;
+    background-color: #73F09E;
     /* background: #64c4ed;  */
     /* background: radial-gradient(circle at 10% 20%, rgb(215, 223, 252) 0%, rgb(255, 255, 255) 0%, rgb(215, 223, 252) 84%); */
 }
 
-.loss{
+.Win:hover{
+    outline:5px solid #58B87A;
+}
+
+.Loss{
     /*background-color: #e84057;*/
     /* background: #ff6473;  */
     /*outline:2px solid #e00b0b;*/
-    background:#657094;
+    background:#F08380;
+}
+
+.Loss:hover{
+    outline: 5px solid #B86461;
 }
 
 a:hover{

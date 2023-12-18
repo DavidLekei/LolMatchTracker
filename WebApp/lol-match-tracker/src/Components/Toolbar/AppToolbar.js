@@ -5,6 +5,8 @@ import {Link} from "react-router-dom";
 
 import {AuthContext} from '../../Auth/AuthenticationProvider'
 
+import QuickActions from '../Home/QuickActions'
+
 //Material components
 import Button from '@mui/material/Button';
 
@@ -24,7 +26,8 @@ export default function AppToolbar(props){
         )
     }
     return(
-        <div className="App-toolbar">
+        <div className="App-toolbar" style={{}}>
+            <QuickActions />
             <div className="btn-container">
                 <img src="/icons/user-example.png" />
                 <h3>{auth.user.username}</h3>

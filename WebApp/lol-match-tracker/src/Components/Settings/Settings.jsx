@@ -56,14 +56,15 @@ export default function Settings(props){
 			<div style={{width:'100%', display:'flex', flexDirection:'column', alignItems:'center'}}> 
 				<div style={{width:'50%'}}>
 					<h2>General</h2>
-					<FormGroup>
-						<FormControlLabel control={darkMode ? <Switch defaultChecked/> : <Switch />} label="Dark Mode" />
-					</FormGroup>
+					<div className="setting">
+						<p>Dark mode</p>
+						{darkMode ? <Switch defaultChecked /> : <Switch />}
+					</div>
 				</div>
 				<div style={{width:'50%'}}>
 					<h2>Account</h2>
 					<FormGroup>
-						<div style={{display:'flex', flexDirection:'row'}}>
+						<div className="setting">
 							<p>Riot account name</p>
 							<TextField id="outlined-basic" variant="outlined" style={{marginLeft:"50px"}} value={riotAccountName} />
 						</div>
@@ -73,7 +74,7 @@ export default function Settings(props){
 				<div style={{width:'50%'}}>
 					<h2>Home</h2>
 					<FormGroup>
-						<div style={{display:'flex', flexDirection:'row'}}>
+						<div className="setting">
 							<p>Number of recent matches to display</p>
 							<NumberOfMatchesSelect />
 						</div>
@@ -82,18 +83,31 @@ export default function Settings(props){
 				<br />
 				<div style={{width:'50%'}}>
 					<h2>Matches</h2>
-					<FormGroup>
-						<FormControlLabel control={<Switch />} label="Something regarding the matches page" />
-					</FormGroup>
+					<div className="setting">
+						<p>Something regarding the matches page</p>
+						<Switch />
+					</div>
 				</div>
 				<br />
 				<div style={{width:'50%'}}>
 					<h2>Recording</h2>
 					<FormGroup>
-						<FormControlLabel control={recordAudio ? <Switch defaultChecked /> : <Switch />} label="Record audio by default" />
-						<FormControlLabel control={<Switch defaultChecked />} label="Automatically enable Focus Mode when Recording starts" />
-						<FormControlLabel control={<Switch />} label="Automatically download Recordings" />
-						<FormControlLabel control={<Switch />} label="Automatically link Recordings to most recently played match" />
+						<div className="setting">
+							<p>Record audio by default</p>
+							{recordAudio ? <Switch defaultChecked /> : <Switch />}
+						</div>
+						<div className="setting">
+							<p>Automatically enable Focus Mode when Recording starts</p>
+							<Switch defaultChecked />
+						</div>
+						<div className="setting">
+							<p>Automatically download Recordings</p>
+							<Switch />
+						</div>
+						<div className="setting">
+							<p>Automatically link Recordings to most recently played match</p>
+							<Switch />
+						</div>
 					</FormGroup>
 				</div>
 			</div>
