@@ -67,10 +67,31 @@ export default function API(){
 		//get(`${BASE_API_URL}/settings?username=${user.username}`)
 	}
 
+	const getNote = async (noteId, callback) => {
+		const mockNote = {
+			title: 'Taliyah',
+			text: "After ulting, be patient when jumping off the wall, and when using abilities after jumping off. <span class='bold'>Many</span> players will panic around the wall"
+		}
+
+		callback(mockNote)
+
+
+		//get(`${BASE_API_URL}/notes/${noteId}?username=${user.username}`, setNote)
+	}
+
+	const saveNote = async (note, saveComplete) => {
+		console.log('saving note (if note id is null, API server responsible for creating a new note): ', note)
+		setTimeout(() => {
+			saveComplete(true)
+		}, 1500)
+	}
+
 	const api = {
 		getRecordings: getRecordings,
 		getRecordingData: getRecordingData,
-		getSettings: getSettings
+		getSettings: getSettings,
+		saveNote: saveNote,
+		getNote: getNote,
 	}
 
 	return api

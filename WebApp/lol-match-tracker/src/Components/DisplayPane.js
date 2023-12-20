@@ -9,6 +9,7 @@ import {
 import AppToolbar from './Toolbar/AppToolbar'
 import MatchPane from './Match/MatchPane'
 import MatchInfoFull from './Match/MatchInfoFull'
+import Note from './Notes/Note'
 import NotesPane from './Notes/NotesPane'
 import Recordings from './Recording/Recordings'
 import RecordingPlayer from './Recording/RecordingPlayer'
@@ -52,6 +53,8 @@ class DisplayPane extends Component{
                     <Route path="/matches/:matchid?" element={<MatchInfoFull />} />
                     <Route path="/matches/new" element={<CreateMatchPage />} />
                     <Route exact path="/notes" element={<NotesPane />}/>
+                    <Route path="/notes/new" element={<Note />} />
+                    <Route path="/notes/:noteId?" element={<Note />} />
                     <Route path="/recordings" element={<Recordings />} />
                     <Route path="/recordings/:videoId" element={<RecordingPlayer />} />
                     <Route path="/settings" element={<Settings />} />
