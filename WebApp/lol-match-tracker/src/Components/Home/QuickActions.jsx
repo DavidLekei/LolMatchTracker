@@ -8,10 +8,10 @@ export default function QuickActions() {
 	//And then we should be able to implement that here using something like 'if window.location.pathname IN [quickactionpathnames]'
 	if(window.location.pathname == '/home'){
 		return(
-			<div style={{width:'100%', display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-evenly'}}>
+			<div id="quick-actions" style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
 				<StartRecordingDialog />
-				<Button variant="contained" color="success">Start a Journey</Button>
-				<Button variant="contained" color="secondary">New Note</Button>
+				<Button sx={{fontSize:'12px', backgroundColor:'#78B7EB'}} variant="contained">Start a Journey</Button>
+				<Button sx={{fontSize:'12px',backgroundColor:'#55616B'}} variant="contained">New Note</Button>
 			</div>
 		)
 	}

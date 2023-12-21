@@ -82,8 +82,8 @@ class HomePane extends Component{
         }
         return(
             <div className="App-content-home">
-                <div style={{width:'100%', display:'flex', flexDirection:'row', justifyContent:'space-evenly'}}>
-                    <div style={{width:'30%', display:'flex', flexDirection:'column', justifyContent:'space-evenly'}}>
+                <div style={{width:'100%', display:'flex', flexDirection:'row', justifyContent:'space-evenly', alignItems:'center', minHeight:'100%'}}>
+                    <div style={{width:'30%', display:'flex', flexDirection:'column', justifyContent:'space-evenly', marginTop:'5%'}}>
                         <RankSection current data={mockRankData}/>
                         <RankSection goal data={mockGoalData}/>
                     </div>

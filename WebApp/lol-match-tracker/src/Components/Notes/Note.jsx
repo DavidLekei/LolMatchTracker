@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react'
 
 import {useParams} from 'react-router-dom'
 import TextField from '@mui/material/TextField'
+import AddLinkOutlinedIcon from '@mui/icons-material/AddLinkOutlined';
 import TextBox from '../Common/TextBox'
 
 import API from '../../API/api'
@@ -17,6 +18,10 @@ export default function Note(props){
 
 	const handleSave = (data, saveComplete) => {
 		api.saveNote({title: title, text: data, id: noteId}, saveComplete)
+	}
+
+	const addLink = () => {
+		console.log('adding link')
 	}
 
 	useEffect(() => {
@@ -36,11 +41,12 @@ export default function Note(props){
 		return(<div>Loading</div>)
 	}
 
+	const buttons = [{icon: <AddLinkOutlinedIcon />, handler: addLink}]
 
 	return(
-		<div style={{height:'100%', marginLeft:'15%', marginRight:'15%', textAlign:'left'}}>
+		<div style={{height:'100%', marginLeft:'15%', marginRight:'15%', marginTop:'5rem', textAlign:'left'}}>
 			<TextField onChange={(e) => {setTitle(e.target.value)}} style={{width:'30%'}} label="Title" value={title}/>
-			<TextBox onSave={handleSave} text={note}/>
+			<TextBox onSave={handleSave} text={note} buttons={buttons}/>
 		</div>
 	)
 }

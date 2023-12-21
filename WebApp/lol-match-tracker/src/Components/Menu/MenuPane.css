@@ -1,5 +1,5 @@
 .App-content-menu{
-    width: 12vw;
+    width: 16rem;
     min-height: 90vh;
     display:flex;
     flex-direction:column;
@@ -45,12 +45,12 @@
 }
 
 .menu-entry-img{
-    width:30px;
+    width:25px;
     margin-right: 20px;
 }
 
 .menu-entry-text{
-    font-size:16px;
+    font-size:14px;
     font-weight:bold;
 }
 

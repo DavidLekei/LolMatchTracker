@@ -49,6 +49,11 @@ function TextBoxControls(props){
 	const [boldEnabled, setBoldEnabled] = useState(false)
 	const [italicsEnabled, setItalicsEnabled] = useState(false)
 
+
+	const customButtons = props.buttons.map((button, index) => {
+		return <SvgIcon onClick={button.handler} sx={{width:'1.25em', height:'1.25em', marginRight:'15px'}} className={`textbox-control-icon`}>{button.icon}</SvgIcon>
+	})
+
 	/*
 	TODO:
 		Remove TextEffect: If TextEffect is already applied to the selection (ie the entire range is under the same parent element <span>), remove the parent element
@@ -186,6 +191,9 @@ function TextBoxControls(props){
 			<SpellcheckIcon sx={{width:'1.25em', height:'1.25em', marginRight:'15px'}} className={`textbox-control-icon`}/>
 			<FormatListBulletedIcon sx={{width:'1.25em', height:'1.25em', marginRight:'15px'}} className={`textbox-control-icon`}/>
 			</div>
+			<div id="custom-buttoms">
+				{customButtons}
+			</div>
 			<div style={{display:'flex', flexDirection:'row'}}>
 				{saveSuccess ? <DoneOutlinedIcon sx={{width:'1.25em', height:'1.25em', marginRight:'15px', color:'green'}} className="textbox-control-icon"/> : null}
 				{saving ? <CircularProgress sx={{width:'.5em', height:'.5em', marginRight:'15px'}} /> : <SaveOutlinedIcon onClick={handleSave} sx={{width:'1.25em', height:'1.25em', marginRight:'15px'}} className="textbox-control-icon"/>}
@@ -203,7 +211,7 @@ export default function TextBox(props){
 				<div id="textbox" style={{height:'100%'}} contentEditable="true"></div>
 				{/*<textarea id="textbox" style={{height:'100%'}} placeholder="Enter information about a Champion, a Match, etc..."/>*/}
 			</div>
-			<TextBoxControls onSave={props.onSave}/>
+			<TextBoxControls onSave={props.onSave} buttons={props.buttons}/>
 		</div>
 	)
 }

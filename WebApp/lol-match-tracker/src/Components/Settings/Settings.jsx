@@ -21,6 +21,7 @@ export default function Settings(props){
 	const [darkMode, setDarkMode] = useState(settings.general.dark_mode)
 	const [riotAccountName, setRiotAccountName] = useState(settings.account.riot_account_name)
 	const [numberOfMatches, setNumberOfMatches] = useState(settings.home.num_recent)
+	const [numberOfNotes, setNumberOfNotes] = useState(3)
 	const [recordAudio, setRecordAudio] = useState(settings.recording.record_audio)
 	const [enableFocusMode, setEnableFocusMode] = useState(settings.recording.enable_focus_mode)
 	const [downloadRecording, setDownloadRecording] = useState(settings.recording.download_recording)
@@ -28,6 +29,10 @@ export default function Settings(props){
 	
 	const handleNumberOfMatchesChange = (e) => {
 		setNumberOfMatches(e.target.value)
+	}
+
+	const handleNumberOfNotesChange = (e) => {
+		setNumberOfNotes(e.target.value)
 	}
 
 	const NumberOfMatchesSelect = (props) => {
@@ -48,6 +53,27 @@ export default function Settings(props){
 		)
 	}
 
+	const NumberOfNotesSelect = (props) => {
+		return(
+			<FormControl style={{marginLeft:'50px'}} >
+		        <Select
+		          labelId="demo-simple-select-label"
+		          id="demo-simple-select"
+		          value={numberOfNotes}
+		          label=""
+		          onChange={handleNumberOfNotesChange}
+		        >
+		          <MenuItem value={1}>1</MenuItem>
+		          <MenuItem value={2}>2</MenuItem>
+		          <MenuItem value={3}>3</MenuItem>
+		          <MenuItem value={4}>4</MenuItem>
+		          <MenuItem value={5}>5</MenuItem>
+		          <MenuItem value={6}>6</MenuItem>
+		        </Select>
+		     </FormControl>
+		)
+	}
+
 	return(
 		<div style={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
 			<h1>Settings</h1>
@@ -59,6 +85,10 @@ export default function Settings(props){
 					<div className="setting">
 						<p>Dark mode</p>
 						{darkMode ? <Switch defaultChecked /> : <Switch />}
+					</div>
+					<div className="setting">
+						Show LP changes
+						<Switch />
 					</div>
 				</div>
 				<div style={{width:'50%'}}>
@@ -73,12 +103,18 @@ export default function Settings(props){
 				<br />
 				<div style={{width:'50%'}}>
 					<h2>Home</h2>
-					<FormGroup>
-						<div className="setting">
-							<p>Number of recent matches to display</p>
-							<NumberOfMatchesSelect />
-						</div>
-					</FormGroup>
+					<div className="setting">
+						<p>Number of recent matches to display</p>
+						<NumberOfMatchesSelect />
+					</div>
+					<div className="setting">
+						<p>Number of recent notes to display</p>
+						<NumberOfNotesSelect />
+					</div>
+					<div className="setting">
+						<p>Display progress graph</p>
+						<Switch />
+					</div>
 				</div>
 				<br />
 				<div style={{width:'50%'}}>

@@ -39,7 +39,9 @@
 }
 
 #record-button{
-	background: linear-gradient(90deg, hsla(146, 81%, 68%, 1) 0%, hsla(136, 56%, 41%, 1) 100%, hsla(232, 75%, 69%, 1) 100%);
+
+	background-color: #EB7C79;
+/*	background: linear-gradient(90deg, hsla(146, 81%, 68%, 1) 0%, hsla(136, 56%, 41%, 1) 100%, hsla(232, 75%, 69%, 1) 100%);*/
 }
 
 #upload-button{

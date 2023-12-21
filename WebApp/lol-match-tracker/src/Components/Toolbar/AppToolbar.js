@@ -27,12 +27,12 @@ export default function AppToolbar(props){
     }
     return(
         <div className="App-toolbar" style={{}}>
-            <QuickActions />
             <div className="btn-container">
                 <img src="/icons/user-example.png" />
                 <h3>{auth.user.username}</h3>
                 <Button variant="contained">Log Out</Button>
             </div>
+            <QuickActions />
         </div>
     )
 }

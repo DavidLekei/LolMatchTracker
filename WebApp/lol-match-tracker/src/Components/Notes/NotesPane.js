@@ -5,7 +5,7 @@ import Button from '@mui/material/Button'
 
 import NoteCard from './NoteCard'
 
-import './NotesPane.css'
+import './Notes.css'
 
 /*
 TODO: 
@@ -21,12 +21,12 @@ export default function NotesPane(props){
     }
 
     return(
-        <div>
-            <div style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-between', paddingLeft:'5%', paddingRight:'5%'}}>
-                <h1>Notes</h1>
+        <div style={{marginLeft:'5%', marginRight:'5%'}}>
+            <div style={{display:'flex', flexDirection:'row', alignItems:'center', marginLeft:'8px'}}>
+                <h1 style={{marginRight: '25px'}}>Notes</h1>
                 <Link to="/notes/new" ><Button variant="contained" color="error">New Note</Button></Link>
             </div>
-            <div className="" style={{display:'flex', flexDirection:'row', justifyContent:'space-evenly', flexWrap:'wrap'}}>
+            <div className="" style={{display:'flex', flexDirection:'row', justifyContent:'space-between', flexWrap:'wrap'}}>
                 <NoteCard noteId='1' title="Taliyah" text="After ulting, be patient when jumping off the wall, and when using abilities after jumping off. Many players will panic around the wall"/>
                 <NoteCard noteId='2' title="Ahri vs Sylas" text="HOLD CHARM! If you miss a charm, he has 9 seconds to all in, and he will win"/>
                 <NoteCard noteId='3' title="Ekko Mid" text="Be patient, CS under tower. Ekko doesn't have very strong laning early on, but can wave clear super well post level 7. Just be patient!"/>

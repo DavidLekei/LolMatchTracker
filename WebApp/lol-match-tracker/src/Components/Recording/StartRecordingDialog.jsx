@@ -11,6 +11,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Recorder from './Recorder'
 import SaveRecordingModal from './SaveRecordingModal'
 
+import './Recording.css'
+
 export default function StartRecordingDialog(){
 
 	const [open, setOpen] = useState(false)
@@ -50,7 +52,7 @@ export default function StartRecordingDialog(){
 
 	return(
 		<div>
-			<Button variant="contained" onClick={handleOpen}>Record</Button>
+			<Button sx={{fontSize:'12px'}} id="record-button" variant="contained" onClick={handleOpen}>Record</Button>
 			<Dialog open={open} onClose={handleClose}>
 				<DialogTitle>Recording in Progress</DialogTitle>
 				<DialogContent>
