@@ -44,7 +44,7 @@ export default function Note(props){
 	const buttons = [{icon: <AddLinkOutlinedIcon />, handler: addLink}]
 
 	return(
-		<div style={{height:'100%', marginLeft:'15%', marginRight:'15%', marginTop:'5rem', textAlign:'left'}}>
+		<div style={{height:'100%', marginTop:'3rem', textAlign:'left'}}>
 			<TextField onChange={(e) => {setTitle(e.target.value)}} style={{width:'30%'}} label="Title" value={title}/>
 			<TextBox onSave={handleSave} text={note} buttons={buttons}/>
 		</div>

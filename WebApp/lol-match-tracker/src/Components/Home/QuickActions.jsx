@@ -6,7 +6,7 @@ export default function QuickActions() {
 
 	//TODO: Make this configurable in Settings, to allow user to choose which pages they want the quick actions to display
 	//And then we should be able to implement that here using something like 'if window.location.pathname IN [quickactionpathnames]'
-	if(window.location.pathname == '/home'){
+	if(window.location.pathname == '/' || window.location.pathname == '/home'){
 		return(
 			<div id="quick-actions" style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
 				<StartRecordingDialog />

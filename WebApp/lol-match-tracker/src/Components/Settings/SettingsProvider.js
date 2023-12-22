@@ -12,12 +12,20 @@ export default function SettingsProvider(props){
     const defaultSettings = {
         'general': {
             'dark_mode':false,
+            'show_lp_changes':true,
+            'starting_rank': '',
+            'starting_lp': '',
+            'current_rank' : 'Platinum',
+            'current_lp': 0,
+            'goal_rank': '',
+            'goal_lp' : '',
         },
         'account': {
             'riot_account_name':'',
         },
         'home': {
             'num_recent': 3,
+            'num_notes': 5,
         },
         'matches': {
 
@@ -27,6 +35,14 @@ export default function SettingsProvider(props){
             'enable_focus_mode': true,
             'download_recording': false,
             'link_recording_to_most_recent': true,
+        },
+        'quick_actions': {
+            'every_page': false,
+            'enabled': [
+                'Record',
+                'Journey',
+                'Note',
+            ]
         }
     }
 

@@ -139,7 +139,7 @@ export default function VideoControls(props){
 				const time = minutes + ':' + seconds
 
 				const annotation = '@' + time + ' - ' + annotationInput.value + '\n'
-				const notes = document.getElementById('notes').value += annotation
+				const notes = document.getElementById('textbox').innerText += annotation
 				annotationInput.value = ""
 				annotationContainer.className = "hidden"
 			}

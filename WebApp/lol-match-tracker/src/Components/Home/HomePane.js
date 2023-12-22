@@ -1,25 +1,28 @@
-import React, {Component} from 'react';
+import {useContext} from 'react';
+
+import { SettingsContext } from '../Settings/SettingsProvider';
+import {AuthContext} from '../../Auth/AuthenticationProvider'
 
 import {BrowserRouter as Router, Link} from 'react-router-dom'
 
 import MatchInfoSmall from '../Match/MatchInfoSmall';
 import StatsOverview from './StatsOverview'
 import RankSection from './RankSection'
+import RankChart from './RankChart'
 import NoteCard from '../Notes/NoteCard'
 
 import './HomePane.css'
 
-class HomePane extends Component{
+//THOUGHTS: Using the same gradient applied to the welcome message to style the match history wins, and maybe make the losses 'grey'.
+//Would this give a feeling of more like 'this game didn't progress my LP but it wasn't a negative experience'
+export default function HomePane(props){
 
-    constructor(props){
-        super(props);
+    const user = useContext(AuthContext)
+    const settings = useContext(SettingsContext)
 
-        this.getMatchData = this.getMatchData.bind(this);
+    const greetings = ["Let's get grinding", "Time to queue up", "Put in the work", "You're climbing fast"]
 
-        this.matchData = this.getMatchData();
-    }
-
-    getMatchData(){
+    const getMatchData = () => {
         let mockData ={games: [
             {
                 matchid:1,
@@ -65,31 +68,35 @@ class HomePane extends Component{
         return mockData;
     }
 
-    render(){
-        let matchData = this.getMatchData();
+        let matchData = getMatchData();
 
         const mockRankData =  {
-            division: 'Diamond',
+            division: settings.general.current_rank,
             level: '2',
             lp: '72',
             server: 'North America'
         }
 
         const mockGoalData = {
-            division: 'Master',
+            division: settings.general.goal_rank,
             lp: '0',
             server: 'North America'
         }
+
+        const greeting = greetings[Math.floor(Math.random() * greetings.length )]
+
         return(
             <div className="App-content-home">
-                <div style={{width:'100%', display:'flex', flexDirection:'row', justifyContent:'space-evenly', alignItems:'center', minHeight:'100%'}}>
-                    <div style={{width:'30%', display:'flex', flexDirection:'column', justifyContent:'space-evenly', marginTop:'5%'}}>
+                <div id="home-content-column" style={{width:'100%', display:'flex', flexDirection:'column', justifyContent:'space-evenly', alignItems:'center',}}>
+                    <div style={{fontSize:'36px'}}>
+                        <h1 className={`welcome-gradient ${settings.general.goal_rank}`}>{greeting}, {user.user.username}</h1>
+                    </div>
+                    <div style={{width:'100%', minHeight:'30rem', display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-evenly'}}>
                         <RankSection current data={mockRankData}/>
+                        <RankChart settings={settings}/>
                         <RankSection goal data={mockGoalData}/>
                     </div>
-                    {/*<div><h2>Your Stats</h2></div>*/}
-                    {/*<StatsOverview></StatsOverview>*/}
-                    <div style={{display:'flex', flexDirection:'column', justifyContent:'space-evenly'}}>
+                    <div style={{display:'flex', flexDirection:'column', justifyContent:'space-evenly', marginTop:'10rem', marginBottom:'10rem'}}>
                         <div><h2>Recent Matches</h2></div>
                         <MatchInfoSmall
                             data={matchData.games[0]}               
@@ -101,8 +108,6 @@ class HomePane extends Component{
                             data={matchData.games[2]}               
                         />
                     </div>
-                </div>
-                <div style={{width:'100%'}}>
                     <h2>Recent Notes</h2>
                     <div style={{display:'flex', flexDirection:'row', justifyContent:'space-evenly'}}>
                         <NoteCard noteId='1' small title="Taliyah" text="After ulting, be patient when jumping off the wall, and when using abilities after jumping off. Many players will panic around the wall"/>
@@ -112,7 +117,4 @@ class HomePane extends Component{
                 </div>
             </div>
         )
-    }
 }
-
-export default HomePane;

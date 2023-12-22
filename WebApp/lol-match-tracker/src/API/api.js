@@ -43,25 +43,36 @@ export default function API(){
 	const getSettings = async (callback) => {
 		
 		const mockSettings = {
-	        'general': {
-	            'dark_mode':true,
-	        },
-	        'account': {
-	            'riot_account_name':'test name',
-	        },
-	        'home': {
-	            'num_recent': 2,
-	        },
-	        'matches': {
+        'general': {
+            'dark_mode':false,
+            'show_lp_changes':true,
+            'starting_rank': 'Iron',
+            'starting_lp': '0',
+            'current_rank' : 'Emerald',
+            'current_lp': 0,
+            'goal_rank': 'Diamond',
+            'goal_lp' : '0',
+        },
+        'account': {
+            'riot_account_name':'',
+        },
+        'home': {
+            'num_recent': 3,
+            'num_notes': 5,
+        },
+        'matches': {
 
-	        },
-	        'recording': {
-	            'record_audio': false,
-	            'enable_focus_mode': true,
-	            'download_recording': false,
-	            'link_recording_to_most_recent': true,
-	        }
-	    }
+        },
+        'recording': {
+            'record_audio': true,
+            'enable_focus_mode': true,
+            'download_recording': false,
+            'link_recording_to_most_recent': true,
+        },
+        'quick_actions':{
+        	'every_page': false,
+        }
+    }
 
 		callback(mockSettings)
 		//get(`${BASE_API_URL}/settings?username=${user.username}`)

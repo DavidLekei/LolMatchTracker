@@ -34,8 +34,9 @@
 	background-color:white;
 	display:flex;
 	flex-direction: column;
-	align-items:center;
-	justify-content: center;
+	align-items:start;
+	margin-left:5rem;
+	margin-right:5rem;
 }
 
 #record-button{

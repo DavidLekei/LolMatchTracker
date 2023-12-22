@@ -19,3 +19,68 @@
 #quick-actions > *{
     margin-right:15px;
 }
+
+/*
+The white-space, max-width, transition, and animation result in a 'appear from left to right' effect
+*/
+.welcome-gradient {
+    background-color: #f3ec78;
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+/*    white-space: nowrap;
+    max-width: 0%;
+    transition: max-width 1s linear;
+    animation: text-slide-in;
+    animation-delay: 0.5s;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;*/
+}
+
+.Iron{
+    background-image: linear-gradient(to right top, #d9b1b1, #b1908e, #8a6f6e, #65514f, #423432);
+}
+
+.Bronze{
+    background-image: linear-gradient(to right top, #fdb194, #c78e78, #946c5d, #644c43, #372e2b);
+}
+
+.Silver{
+    background-image: linear-gradient(to right top, #717d8d, #5f6b77, #4f5961, #3f474d, #313639);
+}
+
+.Gold{
+    background-image: linear-gradient(to right top, #fdecbf, #dcc596, #bb9f6f, #9b7a4b, #7c5729);
+}
+
+.Platinum{
+    background-image: linear-gradient(to right top, #84e3ee, #63b5c5, #44899b, #276073, #0a3a4b);
+}
+
+.Emerald{
+    background-image: linear-gradient(to right top, #72ebc7, #59caa2, #40aa7f, #278b5e, #076d3e);
+}
+
+.Diamond{
+    background-image: linear-gradient(to right top, #03b3df, #00a0e0, #008cdd, #0076d6, #2e5dc9);
+}
+
+.Master{
+    background-image: linear-gradient(to right top, #ffa1ff, #e588f0, #ca6fe1, #ae58d4, #9041c6);
+}
+
+.Grandmaster{
+    background-image: linear-gradient(to right top, #ff7e27, #e96829, #d15329, #b93f27, #a02c24);
+}
+
+.Challenger{
+    background-image: linear-gradient(to right top, #2dbede, #00b0e1, #00a2e3, #0092e3, #0080de, #0086e4, #008bea, #0091f0, #00afff, #00ccff, #00e6ff, #4fffff);
+}
+
+@keyframes text-slide-in{
+    100%{
+        max-width:100%;
+    }
+}

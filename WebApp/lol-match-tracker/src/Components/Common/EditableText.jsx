@@ -26,6 +26,8 @@ export default function EditableText(props){
 	}
 
 	const handleDone = (e) =>{
+		console.log('e:', e)
+		e.stopPropagation()
 		const _element = getElement()
 		_element.contentEditable = false
 		setText(_element.innerText)
@@ -37,6 +39,7 @@ export default function EditableText(props){
 	}
 
 	const handleCancel = (e) =>{
+		e.stopPropagation()
 		const _element = getElement()
 		_element.contentEditable = false
 		_element.innerText = text
@@ -86,13 +89,11 @@ export default function EditableText(props){
 		element = <p id={props.id}>{text}</p>
 	}
 
-	if(props.bold){
-		element = <b>{element}</b>
-	}
+	console.log('element: ', element)
 
 	return(
-		<div className="editable-text">
-			{(!props.editIconPosition || props.editIconPosition === 'start') && !editing?editIcon:null}
+		<div className="editable-text" onClick={handleEdit}>
+			{/*{(!props.editIconPosition || props.editIconPosition === 'start') && !editing?editIcon:null}*/}
 			{element}
 			{editing?doneIcon:null}
 			{editing?cancelIcon:null}

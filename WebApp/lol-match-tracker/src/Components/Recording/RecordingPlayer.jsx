@@ -4,6 +4,7 @@ import {useParams} from 'react-router-dom'
 import { AuthContext } from '../../Auth/AuthenticationProvider';
 import VideoPlayer from '../Video/VideoPlayer'
 import EditableText from '../Common/EditableText'
+import Note from '../Notes/Note'
 
 import './Recording.css'
 
@@ -54,8 +55,10 @@ export default function RecordingPlayer(props){
 				<VideoPlayer url={videoUrl}/>
 			</div>
 			{/*<EditableText element='p' id='date' onEdit={editDate}>Date</EditableText>*/}
-			<h2>Notes</h2>
-			<textarea id="notes" rows="50" cols="130" />
+			<div style={{width:'100%', textAlign:'left', marginTop:'3rem', minHeight:'50rem'}}>
+				<h2>Notes</h2>
+				<Note id="notes" />
+			</div>
 		</div>
 	)
 }
