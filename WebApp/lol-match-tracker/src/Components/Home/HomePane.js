@@ -20,7 +20,7 @@ export default function HomePane(props){
     const user = useContext(AuthContext)
     const settings = useContext(SettingsContext)
 
-    const greetings = ["Let's get grinding", "Time to queue up", "Put in the work", "You're climbing fast"]
+    const greetings = ["Let's get grinding", "Time to queue up", "Put in the work", "Keep climbing"]
 
     const getMatchData = () => {
         let mockData ={games: [

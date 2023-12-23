@@ -63,6 +63,10 @@ public class MySQLDatabase implements Database
 		return INSTANCE;
 	}
 
+	public Connection getConnection(){
+		return this.connection;
+	}
+
 	public ResultSet executeSelect(String query) throws SQLException
 	{
 		return connection.prepareStatement(query).executeQuery();

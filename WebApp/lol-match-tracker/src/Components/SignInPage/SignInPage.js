@@ -11,43 +11,58 @@ import { AuthContext, addUserDataToLocalStorage } from '../../Auth/Authenticatio
 import './common.css'
 import './signinpage.css'
 
-function logInButtonPressed(authContext, loadingState, callback){
-    //Encrypt password - do i have to do this manually if the site uses HTTPS?
-    let username = document.getElementById('signin-textfield-username').value;
-    let password = document.getElementById('signin-textfield-password').value;
+// function logInButtonPressed(setUser, setLoading, callback){
+//     //Encrypt password - do i have to do this manually if the site uses HTTPS?
+//     let username = document.getElementById('signin-textfield-username').value;
+//     let password = document.getElementById('signin-textfield-password').value;
 
-    console.log('username: ' + username + ' password: ' + password + ' authContext: ', authContext)
+//     console.log('username: ' + username + ' password: ' + password)
 
-    //TODO: Need to send Auth server API request here
-    //      Auth server would be the one returning the token
-    let data = {
-        username: username,
-        user_token: 'user_token',
-        title: 'Creator'
-    }
+//     const data = 
 
-    //3 second delay to 'simulate' network
-    setTimeout(() => {
-        console.log("Timed out")
-        loadingState.setLoading(false)
-        authContext.setUser(data)
-        addUserDataToLocalStorage(data, 'user_token')
-        console.log("Set Local Storage for key 'token': ", data.token);
-        //TODO: Navigate to /home should only be called if the log in was successful.
-        //      I think this means that the logInButtonPressed function will need to be made to be async
-        //      and I'll need to implement some kind of hook upon response from the auth server
-        callback('/home')
-    }, 3000)
+//     //TODO: Need to send Auth server API request here
+//     //      Auth server would be the one returning the token
+//     // let data = {
+//     //     username: username,
+//     //     user_token: 'user_token',
+//     //     title: 'Creator'
+//     // }
 
-}
+//     // //3 second delay to 'simulate' network
+//     // setTimeout(() => {
+//     //     console.log("Timed out")
+//     //     setLoading(false)
+//     //     setUser(data)
+//     //     //addUserDataToLocalStorage(data, 'user_token')
+//     //     console.log("Set Local Storage for key 'token': ", data.token);
+//     //     //TODO: Navigate to /home should only be called if the log in was successful.
+//     //     //      I think this means that the logInButtonPressed function will need to be made to be async
+//     //     //      and I'll need to implement some kind of hook upon response from the auth server
+//     //     callback('/home')
+//     // }, 1000)
+
+// }
 
 export default function SignInPage(props){
 
-    const {user, setUser} = useContext(AuthContext);
+    const {user, setUser, authenticateUser} = useContext(AuthContext);
 
     const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate();
+
+    const logInButtonPressed = () => {
+        let username = document.getElementById('signin-textfield-username').value;
+        let password = document.getElementById('signin-textfield-password').value;
+
+        console.log('username: ' + username + ' password: ' + password)
+
+        authenticateUser(username, password, (userData) => {
+            setUser(userData)
+            navigate("/")
+        });
+    }
+
 
     if(loading){
         return (
@@ -99,7 +114,7 @@ export default function SignInPage(props){
                             className="w-100"
                             onClick={() => {
                                 setLoading(true)
-                                logInButtonPressed({user, setUser}, {loading, setLoading}, navigate);
+                                logInButtonPressed(setUser, setLoading, navigate);
                             }}
                         >
                             Log in

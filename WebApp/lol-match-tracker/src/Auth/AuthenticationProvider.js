@@ -66,12 +66,23 @@ function getUserDataFromLocalStorage(){
     return JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA))
 }
 
-export async function authenticateUser(username, password){
-    alert('Attempting to Authenticate: ' + username + ' / ' + password);
+export async function authenticateUser(username, password, callback){
 
-    // const token = await fetch('https://localhost:8000/auth/user').then(
-    //     console.log()
-    // )
+    const user = await fetch(`http://localhost:8080/auth/signin`, {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({username: username, password: password}),
+    }).then((response) => {
+        if(response.ok){
+            console.log('user authenticated!')
+            response.json().then((data) => {
+                console.log('data returned: ', data)
+                callback(data)
+            })
+        }
+    })
 }
 
 export default function AutheticationProvider(props){
@@ -89,10 +100,8 @@ export default function AutheticationProvider(props){
 
         }
         else{
-
             console.log('Token NOT FOUND in Local Storage')
-
-        }
+        }  
     }
         
     return (
@@ -103,7 +112,8 @@ export default function AutheticationProvider(props){
                 token,
                 setToken,
                 user,
-                setUser}}>
+                setUser,
+                authenticateUser}}>
             {props.children}
         </AuthContext.Provider>
     )

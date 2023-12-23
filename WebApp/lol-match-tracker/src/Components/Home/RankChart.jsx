@@ -87,7 +87,7 @@ export default function RankChart(props){
 				data: userData,
 				borderWidth: 5,
 				borderColor: '#3dd8f4',
-				backgroundColor: '#3dd8f4'
+				backgroundColor: '#3dd8f4',
 			},
 		]
 	}
@@ -116,7 +116,7 @@ export default function RankChart(props){
 		//ANIMATION CONFIGURATION
 
 		const totalDuration = 2500;
-		const delayBetweenPoints = totalDuration / userData.length;
+		const delayBetweenPoints = totalDuration / 50;
 		const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
 		const animation = {
 		  x: {

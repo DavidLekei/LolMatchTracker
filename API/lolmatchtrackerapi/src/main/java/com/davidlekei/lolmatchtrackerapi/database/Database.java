@@ -10,6 +10,7 @@ import com.davidlekei.lolmatchtrackerapi.data.game.runes.RunePage;
 import com.davidlekei.lolmatchtrackerapi.data.recording.Recording;
 import com.davidlekei.lolmatchtrackerapi.exceptions.persistence.TransactionException;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -18,6 +19,7 @@ public interface Database
 {
 	//Generic database operations
 	public static Database get(){return null;};
+	public Connection getConnection();
 	public ResultSet executeSelect(String query) throws SQLException;
 	public void rollback(DataObject obj);
 
