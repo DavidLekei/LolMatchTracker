@@ -45,15 +45,10 @@ export function checkLocalStorageForToken(){
         return false
     }
 
-    if(!data.user_token){
-        return false
-    }
-
     return true
 }
 
-export function addUserDataToLocalStorage(user_data, token){
-    console.log("Adding user_data to local storage. user_data: ", user_data)
+export function addUserDataToLocalStorage(user_data){
     let data = {
         ...user_data,
         created: Date.now(),
@@ -66,30 +61,34 @@ function getUserDataFromLocalStorage(){
     return JSON.parse(localStorage.getItem(LOCAL_STORAGE_DATA))
 }
 
-export async function authenticateUser(username, password, callback){
-
-    const user = await fetch(`http://localhost:8080/auth/signin`, {
-        method: 'POST',
-        headers: {
-            'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify({username: username, password: password}),
-    }).then((response) => {
-        if(response.ok){
-            console.log('user authenticated!')
-            response.json().then((data) => {
-                console.log('data returned: ', data)
-                callback(data)
-            })
-        }
-    })
-}
-
 export default function AutheticationProvider(props){
 
     const [isAuthenticated, setIsAuthenticated] = useState()
     const [token, setToken] = useState()
     const [user, setUser] = useState()
+
+    const authenticateUser = async(username, password, callback) => {
+        await fetch(`http://localhost:8080/auth/signin`, {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({username: username, password: password}),
+        }).then((response) => {
+            if(response.ok){
+                response.json().then((data) => {
+                    setUser(data)
+                    addUserDataToLocalStorage(data)
+                    callback()
+                })
+            }
+        })
+    }
+
+    const logout = (callback) => {
+        localStorage.removeItem(LOCAL_STORAGE_DATA)
+        callback()
+    }
 
 
     if(!user){
@@ -113,7 +112,8 @@ export default function AutheticationProvider(props){
                 setToken,
                 user,
                 setUser,
-                authenticateUser}}>
+                authenticateUser,
+                logout}}>
             {props.children}
         </AuthContext.Provider>
     )

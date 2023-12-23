@@ -45,7 +45,7 @@ import './signinpage.css'
 
 export default function SignInPage(props){
 
-    const {user, setUser, authenticateUser} = useContext(AuthContext);
+    const {user, authenticateUser} = useContext(AuthContext);
 
     const [loading, setLoading] = useState(false)
 
@@ -55,10 +55,7 @@ export default function SignInPage(props){
         let username = document.getElementById('signin-textfield-username').value;
         let password = document.getElementById('signin-textfield-password').value;
 
-        console.log('username: ' + username + ' password: ' + password)
-
-        authenticateUser(username, password, (userData) => {
-            setUser(userData)
+        authenticateUser(username, password, () => {
             navigate("/")
         });
     }
@@ -114,7 +111,7 @@ export default function SignInPage(props){
                             className="w-100"
                             onClick={() => {
                                 setLoading(true)
-                                logInButtonPressed(setUser, setLoading, navigate);
+                                logInButtonPressed();
                             }}
                         >
                             Log in

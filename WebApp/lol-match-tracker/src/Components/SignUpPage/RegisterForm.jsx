@@ -18,15 +18,42 @@ export default function RegisterForm(){
 	const [sending, setSending] = useState(false)
 	const [recieved, setRecieved] = useState(false)
 
-	const [grade, setGrade] = useState('')
-	const [subject, setSubject] = useState('')
-	const [currentLevel, setCurrentLevel] = useState('')
+	const [password, setPassword] = useState('')
+	const [passwordsMatch, setPasswordsMatch] = useState(true)
+	const [email, setEmail] = useState('')
 
+	const handlePasswordChange = (e) => {
+		setPassword(e.target.value)
+	}
 
-	// const requestRecieved = () => {
-	// 	setSending(false)
-	// 	setRecieved(true)
-	// }
+	const handleVerifyPassword = (e) => {
+		if(e.target.value != password){
+			console.log('setting passwordsMatch to false because ', e.target.value, ' does not equal ', password)
+			setPasswordsMatch(false)
+		}else{
+			setPasswordsMatch(true)
+		}
+	}
+
+	const handleEmailChange = (e) => {
+		setEmail(e.target.value)
+	}
+
+	const validateEmail = () => {
+		if(email.length == 0){
+			return false
+		}
+
+		if(!email.includes('@')){
+			return true
+		}
+
+		if(!email.includes('.')){
+			return true
+		}
+
+		return false
+	}
 
 	const register = async (data) => {
 		await fetch('http://localhost:8080/auth/register', {
@@ -89,16 +116,16 @@ export default function RegisterForm(){
 		<form onSubmit={handleSubmit}>
 			<FormControl className="form">
 				<div className="request-input">
-					<TextField className="full-width" id="request-username" name="username" label="Username" required />
+					<TextField className="full-width" id="request-username" name="username" label="Username" required inputProps={{maxLength: 16}}/>
 				</div>
 				<div className="request-input">
-					<TextField className="full-width" id="request-password" name="password" label="Password" type="password" required />
+					<TextField className="full-width" password id="request-password" name="password" label="Password" type="password" value={password} error={(password.length > 0 && password.length <= 8) ? true : false} required onChange={handlePasswordChange}/>
 				</div>
 				<div className="request-input">
-					<TextField className="full-width" id="request-verify-password" name="verify_password" type="password" label="Re-enter your password" required />
+					<TextField className="full-width" id="request-verify-password" name="verify_password" type="password" label="Re-enter your password" error={password.length > 0 && !passwordsMatch} required onChange={handleVerifyPassword}/>
 				</div>
 				<div className="request-input">
-					<TextField className="full-width" id="request-email" name="email" label="Email Address" required />
+					<TextField className="full-width" id="request-email" name="email" label="Email Address" required error={validateEmail()} onChange={handleEmailChange}/>
 				</div>
 				<div className="request-input">
 					<TextField className="full-width" id="request-first-name" name="first_name" label="First Name" required />

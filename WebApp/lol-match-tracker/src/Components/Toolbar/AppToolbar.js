@@ -14,8 +14,6 @@ export default function AppToolbar(props){
 
     const auth = useContext(AuthContext)
 
-    console.log('toolbar auth: ', auth)
-
     const usingAsATestButton = async () => {
         await fetch('http://localhost:8080/auth/verify', {
             method: 'POST',
@@ -26,6 +24,12 @@ export default function AppToolbar(props){
             //JSON.stringify({token: auth.user.user_token}),
         }).then((response) => {
             console.log('recieved response! : ', response.status)
+        })
+    }
+
+    const logOut = () => {
+        auth.logout(() => {
+            window.location.href="/"
         })
     }
 
@@ -45,7 +49,7 @@ export default function AppToolbar(props){
             <div className="btn-container">
                 <img src="/icons/user-example.png" />
                 <h3>{auth.user.username}</h3>
-                <Button onClick={usingAsATestButton} variant="contained">Log Out</Button>
+                <Button onClick={logOut} variant="contained">Log Out</Button>
             </div>
             <QuickActions />
         </div>
