@@ -35,7 +35,7 @@ export default function AppToolbar(props){
             <div className="App-toolbar">
                 <div className="btn-container">
                     <Button variant="contained" component={Link} to="/signIn">Log In</Button>
-                    <Button variant="contained">Sign Up</Button>
+                    <Button variant="contained" component={Link} to="/signUp">Sign Up</Button>
                 </div>
             </div>
         )

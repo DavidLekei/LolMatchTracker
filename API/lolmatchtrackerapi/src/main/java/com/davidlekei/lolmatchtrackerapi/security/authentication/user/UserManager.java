@@ -8,7 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.davidlekei.lolmatchtrackerapi.security.authentication.exceptions.EmailAlreadyExistsException;
 import com.davidlekei.lolmatchtrackerapi.security.authentication.exceptions.IncorrectPasswordException;
+import com.davidlekei.lolmatchtrackerapi.security.authentication.exceptions.UsernameAlreadyExistsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -30,21 +32,12 @@ public class UserManager {
 		return INSTANCE;
 	}
 
-	public void createNewUser(String username, String password) throws SQLException {
-
-
-		PreparedStatement ps = db.prepareStatement("");
-	}
-
 	public UserDetails validateLoginDetails(LoginDetails loginDetails) throws SQLException, IncorrectPasswordException{
 		UserDetails userDetails =  validateLoginDetails(loginDetails.getUsername(), loginDetails.getPassword());
 		if(userDetails == null){
 			throw new IncorrectPasswordException();
 		}
 		return userDetails;
-//		String hashedPassword = hashPassword(loginDetails.getPassword());
-//		System.out.println("hashedPassword: " + hashedPassword);
-		//return new UserDetails(loginDetails.getUsername(), "Test", "Account", "testaccount1@tracker.io", "Test Riot Account");
 	}
 
 	private UserDetails validateLoginDetails(String username, String password) throws SQLException{
@@ -65,12 +58,44 @@ public class UserManager {
 		return userDetails;
 	}
 
-	public boolean isValidUser(UserDetails userDetails){
-		return true;
+	public void registerUser(RegistrationDetails details) throws  UsernameAlreadyExistsException, EmailAlreadyExistsException, SQLException{
+		if(doesUserDetailExist(details, "username")) {
+			throw new UsernameAlreadyExistsException();
+		}
+
+		if(doesUserDetailExist(details, "email")) {
+			throw new EmailAlreadyExistsException();
+		}
+
+		if (createNewUser(details) == 0) {
+			throw new SQLException();
+		}
+
 	}
 
-	private String hashPassword(String password){
-		return passwordEncoder.encode(password);
+	private boolean doesUserDetailExist(RegistrationDetails userDetails, String column) throws SQLException{
+		PreparedStatement ps = db.prepareStatement("SELECT COUNT(username) AS found FROM user WHERE ? = ?");
+		ps.setString(1, column);
+		ps.setString(2, userDetails.getUsername());
+		ResultSet results = ps.executeQuery();
+		if(results.next()){
+			if(results.getInt("found") != 0) {
+				return true;
+			}
+		}
+		return false;
 	}
 
+	public int createNewUser(RegistrationDetails userDetails) throws SQLException {
+		PreparedStatement ps = db.prepareStatement("INSERT INTO user(username, hashed_password, first_name, last_name, email, riot_account) VALUES(?, ?, ?, ?, ?, ?)");
+
+		ps.setString(1, userDetails.getUsername());
+		ps.setString(2, passwordEncoder.encode(userDetails.getPassword()));
+		ps.setString(3, userDetails.getFirstName());
+		ps.setString(4, userDetails.getLastName());
+		ps.setString(5, userDetails.getEmail());
+		ps.setString(6, userDetails.getRiotAccountName());
+
+		return ps.executeUpdate();
+	}
 }

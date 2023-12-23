@@ -3,9 +3,12 @@ package com.davidlekei.lolmatchtrackerapi.controllers.auth;
 import com.davidlekei.lolmatchtrackerapi.controllers.Controller;
 import com.davidlekei.lolmatchtrackerapi.data.auth.UserAuthData;
 import com.davidlekei.lolmatchtrackerapi.security.authentication.JWT.JWTProvider;
+import com.davidlekei.lolmatchtrackerapi.security.authentication.exceptions.EmailAlreadyExistsException;
 import com.davidlekei.lolmatchtrackerapi.security.authentication.exceptions.IncorrectPasswordException;
+import com.davidlekei.lolmatchtrackerapi.security.authentication.exceptions.UsernameAlreadyExistsException;
 import com.davidlekei.lolmatchtrackerapi.security.authentication.session.SessionManager;
 import com.davidlekei.lolmatchtrackerapi.security.authentication.user.LoginDetails;
+import com.davidlekei.lolmatchtrackerapi.security.authentication.user.RegistrationDetails;
 import com.davidlekei.lolmatchtrackerapi.security.authentication.user.UserDetails;
 import com.davidlekei.lolmatchtrackerapi.security.authentication.user.UserManager;
 import org.springframework.http.HttpStatus;
@@ -65,7 +68,21 @@ public class AuthController implements Controller {
 
 	@CrossOrigin
 	@PostMapping("/auth/register")
-	public ResponseEntity register(@RequestBody UserDetails details){
+	public ResponseEntity register(@RequestBody RegistrationDetails details){
+
+		try{
+			System.out.println(details);
+			userManager.registerUser(details);
+		}catch(UsernameAlreadyExistsException uaee){
+			System.out.println("Username already exists");
+			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+		}catch(EmailAlreadyExistsException eaee) {
+			System.out.println("Email already exists");
+			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+		}catch(SQLException sqle){
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+
 		return ResponseEntity.ok().build();
 	}
 

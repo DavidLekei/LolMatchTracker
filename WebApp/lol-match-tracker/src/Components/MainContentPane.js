@@ -17,6 +17,7 @@ import DisplayPane from './DisplayPane'
 import './MainContentPane.css';
 import LandingPageHero from './LandingPage/LandingPage'
 import SignInPage from './SignInPage/SignInPage';
+import SignUpPage from './SignUpPage/SignUpPage'
 import Splash from './splash/Splash'
 
 export default function MainContentPane(props){
@@ -33,7 +34,7 @@ export default function MainContentPane(props){
         return(
             <Routes>
                 <Route path="/" element={<LandingPageHero />} />
-                <Route path="/signUp" />
+                <Route path="/signUp" element={<SignUpPage />}/>
                 <Route path="/signIn" element={<SignInPage />}/>
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>

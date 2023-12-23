@@ -1,0 +1,11 @@
+.form{
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.request-input{
+  width:100%;
+  margin-bottom:15px;
+}

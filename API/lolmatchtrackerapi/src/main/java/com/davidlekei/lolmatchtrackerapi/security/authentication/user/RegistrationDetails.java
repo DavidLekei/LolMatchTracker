@@ -3,7 +3,7 @@ package com.davidlekei.lolmatchtrackerapi.security.authentication.user;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class UserDetails {
+public class RegistrationDetails {
 
 	private String username;
 	private String firstName;
@@ -11,18 +11,15 @@ public class UserDetails {
 	private String email;
 	private String riotAccountName; //TODO: Use riot account id? Get it automatically?
 	private String password;
-	private String token;
+	private Date sent;
 
-	//TODO:
-	//private Settings settings
-	//private Account account
-
-	public UserDetails(String username, String firstName, String lastName, String email, String riotAccountName){
+	public RegistrationDetails(String username, String firstName, String lastName, String email, String riotAccountName){
 		this.username = username;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.riotAccountName = riotAccountName;
+		sent = new Date();
 	}
 
 	public String getUsername(){
@@ -45,20 +42,19 @@ public class UserDetails {
 		return riotAccountName;
 	}
 
-	public String getToken() {
-		return token;
+	public Date getCreated(){
+		return sent;
 	}
 
 	public String getPassword(){
 		return password;
 	}
 
-	public void setToken(String token){
-		this.token = token;
-	}
-
 	public void setPassword(String password){
 		this.password = password;
 	}
 
+	public String toString(){
+		return "[RegistrationDetails] - New Registration Request - Username: " + username + " / Email: " + email;
+	}
 }
