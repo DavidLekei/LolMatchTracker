@@ -78,7 +78,10 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>
-          <ManageAccountsIcon className="account_option_img" /> Account settings
+          <Link to="/account">
+            <ManageAccountsIcon className="account_option_img" /> 
+            Account settings
+          </Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <img className="account_option_img" src="/icons/lol_L_icon_black.svg" ></img>
@@ -86,7 +89,7 @@ export default function AccountMenu() {
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
-          <Link style={{display:"flex", alignItems:"center"}} to ="/settings">                    
+          <Link className="account_option" to ="/settings">                    
             <ListItemIcon>
                 <Settings fontSize="small" />
             </ListItemIcon>
