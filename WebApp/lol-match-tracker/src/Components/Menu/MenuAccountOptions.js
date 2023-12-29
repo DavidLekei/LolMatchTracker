@@ -78,7 +78,7 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>
-          <Link to="/account">
+          <Link className="account_option" to="/account">
             <ManageAccountsIcon className="account_option_img" /> 
             Account settings
           </Link>

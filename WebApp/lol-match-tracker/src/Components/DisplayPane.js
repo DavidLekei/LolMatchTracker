@@ -21,6 +21,7 @@ import CreateMatchPage from '../Components/Match/NewMatch/CreateMatchPage'
 import SignInPage from './SignInPage/SignInPage';
 
 import './MainContentPane.css';
+import AccountSettings from './Account/AccountSettings';
 
 class DisplayPane extends Component{
 
@@ -57,6 +58,7 @@ class DisplayPane extends Component{
                     <Route path="/notes/:noteId?" element={<Note />} />
                     <Route path="/recordings" element={<Recordings />} />
                     <Route path="/recordings/:videoId" element={<RecordingPlayer />} />
+                    <Route path="/account" element={<AccountSettings />} />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/account" />
                     <Route path="/about" />
