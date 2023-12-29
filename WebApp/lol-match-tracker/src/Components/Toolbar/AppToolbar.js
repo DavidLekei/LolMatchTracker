@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 
 import {AuthContext} from '../../Auth/AuthenticationProvider'
 
+import MenuAccountOptions from '../Menu//MenuAccountOptions'
 import QuickActions from '../Home/QuickActions'
 
 //Material components
@@ -47,9 +48,9 @@ export default function AppToolbar(props){
     return(
         <div className="App-toolbar" style={{}}>
             <div className="btn-container">
-                <img src="/icons/user-example.png" />
                 <h3>{auth.user.username}</h3>
-                <Button onClick={logOut} variant="contained">Log Out</Button>
+                <MenuAccountOptions />
+                {/* <Button onClick={logOut} variant="contained">Log Out</Button> */}
             </div>
             <QuickActions />
         </div>

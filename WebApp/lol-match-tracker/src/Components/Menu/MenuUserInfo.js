@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import MenuAccountOptions from './MenuAccountOptions'
+
 import './MenuPane.css';
 
 //Material 
@@ -7,7 +9,7 @@ class MenuUserInfo extends Component{
     render(){
         return(
             <div className="menu-user-info">
-                <img className="menu-user-img" src={`/icons/${this.props.image}.png`}></img>
+                {/* <MenuAccountOptions /> */}
                 <div className="menu-user-name">{this.props.name}</div>
                 <div className="menu-user-title">{this.props.title}</div>
             </div>

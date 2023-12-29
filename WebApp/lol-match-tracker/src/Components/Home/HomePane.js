@@ -89,7 +89,7 @@ export default function HomePane(props){
             <div className="App-content-home">
                 <div id="home-content-column" style={{width:'100%', display:'flex', flexDirection:'column', justifyContent:'space-evenly', alignItems:'center',}}>
                     <div style={{fontSize:'36px'}}>
-                        <h1 className={`welcome-gradient ${settings.general.goal_rank}`}>{greeting}, {user.user.username}</h1>
+                        <h1 className={`welcome-gradient ${settings.general.goal_rank}`}>{greeting}, {user.user.username}!</h1>
                     </div>
                     <div style={{width:'100%', minHeight:'30rem', display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-evenly'}}>
                         <RankSection current data={mockRankData}/>
