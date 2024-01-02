@@ -7,10 +7,7 @@ import com.davidlekei.lolmatchtrackerapi.security.authentication.exceptions.Emai
 import com.davidlekei.lolmatchtrackerapi.security.authentication.exceptions.IncorrectPasswordException;
 import com.davidlekei.lolmatchtrackerapi.security.authentication.exceptions.UsernameAlreadyExistsException;
 import com.davidlekei.lolmatchtrackerapi.security.authentication.session.SessionManager;
-import com.davidlekei.lolmatchtrackerapi.security.authentication.user.LoginDetails;
-import com.davidlekei.lolmatchtrackerapi.security.authentication.user.RegistrationDetails;
-import com.davidlekei.lolmatchtrackerapi.security.authentication.user.UserDetails;
-import com.davidlekei.lolmatchtrackerapi.security.authentication.user.UserManager;
+import com.davidlekei.lolmatchtrackerapi.security.authentication.user.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -83,6 +80,17 @@ public class AuthController implements Controller {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 
+		return ResponseEntity.ok().build();
+	}
+
+	@CrossOrigin
+	@PostMapping("/auth/changepassword")
+	public ResponseEntity changePassword(@RequestBody ChangePasswordRequest request){
+		try{
+			userManager.updateUsersPassword(request);
+		}catch(SQLException sqle){
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
 		return ResponseEntity.ok().build();
 	}
 

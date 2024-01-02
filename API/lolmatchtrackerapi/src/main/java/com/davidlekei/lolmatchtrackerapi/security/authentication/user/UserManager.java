@@ -73,6 +73,22 @@ public class UserManager {
 
 	}
 
+	public boolean updateUsersPassword(ChangePasswordRequest request) throws SQLException {
+		UserDetails userDetails = validateLoginDetails(request.getUsername(), request.getCurrentPassword());
+
+		if(userDetails == null){
+			return false;
+		}
+
+		PreparedStatement ps = db.prepareStatement("UPDATE user SET hashed_password = ? WHERE username = ?");
+		ps.setString(1, passwordEncoder.encode(request.getNewPassword()));
+		ps.setString(2, request.getUsername());
+
+		ps.executeUpdate();
+
+		return true;
+	}
+
 	private boolean doesUserDetailExist(RegistrationDetails userDetails, String column) throws SQLException{
 		PreparedStatement ps = db.prepareStatement("SELECT COUNT(username) AS found FROM user WHERE ? = ?");
 		ps.setString(1, column);

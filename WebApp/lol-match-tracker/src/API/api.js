@@ -97,12 +97,23 @@ export default function API(){
 		}, 1500)
 	}
 
+	const changePassword = async(currentPassword, newPassword, callback) => {
+		const body = {
+			username: user.username,
+			current_password: currentPassword,
+			new_password: newPassword
+		}
+
+		post(`${BASE_API_URL}/auth/changepassword`, {'Content-Type': 'application/json'}, body, callback);
+	}
+
 	const api = {
 		getRecordings: getRecordings,
 		getRecordingData: getRecordingData,
 		getSettings: getSettings,
 		saveNote: saveNote,
 		getNote: getNote,
+		changePassword: changePassword,
 	}
 
 	return api
