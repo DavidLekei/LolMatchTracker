@@ -12,16 +12,20 @@ async function get(url, callback){
 	})
 }
 
-async function post(url, headers, body, callback){
+async function post(url, headers, body, callback, json){
 	await fetch(url, {
 		method: 'POST',
 		headers: headers,
-		body: body
+		body: JSON.stringify(body)
 	}).then((res) => {
 		if(res.ok){
-			res.json().then((data) => {
-				callback(data)
-			})
+			if(json){
+				res.json().then((data) => {
+					callback(data)
+				})
+			}else{
+				callback()
+			}
 		}
 	})
 }
@@ -98,10 +102,12 @@ export default function API(){
 	}
 
 	const changePassword = async(currentPassword, newPassword, callback) => {
+		console.log('currentPassword: ', currentPassword)
+		console.log('newPassword: ', newPassword)
 		const body = {
 			username: user.username,
-			current_password: currentPassword,
-			new_password: newPassword
+			currentPassword: currentPassword,
+			newPassword: newPassword
 		}
 
 		post(`${BASE_API_URL}/auth/changepassword`, {'Content-Type': 'application/json'}, body, callback);

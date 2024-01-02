@@ -74,6 +74,7 @@ public class UserManager {
 	}
 
 	public boolean updateUsersPassword(ChangePasswordRequest request) throws SQLException {
+		System.out.println("UserManager.updateUsersPassword() - username: " + request.getUsername() + " - password: " + request.getCurrentPassword());
 		UserDetails userDetails = validateLoginDetails(request.getUsername(), request.getCurrentPassword());
 
 		if(userDetails == null){

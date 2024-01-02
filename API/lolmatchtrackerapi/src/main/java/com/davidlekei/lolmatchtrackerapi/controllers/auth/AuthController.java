@@ -87,6 +87,7 @@ public class AuthController implements Controller {
 	@PostMapping("/auth/changepassword")
 	public ResponseEntity changePassword(@RequestBody ChangePasswordRequest request){
 		try{
+			System.out.println(request);
 			userManager.updateUsersPassword(request);
 		}catch(SQLException sqle){
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

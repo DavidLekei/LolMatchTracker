@@ -32,6 +32,8 @@ public class ChangePasswordRequest {
         return dateChanged;
     }
 
-
+    public String toString(){
+        return "username: " + username + " - currentPassword: " + currentPassword + " - newPassword: " + newPassword + " on " + dateChanged;
+    }
 
 }
