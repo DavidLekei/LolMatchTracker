@@ -36,7 +36,7 @@ export default function AccountSettings(props){
           <div className="inner-container">
             <h1>Account Settings</h1>
               <Stack spacing="2">
-                <AccountSetting to="/changepassword" text="Change your password" />
+                <AccountSetting to="/account/changepassword" text="Change your password" />
                 <AccountSetting to="/account/details" text="Update personal details" />
               </Stack>
                 {/* <div className="request-input">

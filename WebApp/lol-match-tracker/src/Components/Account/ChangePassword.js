@@ -54,9 +54,9 @@ export default function ChangePassword(props){
     return(
         <CancellableAction onCancel={handleCancel} onConfirm={handleConfirm}>
             <h3>Change your password</h3>
-            <TextField style={{marginBottom:'25px'}} className="w50" id="current_password" name="current_password" label="Current password" ></TextField>
-            <TextField style={{marginBottom:'25px'}} className="w50" id="new_password" name="new_password" label="New password" ></TextField>
-            <TextField style={{marginBottom:'25px'}} className="w50" id="confirm_password" name="confirm_password" label="Confirm new password"></TextField>
+            <TextField style={{marginBottom:'25px'}} className="w50" id="current_password" name="current_password" label="Current password" type="password" ></TextField>
+            <TextField style={{marginBottom:'25px'}} className="w50" id="new_password" name="new_password" label="New password" type="password"></TextField>
+            <TextField style={{marginBottom:'25px'}} className="w50" id="confirm_password" name="confirm_password" label="Confirm new password" type="password"></TextField>
         </CancellableAction>
     )
 }

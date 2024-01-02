@@ -60,7 +60,7 @@ class DisplayPane extends Component{
                     <Route path="/recordings" element={<Recordings />} />
                     <Route path="/recordings/:videoId" element={<RecordingPlayer />} />
                     <Route path="/account" element={<AccountSettings />} />
-                    <Route path="/changepassword" element={<ChangePassword /> } />
+                    <Route path="/account/changepassword" element={<ChangePassword /> } />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/account" />
                     <Route path="/about" />
