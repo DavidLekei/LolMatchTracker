@@ -16,23 +16,38 @@ export default function MatchInfo(props){
     return(
         <div className="match-info-container">
             <div className="row" style={{width:'30%', outline:'2px solid blue'}}>
-                <div className="column">
+                <div className="column champion-info">
                     <div className="row">
-                        <img className="match-info-champ-img" src={`/game/champion/${props.data.championPlayed.name}.png`} />
+                        <img className="match-info-img champ-img" src={`/game/champion/${props.data.championPlayed.name}.png`} />
                         <div className="column">
-                            <p>Summoner 1</p>
+                            <img className="match-info-img" src={`/game/summoners/flash.png`} />
+                            <img className="match-info-img" src={`/game/summoners/teleport.png`} />
                         </div>
                     </div>
-                    <div className="row">
-                        Items
+                    <div className="row items">
+                        <img className="match-info-img" src="/game/item/3070.png" />
+                        <img className="match-info-img" src="/game/item/3070.png" />
+                        <img className="match-info-img" src="/game/item/3070.png" />
+                        <img className="match-info-img" src="/game/item/3070.png" />
+                        <img className="match-info-img" src="/game/item/3070.png" />
+                        <img className="match-info-img" src="/game/item/3070.png" />
                     </div>
                 </div>
                 <div className="column">
                     <div className="row">
-                        <img className="match-info-champ-img" src={`/game/champion/${props.data.championAgainst.name}.png`} />
+                        <img className="match-info-img champ-img" src={`/game/champion/${props.data.championAgainst.name}.png`} />
+                        <div className="column">
+                            <img className="match-info-img" src={`/game/summoners/flash.png`} />
+                            <img className="match-info-img" src={`/game/summoners/teleport.png`} />
+                        </div>
                     </div>
-                    <div className="row">
-                        Items
+                    <div className="row items">
+                        <img className="match-info-img" src="/game/item/3070.png" />
+                        <img className="match-info-img" src="/game/item/3070.png" />
+                        <img className="match-info-img" src="/game/item/3070.png" />
+                        <img className="match-info-img" src="/game/item/3070.png" />
+                        <img className="match-info-img" src="/game/item/3070.png" />
+                        <img className="match-info-img" src="/game/item/3070.png" />
                     </div>
                 </div>
             </div>

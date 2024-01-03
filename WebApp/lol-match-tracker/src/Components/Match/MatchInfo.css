@@ -84,10 +84,24 @@ a:hover{
     min-height:100px;
     max-height: 100px;
     outline:2px solid red;
+    margin-bottom:1rem;
 }
 
-.match-info-champ-img{
-    width:46px;
-    max-height: 46px;
+.match-info-img{
+    width:32px;
+    max-height: 32px;
+}
+
+.champ-img{
+    width: 64px;
+    max-height:68px;
     border-radius: 50%;
+}
+
+.champion-info{
+    margin-right:2rem;
+}
+
+.items{
+    margin-top:4px;
 }
