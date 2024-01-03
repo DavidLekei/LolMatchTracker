@@ -222,15 +222,6 @@
 }
 
 /*Generic classes below */
-  .row{
-    display: flex;
-    flex-direction:row;
-  }
-
-  .column{
-    display: flex;
-    flex-direction:column;
-  }
 
   .start-left{
     align-items:start;

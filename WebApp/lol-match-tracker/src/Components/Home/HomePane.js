@@ -96,7 +96,7 @@ export default function HomePane(props){
                         <RankChart settings={settings}/>
                         <RankSection goal data={mockGoalData}/>
                     </div>
-                    <div style={{display:'flex', flexDirection:'column', justifyContent:'space-evenly', marginTop:'10rem', marginBottom:'10rem'}}>
+                    <div style={{display:'flex', flexDirection:'column', justifyContent:'space-evenly', marginTop:'10rem', marginBottom:'10rem', width:'100%'}}>
                         <div><h2>Recent Matches</h2></div>
                         <MatchInfoSmall
                             data={matchData.games[0]}               
