@@ -2,6 +2,15 @@ import React, {useState, useEffect, useRef} from 'react';
 
 import { useParams } from "react-router-dom";
 
+import Button from '@mui/material/Button'
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+
 import './MatchPane.css'
 
 import MatchesPaneHeader from './MatchesPaneHeader'
@@ -60,112 +69,61 @@ function getMatchData(){
     return mockData;
 }
 
-let filterSettings = {
-    champions: [],
-    start_date:null,
-    end_date:null,
-    outcome:null
-}
 
-//currentColumns: Array that contains the names (as Strings) of the currently visible columns on the listview
-//filterRules: JSON Object where Key = column name and Value = How to filter
-/*Ex: filterRules = {
-    "champion":"Viktor",
-    "outcome":"loss"
-}*/
-function showFilterModal(){
-    let modal = document.getElementById("filter-modal");
-    modal.style.display = "block";
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
-    let pane = document.getElementById("display-pane");
-    let lv = document.getElementById("match-lv-container");
-    let header = document.getElementById("match-header");
-
-    let oldLVClass = lv.className;
-    let oldHeaderClass = header.className;
-
-    //TODO: There has to be a better way to add and remove class names from an element lol
-    lv.className += " blurred";
-    header.className += " blurred";
-
-    pane.onclick = () => {
-        modal.style.display = "none";
-        lv.className = oldLVClass;
-        header.className = oldHeaderClass;
-    }
-
-    //Since the Modal is contained within the match-pane, when the Modal is clicked, we don't want to propagate that event up the chain and cause the Modal to close itself.
-    modal.onclick = (event) => {
-        if(event.target.id != "match-filter-apply-btn" 
-        && event.target.id != "modal-exit-btn"
-        ){
-            console.log(event.target)
-            event.stopPropagation();
-        }
-    }
-}
-
-function getFilterChampions(){
-    let champSelect = document.getElementById("match-filter-champ-select");
-    return [champSelect.value]
-}
-
-function getFilterStartDate(){
-    let startDate = document.getElementById("match-filter-start-date").value;
-    return startDate
-}
-
-function getFilterEndDate(){
-    let endDate = document.getElementById("match-filter-end-date").value;
-    return endDate
-}
-
-function getFilterOutcome(){
-    return "win"
-}
-
-
-function getFilterSettings(){
-    return {
-        champions: getFilterChampions(),
-        start_date:getFilterStartDate(),
-        end_date:getFilterEndDate(),
-        outcome:getFilterOutcome()
-    }
-}
-
-function useTraceUpdate(props) {
-    const prev = useRef(props);
-    useEffect(() => {
-      const changedProps = Object.entries(props).reduce((ps, [k, v]) => {
-        if (prev.current[k] !== v) {
-          ps[k] = [prev.current[k], v];
-        }
-        return ps;
-      }, {});
-      if (Object.keys(changedProps).length > 0) {
-        console.log('Changed props:', changedProps);
-      }
-      prev.current = props;
-    });
-  }
 
 //TODO: Figure out how to properly use setTimeout() to display an error/warning if the users data does not get returned from the server in X seconds
 export default function MatchPane(props){
 
-    useTraceUpdate(props)
-
-    let columns = [
-        "Champion",
-        "Against",
-        "Outcome",
-        "Date Played",
-        "K/D/A",
-    ]
- 
-    const [filters, setFilter] = useState(filterSettings);
     const [matchData, setMatchData] = useState(null);
+    const [filteredChampion, setFilteredChampion] = useState(null);
 
+    const championsPlayed = new Set()
+
+    const ChampionMultipleSelect = (props) => {
+
+      const handleChange = (event) => {
+        setFilteredChampion(event.target.value)
+      };
+
+      const menuItems = []
+
+      props.champions.forEach((name) => {
+                menuItems.push(
+                    <MenuItem key={name} value={name}>
+                      <ListItemText primary={name} />
+                    </MenuItem>
+                )
+            })
+
+      return (
+        <div>
+          <FormControl sx={{ m: 1, width: 300 }}>
+            <InputLabel id="champion-multiple-checkbox-label">Champions</InputLabel>
+            <Select
+              labelId="champion-multiple-checkbox-label"
+              id="champion-multiple-checkbox"
+              value={filteredChampion}
+              onChange={handleChange}
+              input={<OutlinedInput label="Champions" />}
+              MenuProps={MenuProps}
+            >
+                {menuItems}
+            </Select>
+          </FormControl>
+        </div>
+      );
+    }
 
     //TODO: This should probably call a "getBasicMatchData" type of endpoint, that only gets data for the columns required, instead of ALL data, but that's an optimization we can make in the future
     useEffect(
@@ -191,19 +149,27 @@ export default function MatchPane(props){
     }
 
     else{
+
+        matchData.forEach((match) => {
+            championsPlayed.add(match.championPlayed.name)
+        })
+
+        const matches = matchData.map((match) => {
+            console.log('checking if championsPlayed: ', filteredChampion)
+            console.log('has match.championPlayed.name: ', match.championPlayed.name)
+            if(filteredChampion != null && filteredChampion == match.championPlayed.name){
+                return <MatchInfoSmall data={match} />
+            }
+        })
+
         return(
             <div id="match-pane" className="match-pane">
-                    <MatchListviewFilterModal id="filter-modal" header="Filter Matches" apply_onclick={() => setFilter(getFilterSettings())}></MatchListviewFilterModal>
-                    <MatchesPaneHeader header="MATCHES" text="View All Of Your Matches" filter_icon="filter_white" filter_function={showFilterModal}/>
-                    <Listview id="match" columns={columns}>
-                        {
-                            //TODO: Filter should probably be applied HERE somehow, not in the MatchInfoSmall class
-                            //TODO: Or implement a common filter in the Listview.js file
-                            matchData.map((item) => {
-                                return <MatchInfoSmall columns={columns} data={item} filters={filters}/>
-                            })
-                        }
-                    </Listview>
+                <div className="row space-apart">
+                    <h1>Matches</h1>
+                    <Button variant="outlined">Search</Button>
+                    <ChampionMultipleSelect champions={championsPlayed}/>
+                </div>
+                {matches}
             </div>
             )
     }

@@ -12,6 +12,10 @@
     margin-right:2em;
 }
 
+.hide{
+    display:none;
+}
+
 .fw{
     width:100%
 }

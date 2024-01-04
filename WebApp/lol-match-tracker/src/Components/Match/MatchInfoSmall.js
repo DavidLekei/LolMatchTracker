@@ -12,10 +12,7 @@ import './MatchesListview.css'
 
 function ChampionInfo(props){
 
-    console.log('championinfo props: ', props)
-
     const summs = props.summoners.map((summ, index) => {
-        console.log('summ : ', summ)
         return <img className="match-info-img" src={`/game/summoners/${summ}.png`} />
     })
 
@@ -52,8 +49,6 @@ function ChampionInfo(props){
 }
 
 export default function MatchInfo(props){
-
-    console.log('matchinfo props: ', props)
 
     const navigate = useNavigate()
 
