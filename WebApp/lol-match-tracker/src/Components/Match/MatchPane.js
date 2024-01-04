@@ -97,6 +97,11 @@ export default function MatchPane(props){
       };
 
       const menuItems = []
+      menuItems.push(
+        <MenuItem key=" " value={null}>
+            <ListItemText primary="(None)" />
+        </MenuItem>
+      )
 
       props.champions.forEach((name) => {
                 menuItems.push(
@@ -150,6 +155,8 @@ export default function MatchPane(props){
 
     else{
 
+        console.log('match data: ', matchData)
+
         matchData.forEach((match) => {
             championsPlayed.add(match.championPlayed.name)
         })
@@ -157,16 +164,19 @@ export default function MatchPane(props){
         const matches = matchData.map((match) => {
             console.log('checking if championsPlayed: ', filteredChampion)
             console.log('has match.championPlayed.name: ', match.championPlayed.name)
-            if(filteredChampion != null && filteredChampion == match.championPlayed.name){
+            if(filteredChampion == null){
+                return <MatchInfoSmall data={match} />
+            }
+
+            if(filteredChampion == match.championPlayed.name){
                 return <MatchInfoSmall data={match} />
             }
         })
 
         return(
             <div id="match-pane" className="match-pane">
-                <div className="row space-apart">
+                <div className="column la space-apart">
                     <h1>Matches</h1>
-                    <Button variant="outlined">Search</Button>
                     <ChampionMultipleSelect champions={championsPlayed}/>
                 </div>
                 {matches}

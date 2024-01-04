@@ -53,7 +53,7 @@ export default function MatchInfo(props){
     const navigate = useNavigate()
 
     const handleClick = () => {
-        navigate(`/match/${props.data.matchid}`)
+        navigate(`/match/${props.data.id}`)
     }
 
     const handleRecordingsClick = (e) => {
