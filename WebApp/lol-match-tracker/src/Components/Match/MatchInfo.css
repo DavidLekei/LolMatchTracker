@@ -83,13 +83,22 @@ a:hover{
     width: 100%;
     min-height:100px;
     max-height: 100px;
-    outline:2px solid red;
     margin-bottom:1rem;
+    padding-top: 5px;
+    padding-bottom:5px;
+}
+
+.match-info-container:hover{
+    cursor: pointer;
 }
 
 .match-info-img{
     width:32px;
     max-height: 32px;
+}
+
+.match-info-icon:hover{
+    transform: translate3d(2px, -2px, 5px);
 }
 
 .champ-img{
@@ -104,4 +113,13 @@ a:hover{
 
 .items{
     margin-top:4px;
+}
+
+#match-stats > *{
+    font-size:12px;
+}
+
+#kda{
+    margin-bottom:1rem;
+    font-size:24px;
 }

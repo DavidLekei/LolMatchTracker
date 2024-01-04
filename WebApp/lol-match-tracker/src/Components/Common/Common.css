@@ -30,6 +30,10 @@
     flex-direction: column;
 }
 
+.la{
+    align-items: start;
+}
+
 .space-between{
     justify-content: space-between;
 }
