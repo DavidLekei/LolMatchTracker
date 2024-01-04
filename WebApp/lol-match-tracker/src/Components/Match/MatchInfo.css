@@ -82,14 +82,18 @@ a:hover{
     justify-content: space-evenly;
     width: 100%;
     min-height:100px;
-    max-height: 100px;
+    max-height: 120px;
     margin-bottom:1rem;
-    padding-top: 5px;
-    padding-bottom:5px;
+    padding-top: 15px;
+    padding-bottom:15px;
 }
 
 .match-info-container:hover{
     cursor: pointer;
+}
+
+.img-container{
+    margin-right: 1rem;
 }
 
 .match-info-img{
@@ -97,8 +101,21 @@ a:hover{
     max-height: 32px;
 }
 
+.match-info-icon{
+    width:40px;
+    max-height:40px;
+}
+
 .match-info-icon:hover{
     transform: translate3d(2px, -2px, 5px);
+}
+
+.empty-item-Loss{
+    background-color: #F3ADAA;
+}
+
+.empty-item-Win{
+    background-color: #ADF0C8;
 }
 
 .champ-img{
@@ -116,10 +133,10 @@ a:hover{
 }
 
 #match-stats > *{
-    font-size:12px;
+    font-size:18px;
 }
 
 #kda{
     margin-bottom:1rem;
-    font-size:24px;
+    font-size:32px;
 }

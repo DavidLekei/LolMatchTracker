@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import compareStringDates from '../../Util/Dates/DateUtil'
 
 import Button from '@mui/material/Button'
@@ -23,14 +24,20 @@ function ChampionInfo(props){
     })
 
     const items = props.items.map((item, index) => {
-        return <img className="match-info-img" src={`/game/item/${item}.png`} />
+        let itemImg
+        if(item == 0){
+            return <div className={`match-info-img empty-item-${props.outcome}`}> </div>
+        }else{
+            itemImg = `/game/item/${item}.png`
+        }
+        return <img className="match-info-img" src={itemImg} />
     })
 
     return(
         <div className="column champion-info">
             <div className="row">
-                <img className="match-info-img champ-img" src={`/game/champion/${props.name}.png`} />
-                <div className="column">
+                <img className="match-info-img champ-img img-container" src={`/game/champion/${props.name}.png`} />
+                <div className="column img-container">
                     {summs}
                 </div>
                 <div className="column">
@@ -48,30 +55,46 @@ export default function MatchInfo(props){
 
     console.log('matchinfo props: ', props)
 
+    const navigate = useNavigate()
+
+    const handleClick = () => {
+        navigate(`/match/${props.data.matchid}`)
+    }
+
+    const handleRecordingsClick = (e) => {
+        e.stopPropagation()
+        navigate(`/recordings/${props.data.matchid}`)
+    }
+
+    const handleNotesClick = (e) => {
+        e.stopPropagation()
+        navigate(`/notes/${props.data.matchid}`)
+    }
+
     return(
-        <div className={`match-info-container ${props.data.outcome}`}>
-            <div className="row" style={{width:'30%'}}>
-                <ChampionInfo name={props.data.championPlayed.name} summoners={['flash', 'teleport']} runes={['7200_Domination', '7202_Sorcery']} items={[3070, 3157, 6653, 3135, 3089]} />
-                <ChampionInfo name={props.data.championAgainst.name} summoners={['flash', 'ignite']} runes={['7202_Sorcery', '7203_Whimsy']} items={[6655, 3135, 4629, 3102, 3089, 3040]} />
+        <div className={`match-info-container ${props.data.outcome}`} onClick={handleClick}>
+            <div className="row space-apart" style={{width:'40%'}}>
+                <ChampionInfo name={props.data.championPlayed.name} outcome={props.data.outcome} summoners={['flash', 'teleport']} runes={['7200_Domination', '7202_Sorcery']} items={[3070, 3157, 6653, 3135, 3089, 0, 3363]} />
+                <ChampionInfo name={props.data.championAgainst.name} summoners={['flash', 'ignite']} runes={['7202_Sorcery', '7203_Whimsy']} items={[6655, 3135, 4629, 3102, 3089, 3040, 3340]} />
             </div>
             <div style={{width:'30%'}}>
-                <div className="column la bold" id="match-stats">
+                <div className="row la bold space-evenly" id="match-stats">
                     <div id="kda">{props.data.kda}</div>
-                    <div>CS: 280</div>
-                    <div>Vision: 22</div>
+                    <div className="column la">
+                        <div>KP: 62%</div>
+                        <div>CS: 280</div>
+                        <div>VS: 22</div>
+                    </div>
                 </div>
             </div>
-            <div className="row space-apart" style={{width:'30%'}}>
-                <div>
+            {/* <div className="row space-apart" style={{width:'30%'}}> */}
+                {/* <div>
                     Other players
-                </div>
+                </div> */}
+            <div>
                 <div className="column">
-                    <Link className="match-info-icon" to={`/recordings/${props.data.id}`}>
-                        <img className="match-info-img" src="/icons/video.png" />
-                    </Link>
-                    <Link className="match-info-icon" to="/notes">
-                        <img className="match-info-img" src="/icons/notes.png" />
-                    </Link>
+                    <img className="match-info-img match-info-icon" src="/icons/video.png" onClick={handleRecordingsClick}/>
+                    <img className="match-info-img match-info-icon" src="/icons/notes.png" onClick={handleNotesClick}/>
                 </div>
             </div>
         </div>
