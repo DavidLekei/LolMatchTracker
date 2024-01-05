@@ -157,8 +157,21 @@ const mockData = [
 export default function MatchInfoFull(props){
 
     const [match, setMatch] = useState(null)
+    const [kp, setKp] = useState(0)
+    const [cpm, setCpm] = useState(0)
+    const [vs, setVs] = useState(0)
+    const [plates, setPlates] = useState(0)
+    const [roams, setRoams] = useState(0)
 
     console.log('match: ', match)
+
+    const matchLoaded = () => {
+        setKp(Math.floor(((match.kills + match.assists)/match.totalTeamKills)*100))
+        setCpm(Math.floor((match.cs/match.duration.split(":")[0])))
+        setVs(match.vs)
+        setPlates(2)
+        setRoams(1)
+    }
 
     useEffect(
         () => {
@@ -172,16 +185,17 @@ export default function MatchInfoFull(props){
                         }
                     })
                 }
-            getMatchData();   
-            }, []
+            getMatchData();
+
+            if(match){
+                matchLoaded()
+            }
+        }, [match]
     );
 
     if(match == null){
         return <CircularProgress />
     }
-
-    const kp = Math.floor(((match.kills + match.assists)/match.totalTeamKills)*100)
-    const cpm = Math.floor((match.cs/match.duration.split(":")[0]))
 
     const getColor = (value, poor, okay, good, great) => {
         console.log('value: ', value)
@@ -207,6 +221,8 @@ export default function MatchInfoFull(props){
     const kpColor = getColor(kp, 20, 40, 60, 80)
     const cpmColor = getColor(cpm, 2, 4, 6, 8)
     const vsColor = getColor(match.vs, 10, 20, 30, 40)
+    const platesColor = getColor(plates, 1, 2, 3, 4)
+    const roamsColor = getColor(roams, 1, 3, 5, 7)
 
     return(
         <div className="full-match-info-container column mt-2">
@@ -231,13 +247,16 @@ export default function MatchInfoFull(props){
                             <CircularProgressWithText label=" CS Per Minute" percentage={`${cpm}`} size="10rem" variant="determinate" value={cpm*10} style={{color: cpmColor}}/>
                         </div>
                         <div style={{margin:'0% 10%'}}>
-                            <CircularProgressWithText label=" Vision Score" percentage={`${match.vs}`} size="10rem" variant="determinate" value={(match.vs/40)*100} style={{color: vsColor}}/>
+                            <CircularProgressWithText label=" Vision Score" percentage={`${vs}`} size="10rem" variant="determinate" value={(vs/40)*100} style={{color: vsColor}}/>
                         </div>
                         <div style={{margin:'0% 10%'}}>
-                            <CircularProgressWithText label="Plates" percentage={`${2}`} size="10rem" variant="determinate" value={40} style={{color: '#FABA4D'}}/>
+                            <CircularProgressWithText label="Plates" percentage={`${plates}`} size="10rem" variant="determinate" value={plates*25} style={{color: '#FABA4D'}}/>
                         </div>
                         <div style={{margin:'0% 10%'}}>
-                            <CircularProgressWithText label=" Roaming" percentage={`${10}%`} size="10rem" variant="determinate" value={10} style={{color:'#FA8389'}}/>
+                            <CircularProgressWithText label=" Roaming" percentage={`${roams}`} size="10rem" variant="determinate" value={roams*14} style={{color:'#FA8389'}}/>
+                        </div>
+                        <div style={{margin: '0% 10%'}}>
+                            <CircularProgressWithText percentage='+' size="10rem" variant="determinate" value="100" />
                         </div>
                     </div>
                 </div>
