@@ -210,8 +210,8 @@ export default function MatchInfoFull(props){
 
     return(
         <div className="full-match-info-container column mt-2">
-            <Typography variant="h3" className="row la bold" style={{marginLeft:'4rem'}}>
-                Match {match.id}
+            <Typography variant="h3" className="row la bold" style={{marginLeft:'3.5rem'}}>
+                Ranked Solo/Duo - 1/5/2024 - Ahri Journey: Game 4
             </Typography>
             <div className="full-match-info-container row mt-2">
                 <div className="column" style={{width:'50%'}}>
