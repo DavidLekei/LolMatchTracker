@@ -19,7 +19,7 @@ export default function ChampionInfo(props){
     })
 
     return(
-        <div className="column champion-info">
+        <div className="column champion-info" style={props.style}>
             <div className="row">
                 <img className="match-info-img champ-img img-container" src={`/game/champion/${props.name}.png`} />
                 <div className="column img-container">

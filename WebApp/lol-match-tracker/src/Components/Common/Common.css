@@ -38,6 +38,10 @@
     align-items: start;
 }
 
+.ca{
+    align-items: center;
+}
+
 .space-between{
     justify-content: space-between;
 }
@@ -51,6 +55,22 @@
     padding-top:2em;
 }
 
+.ml-2{
+    margin-left: 2rem;
+}
+
+.mt-2{
+    margin-top: 2rem;
+}
+
+.mt-5{
+    margin-top:5rem;
+}
+
+.mt-10{
+    margin-top:10rem;
+}
+
 .mb-10{
     margin-bottom:10px;
 }
@@ -61,6 +81,10 @@
 
 .italic{
     font-style: italic;
+}
+
+.wrap{
+    flex-wrap:wrap;
 }
 
 .modal-header{
@@ -141,4 +165,9 @@
 .textbox-control-icon:hover{
     background-color:rgba(0, 0, 0, 0.23);
     cursor: pointer;
+}
+
+.circular-text{
+    font-weight:bold;
+    font-size:24px;
 }

@@ -8,10 +8,14 @@ import NotesSectionHeader from '../Notes/NotesSectionHeader'
 import ChampMatchup from './ChampMatchup'
 import ItemBar from '../Item/ItemBar'
 import LearningGoals from '../LearningGoals/LearningGoals'
+import NoteCard from '../Notes/NoteCard'
+import Recording from '../Recording/Recording'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { CircularProgress } from '@mui/material';
+import Typography from '@mui/material/Typography'
+import CircularProgress from '@mui/material/CircularProgress';
+import Divider from '@mui/material/Divider';
 
 
 const mockData = [
@@ -137,392 +141,17 @@ const mockData = [
         },
         "matchNotes": 1,
         "user": 1,
+        "totalTeamKills":"35",
+        "kills":15, 
+        "deaths":5,
+        "assists":14,
         "kda": "15/5/14",
+        "cs": 140,
+        "vs":22,
         "outcome": "Win",
         "summonerSpell1": "1",
         "summonerSpell2": "2"
     },
-    {
-        "id": 8,
-        "datePlayed": "2023-03-24 19:00:00.0",
-        "duration": "20:14:15",
-        "riot_id": null,
-        "championPlayed": {
-            "id": 2,
-            "name": "Ahri"
-        },
-        "championAgainst": {
-            "id": 157,
-            "name": "Zed"
-        },
-        "items": [
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            },
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            },
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            },
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            },
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            },
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            }
-        ],
-        "trinket": {
-            "id": 0,
-            "name": null,
-            "effect": null
-        },
-        "runePage": {
-            "id": 0,
-            "keystone": {
-                "id": 1,
-                "name": "Press The Attack",
-                "category": "Precision",
-                "effect": null
-            },
-            "primaries": [
-                {
-                    "id": 6,
-                    "name": "Triumph",
-                    "category": "Precision",
-                    "effect": null
-                },
-                {
-                    "id": 6,
-                    "name": "Triumph",
-                    "category": "Precision",
-                    "effect": null
-                },
-                {
-                    "id": 9,
-                    "name": "Legend: Tenacity",
-                    "category": "Precision",
-                    "effect": null
-                }
-            ],
-            "secondaries": [
-                {
-                    "id": 20,
-                    "name": "Sudden Impact",
-                    "category": "Domination",
-                    "effect": null
-                },
-                {
-                    "id": 27,
-                    "name": "Ultimate Hunter",
-                    "category": "Domination",
-                    "effect": null
-                }
-            ],
-            "extras": [
-                {
-                    "id": 1,
-                    "name": "Attack Speed",
-                    "category": null,
-                    "effect": "+10% Attack Speed"
-                },
-                {
-                    "id": 0,
-                    "name": "Adaptive Force",
-                    "category": null,
-                    "effect": "+9 Adaptive Force"
-                },
-                {
-                    "id": 3,
-                    "name": "Armor",
-                    "category": null,
-                    "effect": "+6 Armor"
-                }
-            ],
-            "user": 0
-        },
-        "matchNotes": 1,
-        "user": 1,
-        "kda": "15/5/14",
-        "outcome": "Win",
-        "summonerSpell1": "1",
-        "summonerSpell2": "2"
-    },
-    {
-        "id": 10,
-        "datePlayed": "2023-06-26 19:11:41.0",
-        "duration": "32:30:08",
-        "riot_id": null,
-        "championPlayed": {
-            "id": 7,
-            "name": "Anivia"
-        },
-        "championAgainst": {
-            "id": 53,
-            "name": "Kai'Sa"
-        },
-        "items": [
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            },
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            },
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            },
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            },
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            },
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            }
-        ],
-        "trinket": {
-            "id": 0,
-            "name": null,
-            "effect": null
-        },
-        "runePage": {
-            "id": 0,
-            "keystone": {
-                "id": 1,
-                "name": "Press The Attack",
-                "category": "Precision",
-                "effect": null
-            },
-            "primaries": [
-                {
-                    "id": 6,
-                    "name": "Triumph",
-                    "category": "Precision",
-                    "effect": null
-                },
-                {
-                    "id": 6,
-                    "name": "Triumph",
-                    "category": "Precision",
-                    "effect": null
-                },
-                {
-                    "id": 9,
-                    "name": "Legend: Tenacity",
-                    "category": "Precision",
-                    "effect": null
-                }
-            ],
-            "secondaries": [
-                {
-                    "id": 20,
-                    "name": "Sudden Impact",
-                    "category": "Domination",
-                    "effect": null
-                },
-                {
-                    "id": 27,
-                    "name": "Ultimate Hunter",
-                    "category": "Domination",
-                    "effect": null
-                }
-            ],
-            "extras": [
-                {
-                    "id": 1,
-                    "name": "Attack Speed",
-                    "category": null,
-                    "effect": "+10% Attack Speed"
-                },
-                {
-                    "id": 0,
-                    "name": "Adaptive Force",
-                    "category": null,
-                    "effect": "+9 Adaptive Force"
-                },
-                {
-                    "id": 3,
-                    "name": "Armor",
-                    "category": null,
-                    "effect": "+6 Armor"
-                }
-            ],
-            "user": 0
-        },
-        "matchNotes": 1,
-        "user": 1,
-        "kda": "5/9/13",
-        "outcome": "Loss",
-        "summonerSpell1": "1",
-        "summonerSpell2": "2"
-    },
-    {
-        "id": 11,
-        "datePlayed": "2023-06-26 19:13:25.0",
-        "duration": "22:11:18",
-        "riot_id": null,
-        "championPlayed": {
-            "id": 112,
-            "name": "Shaco"
-        },
-        "championAgainst": {
-            "id": 73,
-            "name": "Lux"
-        },
-        "items": [
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            },
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            },
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            },
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            },
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            },
-            {
-                "id": 0,
-                "name": null,
-                "effect": null,
-                "stats": null
-            }
-        ],
-        "trinket": {
-            "id": 0,
-            "name": null,
-            "effect": null
-        },
-        "runePage": {
-            "id": 0,
-            "keystone": {
-                "id": 1,
-                "name": "Press The Attack",
-                "category": "Precision",
-                "effect": null
-            },
-            "primaries": [
-                {
-                    "id": 6,
-                    "name": "Triumph",
-                    "category": "Precision",
-                    "effect": null
-                },
-                {
-                    "id": 6,
-                    "name": "Triumph",
-                    "category": "Precision",
-                    "effect": null
-                },
-                {
-                    "id": 9,
-                    "name": "Legend: Tenacity",
-                    "category": "Precision",
-                    "effect": null
-                }
-            ],
-            "secondaries": [
-                {
-                    "id": 20,
-                    "name": "Sudden Impact",
-                    "category": "Domination",
-                    "effect": null
-                },
-                {
-                    "id": 27,
-                    "name": "Ultimate Hunter",
-                    "category": "Domination",
-                    "effect": null
-                }
-            ],
-            "extras": [
-                {
-                    "id": 1,
-                    "name": "Attack Speed",
-                    "category": null,
-                    "effect": "+10% Attack Speed"
-                },
-                {
-                    "id": 0,
-                    "name": "Adaptive Force",
-                    "category": null,
-                    "effect": "+9 Adaptive Force"
-                },
-                {
-                    "id": 3,
-                    "name": "Armor",
-                    "category": null,
-                    "effect": "+6 Armor"
-                }
-            ],
-            "user": 0
-        },
-        "matchNotes": 1,
-        "user": 1,
-        "kda": "10/10/3",
-        "outcome": "Loss",
-        "summonerSpell1": "1",
-        "summonerSpell2": "2"
-    }
 ]
 
 export default function MatchInfoFull(props){
@@ -551,29 +180,85 @@ export default function MatchInfoFull(props){
         return <CircularProgress />
     }
 
+    const kp = Math.floor(((match.kills + match.assists)/match.totalTeamKills)*100)
+    const cpm = Math.floor((match.cs/match.duration.split(":")[0]))
+
+    const getColor = (value, poor, okay, good, great) => {
+        console.log('value: ', value)
+        if(value <= poor){
+            return '#FA4D6B'
+        }
+
+        if(value <= okay){
+            return '#FABA4D'
+        }
+
+        if(value <= good){
+            return '#4DC3FA'
+        }
+
+        if(value <= great){
+            return '#9AFAAD'
+        }
+        
+        return '#50FA82'    
+    }
+
+    const kpColor = getColor(kp, 20, 40, 60, 80)
+    const cpmColor = getColor(cpm, 2, 4, 6, 8)
+    const vsColor = getColor(match.vs, 10, 20, 30, 40)
+
     return(
-        <div className="full-match-info-container row" style={{outline: '2px solid blue'}}>
-            <div className="column" style={{width:'50%'}}>
-                <div className="row fw space-apart">
-                    <ChampionInfo name={match.championPlayed.name} outcome={match.outcome} summoners={['flash', 'teleport']} runes={['7200_Domination', '7202_Sorcery']} items={[3070, 3157, 6653, 3135, 3089, 0, 3363]} />
-                    <ChampionInfo name={match.championAgainst.name} outcome={match.outcome} summoners={['flash', 'ignite']} runes={['7202_Sorcery', '7203_Whimsy']} items={[6655, 3135, 4629, 3102, 3089, 3040, 3340]} />
-                </div>
-                <div>
-                    <div className="row la bold space-evenly" id="match-stats">
-                        <div id="kda">{match.kda}</div>
-                        <div className="column la">
-                            <div>KP: 62%</div>
-                            <div>CS: 280</div>
-                            <div>VS: 22</div>
+        <div className="full-match-info-container column mt-2">
+            <Typography variant="h3" className="row la bold" style={{marginLeft:'4rem'}}>
+                Match {match.id}
+            </Typography>
+            <div className="full-match-info-container row mt-2">
+                <div className="column" style={{width:'50%'}}>
+                    <div className="row fw ca space-apart">
+                        <ChampionInfo style={{marginLeft:'3.5rem'}} name={match.championPlayed.name} outcome={match.outcome} summoners={['flash', 'teleport']} runes={['7200_Domination', '7202_Sorcery']} items={[3070, 3157, 6653, 3135, 3089, 0, 3363]} />
+{/*                        <Typography variant="h5" className="bold">
+                            {match.kills}/{match.deaths}/{match.assists}
+                        </Typography>*/}
+                        <ChampionInfo style={{marginRight:'3.5rem'}} name={match.championAgainst.name} outcome={match.outcome} summoners={['flash', 'ignite']} runes={['7202_Sorcery', '7203_Whimsy']} items={[6655, 3135, 4629, 3102, 3089, 3040, 3340]} />
+                    </div>
+
+                    <div className="row space-apart wrap">
+                        <div style={{margin:'0% 10%'}}>
+                            <CircularProgressWithText label=" Kill Participation" percentage={`${kp}%`} size="10rem" variant="determinate" value={kp} style={{color: kpColor}}/>
+                        </div>
+                        <div style={{margin:'0% 10%'}}>
+                            <CircularProgressWithText label=" CS Per Minute" percentage={`${cpm}`} size="10rem" variant="determinate" value={cpm*10} style={{color: cpmColor}}/>
+                        </div>
+                        <div style={{margin:'0% 10%'}}>
+                            <CircularProgressWithText label=" Vision Score" percentage={`${match.vs}`} size="10rem" variant="determinate" value={(match.vs/40)*100} style={{color: vsColor}}/>
+                        </div>
+                        <div style={{margin:'0% 10%'}}>
+                            <CircularProgressWithText label="Plates" percentage={`${2}`} size="10rem" variant="determinate" value={40} style={{color: '#FABA4D'}}/>
+                        </div>
+                        <div style={{margin:'0% 10%'}}>
+                            <CircularProgressWithText label=" Roaming" percentage={`${10}%`} size="10rem" variant="determinate" value={10} style={{color:'#FA8389'}}/>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <CircularProgressWithText text="Test" size="10rem" variant="determinate" value={60} />
+                <div className="column" style={{width:'50%'}}>
+                    <Typography variant="h5">
+                        Recordings
+                    </Typography>
+                    <div>
+                        <Recording data={{'videoId': 1, 'title': 'Test Recording', 'championPlayed': 'Ahri', 'championAgainst': 'Zed', 'outcome': 'Win', 'date': '1/4/2024', 'thumbnail': 'test_thumbnail.jpg'}} />
+                    </div>
+                    <Divider orientation="horizontal" variant="middle" flexItem style={{margin: '2rem 0rem'}}/>
+                    <Typography variant="h5">
+                        Notes 
+                    </Typography>
+                    <div className="row wrap space-evenly">
+                        <NoteCard noteId='1' small title="Taliyah" text="After ulting, be patient when jumping off the wall, and when using abilities after jumping off. Many players will panic around the wall"/>
+                        <NoteCard noteId='2' small title="Ahri vs Sylas" text="HOLD CHARM! If you miss a charm, he has 9 seconds to all in, and he will win"/>
+                        <NoteCard noteId='3' small title="Ekko Mid" text="Be patient, CS under tower. Ekko doesn't have very strong laning early on, but can wave clear super well post level 7. Just be patient!"/>
+                        <NoteCard small add />
+                    </div>
                 </div>
-            </div>
-            <div className="column" style={{width:'50%'}}>
-                Recordings and notes
             </div>
         </div>
     )
