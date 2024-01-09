@@ -117,6 +117,7 @@ export default function MatchStats(props){
     		},
     		colors: defaultColors,
     		modifier: null,
+    		enemyValue: 100
     	},
     	{
     		label:'CS Per Minute',
@@ -130,7 +131,8 @@ export default function MatchStats(props){
     			bad: 0,
     		},
     		colors: defaultColors,
-    		modifier: (val) => {return val * 10}
+    		modifier: (val) => {return val * 10},
+    		enemyValue: 9.5
     	},
     	{
     		label:'Vision Score',
@@ -144,7 +146,8 @@ export default function MatchStats(props){
     			bad: 0,
     		},
     		colors: defaultColors,
-    		modifier: (val) => {return (val/40)*100}
+    		modifier: (val) => {return (val/40)*100},
+    		enemyValue: 14
     	},
     	{
     		label:'Plates',
@@ -158,7 +161,8 @@ export default function MatchStats(props){
     			bad: 0,
     		},
     		colors: defaultColors,
-    		modifier: (val) => {return val*25}
+    		modifier: (val) => {return val*25},
+    		enemyValue: 5
     	},
     	{
     		label:'Roaming',
@@ -172,7 +176,8 @@ export default function MatchStats(props){
     			bad: 0,
     		},
     		colors: defaultColors,
-    		modifier: (val) => {return val*14}
+    		modifier: (val) => {return val*14},
+    		enemyValue: 5
     	},
     ]
 
@@ -188,7 +193,7 @@ export default function MatchStats(props){
 			<NewStat open={newStatModalOpen} handleOpen={handleNewStatModalOpen} handleClose={handleNewStatModalClose} handleConfirmAdd={handleConfirmAdd} defaultColors={defaultColors}/>
 			{stats ? stats.map((pair) => {
 				return(
-					<StatPair label={pair.label} myValue={pair.value} colors={pair.colors} colorIncrements={pair.increments} modifier={pair.modifier} />
+					<StatPair label={pair.label} myValue={pair.value} colors={pair.colors} colorIncrements={pair.increments} modifier={pair.modifier} enemyValue={pair.enemyValue}/>
 				)
 			})
 			:
