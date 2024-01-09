@@ -3,11 +3,12 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 export default function CircularProgressWithText(props) {
+  console.log('CircularProgressWithText props: ', props)
     return (
-      <div>
+      <div className="column jc">
         <h2>{props.label}</h2>
         <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-          <CircularProgress style={props.style} variant="determinate" {...props} />
+          <CircularProgress {...props} style={props.style} variant="determinate" value={props.fill} />
           <Box
             sx={{
               top: 0,
@@ -22,7 +23,7 @@ export default function CircularProgressWithText(props) {
           >
             <Typography variant="caption" component="div" color="text.secondary">
               <span className="column circular-text">
-                {props.percentage}
+                {props.value != 'undefined' ? props.value : ''}
               </span>
             </Typography>
           </Box>
