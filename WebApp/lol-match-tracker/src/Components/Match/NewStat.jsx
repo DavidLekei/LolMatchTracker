@@ -17,6 +17,53 @@ export default function NewStat(props) {
   const [poorColor, setPoorColor] = useState(props.defaultColors.poor)
   const [badColor, setBadColor] = useState(props.defaultColors.bad)
 
+  const getName = (label) =>{
+    let name = ''
+
+    let words = label.split(' ')
+
+    let i = 0
+    while(i < words.length){
+      name = name + words[i].toLowerCase().charAt(0)
+      i++
+    }
+
+    return name
+  }
+
+  const handleAdd = (e) => {
+    const newStatLabel = document.getElementById('new-stat-name').value
+    const newStatGreat = document.getElementById('new-stat-great').value
+    const newStatGood = document.getElementById('new-stat-good').value
+    const newStatAverage = document.getElementById('new-stat-average').value
+    const newStatPoor = document.getElementById('new-stat-poor').value
+    const newStatBad = document.getElementById('new-stat-bad').value
+
+      return {
+        label:newStatLabel,
+        name: getName(newStatLabel),
+        value: document.getElementById('new-stat-value').value,
+        increments: {
+          great: newStatGreat,
+          good: newStatGood,
+          average: newStatAverage,
+          poor: newStatPoor,
+          bad: newStatBad
+        },
+        colors: {
+          great: greatColor,
+          good: goodColor,
+          average: averageColor,
+          poor: poorColor,
+          bad: badColor,
+        },
+        modifier: (val) => {
+          let x = Math.floor(100/newStatGreat)
+          return val*x
+        }
+      }
+  }
+
   return (
     <div>
       <Dialog open={props.open} onClose={props.handleClose}>
@@ -32,6 +79,14 @@ export default function NewStat(props) {
                 margin="dense"
                 id="new-stat-name"
                 label="Name"
+              />
+            </div>
+            <div className="row space-evenly">
+              <TextField
+                sx={{width:'50%'}}
+                margin="dense"
+                id="new-stat-value"
+                label="Value for this game"
               />
             </div>
             <div className="row ca space-evenly">
@@ -88,7 +143,15 @@ export default function NewStat(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={props.handleClose}>Cancel</Button>
-          <Button onClick={props.handleConfirmAdd}>Add Stat</Button>
+          <Button 
+            onClick={
+              (e) => {
+                props.handleConfirmAdd(handleAdd(e))
+              }
+            }
+          >
+              Add Stat
+            </Button>
         </DialogActions>
       </Dialog>
     </div>

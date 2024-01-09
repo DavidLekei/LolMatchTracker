@@ -3,7 +3,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 export default function CircularProgressWithText(props) {
-  console.log('CircularProgressWithText props: ', props)
     return (
       <div className="column jc">
         <h2>{props.label}</h2>
