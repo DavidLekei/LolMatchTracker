@@ -52,11 +52,6 @@ function StatPair(props){
 export default function MatchStats(props){
 
 	const [stats, setStats] = useState(null)
-    // const [kp, setKp] = useState(0)
-    // const [cpm, setCpm] = useState(0)
-    // const [vs, setVs] = useState(0)
-    // const [plates, setPlates] = useState(0)
-    // const [roams, setRoams] = useState(0)
     const [newStatModalOpen, setOpen] = useState(false);
 
     console.log('MatchStats - stats: ', stats)
@@ -106,7 +101,6 @@ export default function MatchStats(props){
     const statPairs = [
     	{
     		label:'Kill Participation',
-    		name: 'kp',
     		value: 82,
     		increments: {
     			great: 80,
@@ -121,7 +115,6 @@ export default function MatchStats(props){
     	},
     	{
     		label:'CS Per Minute',
-    		name: 'cpm',
     		value: (Math.floor((props.match.cs/props.match.duration.split(":")[0]))),
     		increments: {
     			great: 8,
@@ -136,7 +129,6 @@ export default function MatchStats(props){
     	},
     	{
     		label:'Vision Score',
-    		name: 'vs',
     		value: props.match.vs,
     		increments: {
     			great: 40,
@@ -151,7 +143,6 @@ export default function MatchStats(props){
     	},
     	{
     		label:'Plates',
-    		name: 'plates',
     		value: 2,
     		increments: {
     			great: 4,
@@ -166,7 +157,6 @@ export default function MatchStats(props){
     	},
     	{
     		label:'Roaming',
-    		name: 'roams',
     		value: 1,
     		increments: {
     			great: 7,

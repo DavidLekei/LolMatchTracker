@@ -6,9 +6,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Checkbox from '@mui/material/Checkbox';
 
 export default function NewStat(props) {
 
+  const [includeEnemy, setIncludeEnemy] = useState(false)
   const [colors, setColors] = useState(props.defaultColors)
 
   const [greatColor, setGreatColor] = useState(props.defaultColors.great)
@@ -16,20 +18,7 @@ export default function NewStat(props) {
   const [averageColor, setAverageColor] = useState(props.defaultColors.average)
   const [poorColor, setPoorColor] = useState(props.defaultColors.poor)
   const [badColor, setBadColor] = useState(props.defaultColors.bad)
-
-  const getName = (label) =>{
-    let name = ''
-
-    let words = label.split(' ')
-
-    let i = 0
-    while(i < words.length){
-      name = name + words[i].toLowerCase().charAt(0)
-      i++
-    }
-
-    return name
-  }
+  const [enemyColor, setEnemyColor] = useState()
 
   const handleAdd = (e) => {
     const newStatLabel = document.getElementById('new-stat-name').value
@@ -41,7 +30,6 @@ export default function NewStat(props) {
 
       return {
         label:newStatLabel,
-        name: getName(newStatLabel),
         value: document.getElementById('new-stat-value').value,
         increments: {
           great: newStatGreat,
@@ -62,6 +50,26 @@ export default function NewStat(props) {
           return val*x
         }
       }
+  }
+
+
+  const EnemyStatDialog = () => {
+    return(
+      <div className="column sa space-evenly">
+              <div className="row space-evenly">
+                <TextField
+                  sx={{width:'50%'}}
+                  margin="dense"
+                  id="enemy-stat-value"
+                  label="Enemy value for this game"
+                />
+              </div>
+              <div className="row ca space-evenly">
+                <h4>Enemy Color</h4>
+                <input type="color" value={badColor} onChange={(e) => {setEnemyColor(e.target.value)}}/>
+              </div>
+        </div>
+      )
   }
 
   return (
@@ -140,6 +148,11 @@ export default function NewStat(props) {
               <input type="color" value={badColor} onChange={(e) => {setBadColor(e.target.value)}}/>
             </div>
           </div>
+          <div className="row ca space-evenly">
+              <h4>Include enemy?</h4>
+              <Checkbox onChange={(e) => {setIncludeEnemy(!includeEnemy)}}/>
+          </div>
+          {includeEnemy ? <EnemyStatDialog /> : null}
         </DialogContent>
         <DialogActions>
           <Button onClick={props.handleClose}>Cancel</Button>
