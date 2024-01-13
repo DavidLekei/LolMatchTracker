@@ -197,7 +197,7 @@ export default function MatchInfoFull(props){
 {/*                        <Typography variant="h5" className="bold">
                             {match.kills}/{match.deaths}/{match.assists}
                         </Typography>*/}
-                        <ChampionInfo style={{marginRight:'3.5rem'}} name={match.championAgainst.name} outcome={match.outcome} summoners={['flash', 'ignite']} runes={['7202_Sorcery', '7203_Whimsy']} items={[6655, 3135, 4629, 3102, 3089, 3040, 3340]} />
+                        <ChampionInfo style={{marginRight:'3.5rem'}} enemy name={match.championAgainst.name} outcome={match.outcome} summoners={['flash', 'ignite']} runes={['7202_Sorcery', '7203_Whimsy']} items={[6655, 3135, 4629, 3102, 3089, 3040, 3340]} />
                     </div>
 
                     <MatchStats match={match}/>

@@ -97,6 +97,11 @@ a:hover{
 }
 
 .match-info-img{
+    width:64px;
+    max-height: 64px;
+}
+
+.enemy-match-info-img{
     width:32px;
     max-height: 32px;
 }
@@ -119,13 +124,23 @@ a:hover{
 }
 
 .champ-img{
-    width: 64px;
-    max-height:68px;
+    width: 128px;
+    max-height:128px;
+    border-radius: 50%;
+}
+
+.enemy-champ-img{
+    width:64px;
+    max-height: 64px;
     border-radius: 50%;
 }
 
 .champion-info{
     
+}
+
+.enemy{
+    transform: scale(.75);
 }
 
 .items{
