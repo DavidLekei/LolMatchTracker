@@ -7,8 +7,14 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Checkbox from '@mui/material/Checkbox';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 export default function NewStat(props) {
+
+  const [statType, setStatType] = useState(null)
 
   const [includeEnemy, setIncludeEnemy] = useState(false)
   const [colors, setColors] = useState(props.defaultColors)
@@ -20,7 +26,31 @@ export default function NewStat(props) {
   const [badColor, setBadColor] = useState(props.defaultColors.bad)
   const [enemyColor, setEnemyColor] = useState()
 
+  const handleChangeStatType = (e) => {
+    setStatType(e.target.value)
+  }
+
+  const handleClose = () => {
+    props.handleClose()
+    setStatType(null)
+  }
+
+  const handleAddCheckboxStat = (e) => {
+    const newStatName = document.getElementById('new-stat-name').value
+
+    return {
+      type: 'checkbox',
+      label: newStatName,
+      checked: false,
+    }
+  }
+
   const handleAdd = (e) => {
+
+    if(statType == 'checkbox'){
+      return handleAddCheckboxStat(e)
+    }
+
     const newStatLabel = document.getElementById('new-stat-name').value
     const newStatGreat = document.getElementById('new-stat-great').value
     const newStatGood = document.getElementById('new-stat-good').value
@@ -29,6 +59,7 @@ export default function NewStat(props) {
     const newStatBad = document.getElementById('new-stat-bad').value
 
       return {
+        type: 'value',
         label:newStatLabel,
         value: document.getElementById('new-stat-value').value,
         increments: {
@@ -72,90 +103,137 @@ export default function NewStat(props) {
       )
   }
 
-  return (
-    <div>
-      <Dialog open={props.open} onClose={props.handleClose}>
-        <DialogTitle>Add New Stat</DialogTitle>
+  const getDialog = () => {
+    if(statType == null){
+      return(
+        <DialogContent>
+          <DialogContentText>
+            Select type of stat. Hover for more details.
+          </DialogContentText>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Stat Type</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={statType}
+              label="Age"
+              onChange={handleChangeStatType}
+            >
+              <MenuItem value={'checkbox'}>Checkbox</MenuItem>
+              <MenuItem value={'value'}>Values</MenuItem>
+            </Select>
+          </FormControl>
+        </DialogContent>
+      )
+    }
+
+    if(statType == 'value'){
+      return(
+        <DialogContent>
+            <DialogContentText>
+              To track a custom statistic, enter the name of the stat and the five values that would correspond to a great, good, average, poor, or bad rating.
+            </DialogContentText>
+            <div className="column sa space-evenly">
+              <div className="row space-evenly">
+                <TextField
+                  sx={{width:'50%'}}
+                  margin="dense"
+                  id="new-stat-name"
+                  label="Name"
+                />
+              </div>
+              <div className="row space-evenly">
+                <TextField
+                  sx={{width:'50%'}}
+                  margin="dense"
+                  id="new-stat-value"
+                  label="Value for this game"
+                />
+              </div>
+              <div className="row ca space-evenly">
+                <TextField
+                  sx={{width:'20%'}}
+                  margin="dense"
+                  id="new-stat-great"
+                  label="Great"
+                  type="number"
+                />
+                <input type="color" value={greatColor} onChange={(e) => {setGreatColor(e.target.value)}}/>
+              </div>
+              <div className="row ca space-evenly">
+                <TextField
+                  sx={{width:'20%'}}
+                  margin="dense"
+                  id="new-stat-good"
+                  label="Good"
+                  type="number"
+                />
+                <input type="color" value={goodColor} onChange={(e) => {setGoodColor(e.target.value)}}/>
+              </div>
+              <div className="row ca space-evenly">
+                <TextField
+                  sx={{width:'20%'}}
+                  margin="dense"
+                  id="new-stat-average"
+                  label="Average"
+                  type="number"
+                />
+                <input type="color" value={averageColor} onChange={(e) => {setAverageColor(e.target.value)}}/>
+              </div>
+              <div className="row ca space-evenly">
+                <TextField
+                  sx={{width:'20%'}}
+                  margin="dense"
+                  id="new-stat-poor"
+                  label="Poor"
+                  type="number"
+                />
+                <input type="color" value={poorColor} onChange={(e) => {setPoorColor(e.target.value)}}/>
+              </div>
+              <div className="row ca space-evenly">
+                <TextField
+                  sx={{width:'20%'}}
+                  margin="dense"
+                  id="new-stat-bad"
+                  label="Bad"
+                  type="number"
+                />
+                <input type="color" value={badColor} onChange={(e) => {setBadColor(e.target.value)}}/>
+              </div>
+            </div>
+            <div className="row ca space-evenly">
+                <h4>Include enemy?</h4>
+                <Checkbox onChange={(e) => {setIncludeEnemy(!includeEnemy)}}/>
+            </div>
+            {includeEnemy ? <EnemyStatDialog /> : null}
+          </DialogContent>
+      )
+    }
+
+    if(statType == 'checkbox'){
+      return(
         <DialogContent>
           <DialogContentText>
             To track a custom statistic, enter the name of the stat and the five values that would correspond to a great, good, average, poor, or bad rating.
           </DialogContentText>
-          <div className="column sa space-evenly">
-            <div className="row space-evenly">
-              <TextField
-                sx={{width:'50%'}}
-                margin="dense"
-                id="new-stat-name"
-                label="Name"
-              />
-            </div>
-            <div className="row space-evenly">
-              <TextField
-                sx={{width:'50%'}}
-                margin="dense"
-                id="new-stat-value"
-                label="Value for this game"
-              />
-            </div>
-            <div className="row ca space-evenly">
-              <TextField
-                sx={{width:'20%'}}
-                margin="dense"
-                id="new-stat-great"
-                label="Great"
-                type="number"
-              />
-              <input type="color" value={greatColor} onChange={(e) => {setGreatColor(e.target.value)}}/>
-            </div>
-            <div className="row ca space-evenly">
-              <TextField
-                sx={{width:'20%'}}
-                margin="dense"
-                id="new-stat-good"
-                label="Good"
-                type="number"
-              />
-              <input type="color" value={goodColor} onChange={(e) => {setGoodColor(e.target.value)}}/>
-            </div>
-            <div className="row ca space-evenly">
-              <TextField
-                sx={{width:'20%'}}
-                margin="dense"
-                id="new-stat-average"
-                label="Average"
-                type="number"
-              />
-              <input type="color" value={averageColor} onChange={(e) => {setAverageColor(e.target.value)}}/>
-            </div>
-            <div className="row ca space-evenly">
-              <TextField
-                sx={{width:'20%'}}
-                margin="dense"
-                id="new-stat-poor"
-                label="Poor"
-                type="number"
-              />
-              <input type="color" value={poorColor} onChange={(e) => {setPoorColor(e.target.value)}}/>
-            </div>
-            <div className="row ca space-evenly">
-              <TextField
-                sx={{width:'20%'}}
-                margin="dense"
-                id="new-stat-bad"
-                label="Bad"
-                type="number"
-              />
-              <input type="color" value={badColor} onChange={(e) => {setBadColor(e.target.value)}}/>
-            </div>
-          </div>
-          <div className="row ca space-evenly">
-              <h4>Include enemy?</h4>
-              <Checkbox onChange={(e) => {setIncludeEnemy(!includeEnemy)}}/>
-          </div>
-          {includeEnemy ? <EnemyStatDialog /> : null}
+          <TextField
+                  sx={{width:'50%'}}
+                  margin="dense"
+                  id="new-stat-name"
+                  label="Name"
+          />
         </DialogContent>
+      )
+    }
+  }
+
+  return (
+    <div>
+      <Dialog open={props.open} onClose={handleClose}>
+        <DialogTitle>Add New Stat</DialogTitle>
+        {getDialog()}
         <DialogActions>
-          <Button onClick={props.handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Cancel</Button>
           <Button 
             onClick={
               (e) => {

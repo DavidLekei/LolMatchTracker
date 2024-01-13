@@ -3,12 +3,10 @@ import NewStat from './NewStat'
 
 import CircularProgressWithText from '../Common/CircularProgressWithText';
 
-function StatPair(props){
-
+function Stat(props){
+		console.log('stat props: ', props)
 		const getColor = (value, colorIncrements) => {
-			console.log('getting color for: ', value)
-			console.log('increments: ', colorIncrements)
-			console.log('colors: ', props.colors)
+
 			if(value >= colorIncrements.great){
 				return props.colors.great
 			}
@@ -29,22 +27,17 @@ function StatPair(props){
 	    }
 
         let fill
-        let enemyFill
         if(props.modifier){
-            fill = props.modifier(props.myValue)
-            enemyFill = props.modifier(props.enemyValue)
+            fill = props.modifier(props.value)
         }else{
-            fill = props.myValue
-            enemyFill = props.enemyValue
+            fill = props.value
         }
 
-        let myColor = getColor(props.myValue, props.colorIncrements)
-        let enemyColor = getColor(props.enemyValue, props.colorIncrements)
+        let color = getColor(props.value, props.colorIncrements)
 
         return(
-            <div className="row" style={{margin:'0% 10%'}}>
-                <CircularProgressWithText label={props.label} value={`${props.myValue}${props.percentage ? '%' : ''}`} size="10rem" variant="determinate" style={{color: myColor}} fill={fill} />
-                <CircularProgressWithText size="5rem" variant="determinate" value={props.enemyValue} style={{color: enemyColor}} fill={enemyFill}/>
+            <div className="row" >
+                <CircularProgressWithText label={props.enemy ? null : props.label} value={`${props.value}${props.percentage ? '%' : ''}`} size={`${props.enemy ? '5rem' : '10rem'}`} variant="determinate" style={{color: color}} fill={fill} />
             </div>
         )
     }
@@ -53,8 +46,6 @@ export default function MatchStats(props){
 
 	const [stats, setStats] = useState(null)
     const [newStatModalOpen, setOpen] = useState(false);
-
-    console.log('MatchStats - stats: ', stats)
 
     const DEFAULT_GREAT_COLOR = '#50FA82'
     const DEFAULT_GOOD_COLOR = '#9AFAAD'
@@ -89,85 +80,136 @@ export default function MatchStats(props){
         setOpen(false)
     }
 
-    // const matchLoaded = () => {
-    // 	setKp(82)
-    //     //setKp(Math.floor(((props.match.kills + props.match.assists)/props.match.totalTeamKills)*100))
-    //     setCpm(Math.floor((props.match.cs/props.match.duration.split(":")[0])))
-    //     setVs(props.match.vs)
-    //     setPlates(2)
-    //     setRoams(1)
-    // }
-
     const statPairs = [
     	{
     		label:'Kill Participation',
-    		value: 82,
-    		increments: {
-    			great: 80,
-    			good: 60,
-    			average: 40,
-    			poor: 20,
-    			bad: 0,
-    		},
-    		colors: defaultColors,
+    		me: {
+	    		value: 82,
+	    		increments: {
+	    			great: 80,
+	    			good: 60,
+	    			average: 40,
+	    			poor: 20,
+	    			bad: 0,
+	    		},
+	    		colors: defaultColors,
+	    	},
+	    	enemy: {
+	    		value: 100,
+	    		increments: {
+	    			great: 80,
+	    			good: 60,
+	    			average: 40,
+	    			poor: 20,
+	    			bad: 0,
+	    		},
+	    		colors: defaultColors,
+	    	},
     		modifier: null,
-    		enemyValue: 100
     	},
     	{
     		label:'CS Per Minute',
-    		value: (Math.floor((props.match.cs/props.match.duration.split(":")[0]))),
-    		increments: {
-    			great: 8,
-    			good: 6,
-    			average: 4,
-    			poor: 2,
-    			bad: 0,
-    		},
-    		colors: defaultColors,
+    		me: {
+	    		value: (Math.floor((props.match.cs/props.match.duration.split(":")[0]))),
+	    		increments: {
+	    			great: 8,
+	    			good: 6,
+	    			average: 4,
+	    			poor: 2,
+	    			bad: 0,
+	    		},
+	    		colors: defaultColors
+	    	},
+	    	enemy: {
+	    		value: 9.5,
+	    		increments: {
+	    			great: 8,
+	    			good: 6,
+	    			average: 4,
+	    			poor: 2,
+	    			bad: 0,
+	    		},
+	    		colors: defaultColors,
+		    },
     		modifier: (val) => {return val * 10},
-    		enemyValue: 9.5
     	},
     	{
     		label:'Vision Score',
-    		value: props.match.vs,
-    		increments: {
-    			great: 40,
-    			good: 30,
-    			average: 20,
-    			poor: 10,
-    			bad: 0,
-    		},
-    		colors: defaultColors,
+    		me:{
+	    		value: props.match.vs,
+	    		increments: {
+	    			great: 40,
+	    			good: 30,
+	    			average: 20,
+	    			poor: 10,
+	    			bad: 0,
+	    		},
+	    		colors: defaultColors,
+	    	},
+	    	enemy: {
+	    		value: 14,
+	    		increments: {
+	    			great: 40,
+	    			good: 30,
+	    			average: 20,
+	    			poor: 10,
+	    			bad: 0,
+	    		},
+	    		colors: defaultColors,
+	    	},
     		modifier: (val) => {return (val/40)*100},
-    		enemyValue: 14
     	},
     	{
     		label:'Plates',
-    		value: 2,
-    		increments: {
-    			great: 4,
-    			good: 3,
-    			average: 2,
-    			poor: 1,
-    			bad: 0,
-    		},
-    		colors: defaultColors,
+    		me:{
+	    		value: 2,
+	    		increments: {
+	    			great: 4,
+	    			good: 3,
+	    			average: 2,
+	    			poor: 1,
+	    			bad: 0,
+	    		},
+	    		colors: defaultColors,
+	    	},
+	    	enemy: {
+	    		value: 5,
+	    		increments: {
+	    			great: 4,
+	    			good: 3,
+	    			average: 2,
+	    			poor: 1,
+	    			bad: 0,
+	    		},
+	    		colors: defaultColors,
+	    	},
     		modifier: (val) => {return val*25},
-    		enemyValue: 5
     	},
     	{
     		label:'Roaming',
-    		value: 1,
-    		increments: {
-    			great: 7,
-    			good: 5,
-    			average: 3,
-    			poor: 1,
-    			bad: 0,
-    		},
-    		colors: defaultColors,
+    		me: {
+	    		value: 1,
+	    		increments: {
+	    			great: 7,
+	    			good: 5,
+	    			average: 3,
+	    			poor: 1,
+	    			bad: 0,
+	    		},
+	    		colors: defaultColors,
+	    	},
+	    	enemy: {
+	    		value: 5,
+	    		increments: {
+	    			great: 7,
+	    			good: 5,
+	    			average: 3,
+	    			poor: 1,
+	    			bad: 0,
+	    		},
+	    		colors: defaultColors,
+	    	},
     		modifier: (val) => {return val*14},
-    		enemyValue: 5
     	},
     ]
 
@@ -181,14 +223,17 @@ export default function MatchStats(props){
 	return(
 		<div className="row space-apart wrap">
 			<NewStat open={newStatModalOpen} handleOpen={handleNewStatModalOpen} handleClose={handleNewStatModalClose} handleConfirmAdd={handleConfirmAdd} defaultColors={defaultColors}/>
-			{stats ? stats.map((pair) => {
+			{stats ? stats.map((stat) => {
 				return(
-					<StatPair label={pair.label} myValue={pair.value} colors={pair.colors} colorIncrements={pair.increments} modifier={pair.modifier} enemyValue={pair.enemyValue}/>
+					<div className="row" style={{margin:'0% 10%'}}>
+						<Stat label={stat.label} value={stat.me.value} colors={stat.me.colors} colorIncrements={stat.me.increments} modifier={stat.me.modifier} />
+						<Stat enemy label={stat.label} value={stat.me.value} colors={stat.me.colors} colorIncrements={stat.me.increments} modifier={stat.me.modifier} />
+					</div>
 				)
 			})
 			:
 			null}
-            <div style={{margin: '0% 17%', cursor:'pointer'}} onClick={addNewStat}>
+            <div style={{margin: '0% 10%', cursor:'pointer'}} onClick={addNewStat}>
             	<CircularProgressWithText size="10rem" variant="determinate" fill="100" value="+"/>
             </div>
 		</div>
